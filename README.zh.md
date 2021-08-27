@@ -3,11 +3,11 @@
 ### 介绍
 参加电赛分秒必争，光速掌握快速移植代码的能力十分重要，为了让学过stm32的电赛人，快速迁移到MSP432平台，我趁着电赛延期，尝试制作这门速成课[MSP432入门速成](https://www.bilibili.com/video/BV1Rb4y1z7KJ)，但由于我一人能力有限，难免会有疏漏，还请大家多多指正包涵。
 
-★ti_driverlib是UP所用的固件库，必须下载
+★ti_driverlib是UP所用的固件库3_4_0
 
-★下载后解压到同一路径，与RNA_xx历程解压到同一路径
+★若版本不一样一样则需要下载ti_driverlib，下载后ti_driverlib文件夹与RNA_xx文件夹同一目录。
 
-★也就是ti_driverlib文件夹与RNA_xx文件夹同一目录
+★若版本一样则需要不需要，但历程RNA_xx文件夹与官方历程与同一目录。
 
 使用了MSP432P401R作为实验板
 
