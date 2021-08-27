@@ -2,6 +2,6 @@
 
 ★ti_driverlib是UP所用的固件库3_4_0
 
-★若版本不一样一样则需要下载ti_driverlib，下载后ti_driverlib文件夹与RNA_xx文件夹同一目录。
+★若版本不一样则需要下载ti_driverlib，下载后ti_driverlib文件夹与RNA_xx文件夹同一目录。
 
 ★若版本一样则需要不需要，但历程RNA_xx文件夹与官方历程与同一目录。
