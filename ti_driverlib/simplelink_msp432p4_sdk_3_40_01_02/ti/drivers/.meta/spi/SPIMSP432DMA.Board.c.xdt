@@ -1,0 +1,192 @@
+%%{
+/*
+ * Copyright (c) 2018-2019, Texas Instruments Incorporated - http://www.ti.com
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
+/*
+ *  ======== SPIMSP432DMA.Board.c.xdt ========
+ */
+
+    let SPI = args[0]; /* passed by /ti/drivers/templates/Board.c.xdt */
+
+    /* get ti/drivers common utility functions */
+    let Common = system.getScript("/ti/drivers/Common.js");
+
+    /* shorthand names for some common references in template below */
+    let getPort = Common.getPort;
+    let instances = SPI.$instances;
+    if (instances.length == 0) return;
+
+    /* CONFIG_XXXCOUNT string, derived from defaultInstanceName */
+    let countDef = SPI.defaultInstanceName + "COUNT";
+
+    let pinModeMapping = {
+        "Three Pin"               : "EUSCI_SPI_3PIN",
+        "Four Pin SS Active High" : "EUSCI_SPI_4PIN_UCxSTE_ACTIVE_HIGH",
+        "Four Pin SS Active Low"  : "EUSCI_SPI_4PIN_UCxSTE_ACTIVE_LOW"
+    };
+
+    function choice(ch, Bn) {
+        return (4 + (ch >>> 1) - Bn) % 4;
+    }
+%%}
+/*
+ *  =============================== SPI ===============================
+ */
+
+#include <ti/drivers/SPI.h>
+#include <ti/drivers/spi/SPIMSP432DMA.h>
+
+#include <ti/devices/msp432p4xx/inc/msp.h>
+#include <ti/devices/msp432p4xx/driverlib/dma.h>
+#include <ti/devices/msp432p4xx/driverlib/interrupt.h>
+#include <ti/devices/msp432p4xx/driverlib/spi.h>
+
+#define `countDef` `instances.length`
+
+/*
+ *  ======== spiMSP432DMAObjects ========
+ */
+SPIMSP432DMA_Object spiMSP432DMAObjects[`countDef`];
+
+/*
+ *  ======== spiMSP432DMAHWAttrs ========
+ */
+const SPIMSP432DMA_HWAttrsV1 spiMSP432DMAHWAttrs[`countDef`] = {
+% for (let i = 0; i < instances.length; i++) {
+    % let inst = instances[i];
+    % let spi = inst.spi;
+    %
+    % /* name is the peripheral name: EUSCI_A<num> or EUSCI_B<num> ... */
+    % let name = inst.spi.$solution.peripheralName;
+    % let type = name.substring(0, 7); /* EUSCI_A or EUSCI_B or ... */
+    % let id = name.substring(6);      /* A0 or A1 or B0 or ... */
+    % let dmaIntNum = "INT_" + spi.dmaInterruptNumber.$solution.devicePinName;
+    % let sclkPin = "SPIMSP432DMA_" + getPort(spi.sclkPin) + "_UC" + id + "CLK";
+    % let rxDmaCh = "NULL";
+    % let txDmaCh = "NULL";
+    % let rxDmaId;
+    % let txDmaId;
+    % let mosiPin = "SPIMSP432DMA_";
+    % let misoPin = "SPIMSP432DMA_";
+    % if (inst.duplex == "Full") {
+    %     mosiPin += getPort(spi.mosiPin) + "_UC" + id + "SIMO";
+    %     misoPin += getPort(spi.misoPin) + "_UC" + id + "SOMI";
+    %     rxDmaCh = spi.dmaRxChannel.$solution.devicePinName.substring(6);
+    %     rxDmaId = id.substring(0,1) == "A" ? "" : choice(rxDmaCh, id.substring(1));
+    %     rxDmaCh = "DMA_CH" + rxDmaCh + "_EUSCI" + id + "RX" + rxDmaId;
+    %     txDmaCh = spi.dmaTxChannel.$solution.devicePinName.substring(6);
+    %     txDmaId = id.substring(0,1) == "A" ? "" : choice(txDmaCh, id.substring(1));
+    %     txDmaCh = "DMA_CH" + txDmaCh + "_EUSCI" + id + "TX" + txDmaId;
+    % }
+    % else if (inst.duplex == "Master RX Only") {
+    %     misoPin += getPort(spi.misoPin) + "_UC" + id + "SOMI";
+    %     mosiPin += "PIN_NO_CONFIG";
+    %     rxDmaCh = spi.dmaRxChannel.$solution.devicePinName.substring(6);
+    %     rxDmaId = id.substring(0,1) == "A" ? "" : choice(rxDmaCh, id.substring(1));
+    %     rxDmaCh = "DMA_CH" + rxDmaCh + "_EUSCI" + id + "RX" + rxDmaId;
+    % }
+    % else if (inst.duplex == "Slave TX Only") {
+    %     misoPin += getPort(spi.misoPin) + "_UC" + id + "SOMI";
+    %     mosiPin += "PIN_NO_CONFIG";
+    %     txDmaCh = spi.dmaTxChannel.$solution.devicePinName.substring(6);
+    %     txDmaId = id.substring(0,1) == "A" ? "" : choice(txDmaCh, id.substring(1));
+    %     txDmaCh = "DMA_CH" + txDmaCh + "_EUSCI" + id + "TX" + txDmaId;
+    % }
+    % else if (inst.duplex == "Master TX Only") {
+    %     mosiPin += getPort(spi.mosiPin) + "_UC" + id + "SIMO";
+    %     misoPin += "PIN_NO_CONFIG";
+    %     txDmaCh = spi.dmaTxChannel.$solution.devicePinName.substring(6);
+    %     txDmaId = id.substring(0,1) == "A" ? "" : choice(txDmaCh, id.substring(1));
+    %     txDmaCh = "DMA_CH" + txDmaCh + "_EUSCI" + id + "TX" + txDmaId;
+    % }
+    % else if (inst.duplex == "Slave RX Only") {
+    %     mosiPin += getPort(spi.mosiPin) + "_UC" + id + "SIMO";
+    %     misoPin += "PIN_NO_CONFIG";
+    %     rxDmaCh = spi.dmaRxChannel.$solution.devicePinName.substring(6);
+    %     rxDmaId = id.substring(0,1) == "A" ? "" : choice(rxDmaCh, id.substring(1));
+    %     rxDmaCh = "DMA_CH" + rxDmaCh + "_EUSCI" + id + "RX" + rxDmaId;
+    % }
+    %
+    % let ssPin = "SPIMSP432DMA_";
+    % if (inst.mode !== "Three Pin") {
+    %     ssPin += getPort(spi.ssPin) + "_UC" + id + "STE";
+    % }
+    % else {
+    %     ssPin += "PIN_NO_CONFIG";
+    % }
+    /* `inst.$name` */
+    % if (inst.$hardware) {
+    %    if (inst.$hardware.displayName) {
+    /* `inst.$hardware.displayName` */
+    %    }
+    % }
+    {
+        .baseAddr = `name`_BASE,
+        .bitOrder = `type`_SPI_MSB_FIRST,
+        .clockSource = `type`_SPI_CLOCKSOURCE_SMCLK,
+        .defaultTxBufValue = `inst.defaultTxBufferValue`,
+        .intPriority = `Common.intPriority2Hex(inst.dmaInterruptPriority)`,
+        .dmaIntNum = `dmaIntNum`,
+        .rxDMAChannelIndex = `rxDmaCh`,
+        .txDMAChannelIndex = `txDmaCh`,
+        .pinMode = `pinModeMapping[inst.mode]`,
+        .clkPin  = `sclkPin`,
+        .simoPin = `mosiPin`,
+        .somiPin = `misoPin`,
+        .stePin  = `ssPin`,
+        .minDmaTransferSize = `inst.minDmaTransferSize`,
+    },
+% }
+};
+
+/*
+ *  ======== SPI_config ========
+ */
+const SPI_Config SPI_config[`countDef`] = {
+% for (let i = 0; i < instances.length; i++) {
+    % let inst = instances[i];
+    /* `inst.$name` */
+    % if (inst.$hardware) {
+    %    if (inst.$hardware.displayName) {
+    /* `inst.$hardware.displayName` */
+    %    }
+    % }
+    {
+        .fxnTablePtr = &SPIMSP432DMA_fxnTable,
+        .object = &spiMSP432DMAObjects[`inst.$name`],
+        .hwAttrs = &spiMSP432DMAHWAttrs[`inst.$name`]
+    },
+% }
+};
+
+const uint_least8_t SPI_count = `countDef`;

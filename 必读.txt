@@ -1,0 +1,7 @@
+2021/8/27  BILIBILI：m-RNA
+
+★ti_driverlib是UP所用的固件库，必须下载
+
+★下载后解压到同一路径，与RNA_xx历程解压到同一路径
+
+★也就是ti_driverlib文件夹与RNA_xx文件夹同一目录

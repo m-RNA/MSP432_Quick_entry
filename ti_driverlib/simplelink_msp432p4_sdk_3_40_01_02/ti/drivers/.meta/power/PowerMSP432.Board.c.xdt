@@ -1,0 +1,214 @@
+%%{
+/*
+ * Copyright (c) 2018-2019 Texas Instruments Incorporated - http://www.ti.com
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
+/*
+ *  ======== PowerMSP432.Board.c.xdt ========
+ */
+
+   let lfxtMap = {
+       0 : "CS_LFXT_DRIVE0",
+       1 : "CS_LFXT_DRIVE1",
+       2 : "CS_LFXT_DRIVE2",
+       3 : "CS_LFXT_DRIVE3"
+   };
+
+    let instances = args;
+    let inst = instances[0].$static;
+
+    let enablePolicy          = inst.enablePolicy;
+    let enablePerf            = inst.enablePerformanceLevels;
+    let resumeShutdownHookFxn = inst.resumeShutdownHookFunction;
+
+    let enableParking    = enablePolicy ? inst.enablePinParking  : false;
+    let policyInitFxn    = enablePolicy ? inst.policyInitFunction  : 'NULL';
+    let policyFxn        = enablePolicy ? inst.policyFunction : 'NULL';
+
+    let initialPerfLevel = enablePerf ? inst.initialPerformanceLevel : 0;
+    let customLevels     = enablePerf ? inst.customPerformanceLevels : 0;
+
+    let predefLevels     = 4;
+    let useExtendedPerf  = inst.advancedConfiguration;
+    let onHFXT           = useExtendedPerf ? inst.enableHFXTClock : false;
+    let hfxtFreq         = onHFXT ? freqNameHFXT(inst.hfxtFrequency) : '0';
+    let bypassHFXT       = onHFXT ? inst.bypassHFXT : false;
+    let onLFXT           = useExtendedPerf ? inst.enableLFXTClock : false;
+    let bypassLFXT       = onLFXT ? inst.bypassLFXT : false;
+    let LFXTDRIVE        = onLFXT ? lfxtMap[inst.lfxtDriveLevel] : 0;
+    let isrCS            = inst.clockSystemCallback;
+    let intrCS           = !(isrCS === '');
+    let priCS            = intrCS ? inst.clockSystemInterruptPriority : 'default';
+    let customLevName    = (customLevels > 0) ? 'customPerfLevels' :'NULL';
+
+    priCS = (priCS === 'default') ? '(~0)' : priCS;
+
+    if (resumeShutdownHookFxn == '') {
+       resumeShutdownHookFxn = 'NULL';
+    }
+
+    if (isrCS == '' || !useExtendedPerf) {
+        isrCS = 'NULL';
+    }
+
+    if (policyInitFxn === 'Custom') {
+        policyInitFxn = inst.policyInitCustomFunction;
+    }
+
+    if (policyFxn === 'Custom') {
+        policyFxn = inst.policyCustomFunction;
+    }
+
+    function freqNameDCO(freq) {
+        if (freq == 0) {
+            return 'CS_DCO_TUNE_FREQ';
+        }
+        else if (freq == 3000000) {
+            return 'CS_DCO_FREQUENCY_3';
+        }
+        else if (freq == 6000000) {
+            return 'CS_DCO_FREQUENCY_6';
+        }
+        else if (freq == 12000000) {
+            return 'CS_DCO_FREQUENCY_12';
+        }
+        else if (freq == 24000000) {
+            return 'CS_DCO_FREQUENCY_24';
+        }
+        else if (freq == 48000000) {
+           return 'CS_DCO_FREQUENCY_48';
+        }
+        else {
+           return 'CS_DCO_FREQUENCY_1_5';
+        }
+    }
+
+    function selectName(clk) {
+        if (clk == 'MODOSC') {
+            return 'CS_MODOSC_SELECT';
+        }
+        return 'CS_' + clk + 'CLK_SELECT';
+    }
+
+    function freqNameHFXT(freq) {
+        if (freq == 0) {
+            return freq;
+        }
+        if (freq == 1500000) {
+            return 'CS_15MHZ';
+        }
+
+        freq /= 1000000;
+        return 'CS_' + freq + 'MHZ';
+    }
+%%}
+/*
+ *  =============================== Power ===============================
+ */
+
+#include <ti/drivers/Power.h>
+#include <ti/drivers/power/PowerMSP432.h>
+% if ((customLevels > 0) || (onHFXT) || (onLFXT)) {
+#include <ti/devices/msp432p4xx/driverlib/cs.h>
+% }
+% if (customLevels > 0) {
+#include <ti/devices/msp432p4xx/driverlib/pcm.h>
+
+PowerMSP432_PerfLevel `customLevName`[] = {
+% for (let lev = predefLevels; lev < (predefLevels + customLevels); lev++) {
+%    let levName = 'performanceLevel' + lev;
+%    let levDef  = inst[levName];
+%    let dcoName = freqNameDCO(levDef.dcoFrequency);
+%    let center  = levDef.customDcoFrequency == "" ? 0 : levDef.customDcoFrequency;
+%    let vcore   = levDef.coreVoltageLevel == "VCORE0" ? 0 : 1;
+%    let selm    = selectName(levDef.mclkSource);
+%    let sels    = selectName(levDef.hsmclkSource);
+%    let selb    = selectName(levDef.bclkSource);
+%    let sela    = selectName(levDef.aclkSource);
+    {   /* Performance Level `lev` */
+        .activeState       = PCM_AM_`levDef.activeState`_VCORE`vcore`,
+        .VCORE             = `vcore`,
+        .DCORESEL          = `dcoName`,
+        .tuneFreqDCO       = `center`,
+        .SELM              = `selm`,
+        .DIVM              = CS_CLOCK_DIVIDER_`levDef.mclkDivider`,
+        .SELS              = `sels`,
+        .DIVHS             = CS_CLOCK_DIVIDER_`levDef.hsmclkDivider`,
+        .DIVS              = CS_CLOCK_DIVIDER_`levDef.smclkDivider`,
+        .SELB              = `selb`,
+        .SELA              = `sela`,
+        .DIVA              = CS_CLOCK_DIVIDER_`levDef.aclkDivider`,
+        .flashWaitStates   = `levDef.flashWaitStates`,
+        .enableFlashBuffer = `levDef.enableFlashBuffer`,
+        .MCLK              = `levDef.mclk`,
+        .HSMCLK            = `levDef.hsmclk`,
+        .SMCLK             = `levDef.smclk`,
+        .BCLK              = `levDef.bclk`,
+        .ACLK              = `levDef.aclk`
+    },
+% }
+};
+% }
+% if (policyInitFxn !== 'NULL') {
+extern void `policyInitFxn`(void);
+% }
+% if (policyFxn !== 'NULL') {
+extern void `policyFxn`(void);
+% }
+% if (resumeShutdownHookFxn !== 'NULL') {
+extern void `resumeShutdownHookFxn`(void);
+% }
+% if (isrCS !== 'NULL') {
+extern void `isrCS`(void);
+% }
+
+const PowerMSP432_ConfigV1 PowerMSP432_config = {
+    .policyInitFxn         = `policyInitFxn`,
+    .policyFxn             = `policyFxn`,
+    .initialPerfLevel      = `initialPerfLevel`,
+    .enablePolicy          = `enablePolicy`,
+    .enablePerf            = `enablePerf`,
+    .enableParking         = `enableParking`,
+    .resumeShutdownHookFxn = `resumeShutdownHookFxn`,
+    .customPerfLevels      = `customLevName`,
+    .numCustom             = `customLevels`,
+    .useExtendedPerf       = `useExtendedPerf`,
+    .configurePinHFXT      = `onHFXT`,
+    .HFXTFREQ              = `hfxtFreq`,
+    .bypassHFXT            = `bypassHFXT`,
+    .configurePinLFXT      = `onLFXT`,
+    .bypassLFXT            = `bypassLFXT`,
+    .LFXTDRIVE             = `LFXTDRIVE`,
+    .enableInterruptsCS    = `intrCS`,
+    .priorityInterruptsCS  = `priCS`,
+    .isrCS                 = `isrCS`
+};

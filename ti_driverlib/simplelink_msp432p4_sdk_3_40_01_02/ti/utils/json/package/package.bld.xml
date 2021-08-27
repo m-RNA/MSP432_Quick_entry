@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  This file conforms to the DTD xdc/bld/build.dtd -->
+<package name="ti.utils.json" version="1, 0, 0" producerId="undefined">
+    <units>
+    </units>
+    <sources>
+        <srcFile name="package/package_ti.utils.json.c"/>
+        <srcFile name="source/json.c"/>
+        <srcFile name="source/json_engine.c"/>
+        <srcFile name="source/parse_common.c"/>
+        <srcFile name="source/utils.c"/>
+    </sources>
+    <configscripts>
+    </configscripts>
+    <makefiles>
+        <srcFile name="package.mak" src="package.bld"/>
+        <srcFile name="package/package.xdc.dep" src="package.xdc"/>
+        <srcFile name="package/package.cfg.dep" src="package.xdc"/>
+        <srcFile name="lib/ccs/m4f/json_debug.a.mak" src="package.bld"/>
+        <srcFile name="package/lib/lib/ccs/m4f/json_debug/package/package_ti.utils.json.oem4f.dep" src="package/package_ti.utils.json.c"/>
+        <srcFile name="package/lib/lib/ccs/m4f/json_debug/source/json.oem4f.dep" src="source/json.c"/>
+        <srcFile name="package/lib/lib/ccs/m4f/json_debug/source/json_engine.oem4f.dep" src="source/json_engine.c"/>
+        <srcFile name="package/lib/lib/ccs/m4f/json_debug/source/parse_common.oem4f.dep" src="source/parse_common.c"/>
+        <srcFile name="package/lib/lib/ccs/m4f/json_debug/source/utils.oem4f.dep" src="source/utils.c"/>
+        <srcFile name="lib/ccs/m4f/json_release.a.mak" src="package.bld"/>
+        <srcFile name="package/lib/lib/ccs/m4f/json_release/package/package_ti.utils.json.oem4f.dep" src="package/package_ti.utils.json.c"/>
+        <srcFile name="package/lib/lib/ccs/m4f/json_release/source/json.oem4f.dep" src="source/json.c"/>
+        <srcFile name="package/lib/lib/ccs/m4f/json_release/source/json_engine.oem4f.dep" src="source/json_engine.c"/>
+        <srcFile name="package/lib/lib/ccs/m4f/json_release/source/parse_common.oem4f.dep" src="source/parse_common.c"/>
+        <srcFile name="package/lib/lib/ccs/m4f/json_release/source/utils.oem4f.dep" src="source/utils.c"/>
+        <srcFile name="lib/gcc/m4f/json_debug.a.mak" src="package.bld"/>
+        <srcFile name="package/lib/lib/gcc/m4f/json_debug/package/package_ti.utils.json.om4fg.dep" src="package/package_ti.utils.json.c"/>
+        <srcFile name="package/lib/lib/gcc/m4f/json_debug/source/json.om4fg.dep" src="source/json.c"/>
+        <srcFile name="package/lib/lib/gcc/m4f/json_debug/source/json_engine.om4fg.dep" src="source/json_engine.c"/>
+        <srcFile name="package/lib/lib/gcc/m4f/json_debug/source/parse_common.om4fg.dep" src="source/parse_common.c"/>
+        <srcFile name="package/lib/lib/gcc/m4f/json_debug/source/utils.om4fg.dep" src="source/utils.c"/>
+        <srcFile name="lib/gcc/m4f/json_release.a.mak" src="package.bld"/>
+        <srcFile name="package/lib/lib/gcc/m4f/json_release/package/package_ti.utils.json.om4fg.dep" src="package/package_ti.utils.json.c"/>
+        <srcFile name="package/lib/lib/gcc/m4f/json_release/source/json.om4fg.dep" src="source/json.c"/>
+        <srcFile name="package/lib/lib/gcc/m4f/json_release/source/json_engine.om4fg.dep" src="source/json_engine.c"/>
+        <srcFile name="package/lib/lib/gcc/m4f/json_release/source/parse_common.om4fg.dep" src="source/parse_common.c"/>
+        <srcFile name="package/lib/lib/gcc/m4f/json_release/source/utils.om4fg.dep" src="source/utils.c"/>
+        <srcFile name="lib/iar/m4f/json_debug.a.mak" src="package.bld"/>
+        <srcFile name="package/lib/lib/iar/m4f/json_debug/package/package_ti.utils.json.orm4f.dep" src="package/package_ti.utils.json.c"/>
+        <srcFile name="package/lib/lib/iar/m4f/json_debug/source/json.orm4f.dep" src="source/json.c"/>
+        <srcFile name="package/lib/lib/iar/m4f/json_debug/source/json_engine.orm4f.dep" src="source/json_engine.c"/>
+        <srcFile name="package/lib/lib/iar/m4f/json_debug/source/parse_common.orm4f.dep" src="source/parse_common.c"/>
+        <srcFile name="package/lib/lib/iar/m4f/json_debug/source/utils.orm4f.dep" src="source/utils.c"/>
+        <srcFile name="lib/iar/m4f/json_release.a.mak" src="package.bld"/>
+        <srcFile name="package/lib/lib/iar/m4f/json_release/package/package_ti.utils.json.orm4f.dep" src="package/package_ti.utils.json.c"/>
+        <srcFile name="package/lib/lib/iar/m4f/json_release/source/json.orm4f.dep" src="source/json.c"/>
+        <srcFile name="package/lib/lib/iar/m4f/json_release/source/json_engine.orm4f.dep" src="source/json_engine.c"/>
+        <srcFile name="package/lib/lib/iar/m4f/json_release/source/parse_common.orm4f.dep" src="source/parse_common.c"/>
+        <srcFile name="package/lib/lib/iar/m4f/json_release/source/utils.orm4f.dep" src="source/utils.c"/>
+        <srcFile name="package/rel/ti_utils_json.zip.dep" src="package/rel/ti_utils_json.xdc.inc"/>
+    </makefiles>
+    <targets>
+        <target name="ti.targets.arm.elf.M4F"
+            version="ti.targets.arm.elf.M4F{1,0,18.12,4"
+            rawVersion="18.12.4"
+            platform="ti.platforms.tiva:TM4C1294NCPDT:1"
+            isa="v7M4"
+            suffix="em4f"
+            rootDir="/db/vendors/ti/arm/18.12.4.LTS/Linux"
+            os="undefined"
+            rts="ti.targets.arm.rtsarm">
+            <model endian="little"
+                codeModel="thumb2"
+                dataModel="undefined"/>
+        </target>
+        <target name="gnu.targets.arm.M4F"
+            version="gnu.targets.arm.M4F{1,0,7.2,1"
+            rawVersion="7.2.1"
+            platform="ti.platforms.tiva:TM4C1294NCPDT"
+            isa="v7M4"
+            suffix="m4fg"
+            rootDir="/db/vendors/linaro/gcc-arm-none-eabi-7-2017-q4-major"
+            os="undefined"
+            rts="gnu.targets.arm.rtsv7M">
+            <model endian="little"
+                codeModel="thumb2"
+                dataModel="undefined"/>
+        </target>
+        <target name="iar.targets.arm.M4F"
+            version="iar.targets.arm.M4F{1,0,8.32,2"
+            rawVersion="8.32.2.178"
+            platform="ti.platforms.tiva:TM4C1294NCPDT:1"
+            isa="v7M4"
+            suffix="rm4f"
+            rootDir="/db/vendors/iar/arm/8.32.2/Linux"
+            os="undefined"
+            rts="iar.targets.arm.rts">
+            <model endian="little"
+                codeModel="thumb2"
+                dataModel="undefined"/>
+        </target>
+    </targets>
+    <libraries>
+    <library name="lib/ccs/m4f/json_debug"
+        pname="lib/ccs/m4f/json_debug.a"
+        profile="debug"
+        target="ti.targets.arm.elf.M4F"/>
+    <library name="lib/ccs/m4f/json_release"
+        pname="lib/ccs/m4f/json_release.a"
+        profile="release"
+        target="ti.targets.arm.elf.M4F"/>
+    <library name="lib/gcc/m4f/json_debug"
+        pname="lib/gcc/m4f/json_debug.a"
+        profile="debug"
+        target="gnu.targets.arm.M4F"/>
+    <library name="lib/gcc/m4f/json_release"
+        pname="lib/gcc/m4f/json_release.a"
+        profile="release"
+        target="gnu.targets.arm.M4F"/>
+    <library name="lib/iar/m4f/json_debug"
+        pname="lib/iar/m4f/json_debug.a"
+        profile="debug"
+        target="iar.targets.arm.M4F"/>
+    <library name="lib/iar/m4f/json_release"
+        pname="lib/iar/m4f/json_release.a"
+        profile="release"
+        target="iar.targets.arm.M4F"/>
+    </libraries>
+    <configurations>
+    </configurations>
+    <executables>
+    </executables>
+    <tests>
+    </tests>
+    <releases relDir="package/rel/">
+    <release name="ti_utils_json"
+        pname="../../../../exports/ti_utils_json.zip"
+        label="default"
+    >
+        <file name="package/package.bld.xml"/>
+        <file name="package/build.cfg"/>
+        <file name="package/package.xdc.inc"/>
+        <file name="json.h"/>
+        <file name="json_engine.h"/>
+        <file name="parse_common.h"/>
+        <file name="utils.h"/>
+        <file name="package.bld"/>
+        <file name="package/package.cfg.xdc.inc"/>
+        <file name="lib/ccs/m4f/json_debug.a"/>
+        <file name="package/package_ti.utils.json.c"/>
+        <file name="source/json.c"/>
+        <file name="source/json_engine.c"/>
+        <file name="source/parse_common.c"/>
+        <file name="source/utils.c"/>
+        <file name="lib/ccs/m4f/json_release.a"/>
+        <file name="lib/gcc/m4f/json_debug.a"/>
+        <file name="lib/gcc/m4f/json_release.a"/>
+        <file name="lib/iar/m4f/json_debug.a"/>
+        <file name="lib/iar/m4f/json_release.a"/>
+    </release>
+    </releases>
+    <repositories>
+    </repositories>
+</package>

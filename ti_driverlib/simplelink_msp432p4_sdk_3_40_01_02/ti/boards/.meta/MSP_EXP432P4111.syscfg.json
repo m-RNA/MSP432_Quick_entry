@@ -1,0 +1,376 @@
+/*
+ * Copyrighc) 2018-2019 Texas Instruments Incorporated - http://www.ti.com
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
+/*
+ *  ======== MSP_EXP432P4111.syscfg.json ========
+ */
+
+{
+    "name": "MSP-EXP432P4111",
+    "displayName": "MSP432P4111 LaunchPad",
+    "device": "MSP432P4111",
+    "part": "Default",
+    "package": "PZ100",
+    "headers": [
+        {
+            /* http://www.ti.com/tools-software/launchpads/boosterpacks/build.html */
+            "type": "BoosterPack 40 pin",
+            "default": true,
+            "name": "boosterpack",
+            "displayName": "BoosterPack Standard Header",
+            "dimensions": {
+                "columns": [
+                    { "top":  1, "bottom": 10 },
+                    { "top": 21, "bottom": 30 },
+
+                    { "blank": true },
+
+                    { "top": 40, "bottom": 31 },
+                    { "top": 20, "bottom": 11 }
+                ]
+            },
+            "pins": [
+                {
+                    "number": 1,     /* 3.3 V */
+                    "name": "3V3"
+                },
+                {
+                    "number": 2,     /* Analog in */
+                    "name": "P6.0",
+                    "ball": "54"
+                },
+                {
+                    "number": 3,     /* UART RX */
+                    "name": "P3.2",
+                    "ball": "34"
+                },
+                {
+                    "number": 4,     /* UART TX */
+                    "name": "P3.3",
+                    "ball": "35"
+                },
+                {
+                    "number": 5,     /* GPIO (with interrupt) */
+                    "name": "P4.1",
+                    "ball": "57"
+                },
+                {
+                    "number": 6,     /* Analog in */
+                    "name": "P4.3",
+                    "ball": "59"
+                },
+                {
+                    "number": 7,
+                    "name": "P1.5",
+                    "ball": "9",
+                    "preferredType": ["SPI_SCLK"]
+                },
+                {
+                    "number": 8,     /* GPIO (with interrupt) */
+                    "name": "P4.6",
+                    "ball": "62"
+                },
+                {
+                    "number": 9,     /* I2C SCL */
+                    "name": "P6.5",
+                    "ball": "79",
+                    "preferredType": ["I2C_SCL"]
+                },
+                {
+                    "number": 10,    /* I2C SDA */
+                    "name": "P6.4",
+                    "ball": "78",
+                    "preferredType": ["I2C_SDA"]
+                },
+
+                {
+                    "number": 21,    /* 5 V */
+                    "name": "5V"
+                },
+                {
+                    "number": 22,    /* Ground */
+                    "name": "GND"
+                },
+                {
+                    "number": 23,    /* Analog input */
+                    "name": "P6.1",
+                    "ball": "55"
+                },
+                {
+                    "number": 24,    /* Analog input */
+                    "name": "P4.0",
+                    "ball": "56"
+                },
+                {
+                    "number": 25,    /* Analog input */
+                    "name": "P4.2",
+                    "ball": "58"
+                },
+                {
+                    "number": 26,    /* Analog input */
+                    "name": "P4.4",
+                    "ball": "60"
+                },
+                {
+                    "number": 27,    /* Analog input | I2S WS */
+                    "name": "P4.5",
+                    "ball": "61"
+                },
+                {
+                    "number": 28,    /* Analog input | I2S SCLX */
+                    "name": "P4.7",
+                    "ball": "63"
+                },
+                {
+                    "number": 29,    /* Analog Out | I2S SDout */
+                    "name": "P5.4",
+                    "ball": "68",
+                    "preferredType" : ["AIN"]
+                },
+                {
+                    "number": 30,    /* Analog Out | I2S SDin */
+                    "name": "P5.5",
+                    "ball": "69",
+                    "preferredType" : ["AIN"]
+                },
+
+                {
+                    "number": 40,    /* PWM | GPIO (with interrupt) */
+                    "name": "P2.7",
+                    "ball": "23"
+                },
+                {
+                    "number": 39,    /* PWM | GPIO (with interrupt) */
+                    "name": "P2.6",
+                    "ball": "22"
+                },
+                {
+                    "number": 38,    /* PWM | GPIO (with interrupt) */
+                    "name": "P2.4",
+                    "ball": "20"
+                },
+                {
+                    "number": 37,    /* PWM | GPIO (with interrupt) */
+                    "name": "P5.6",
+                    "ball": "70"
+                },
+                {
+                    "number": 36,    /* Timer Capture | GPIO (with interrupt) */
+                    "name": "P6.6",
+                    "ball": "80"
+                },
+                {
+                    "number": 35,    /* Timer Capture | GPIO (with interrupt) */
+                    "name": "P6.7",
+                    "ball": "81"
+                },
+                {
+                    "number": 34,    /* GPIO (with interrupt) */
+                    "name": "P2.3",
+                    "ball": "19"
+                },
+                {
+                    "number": 33,    /* GPIO (with interrupt) */
+                    "name": "P5.1",
+                    "ball": "65"
+                },
+                {
+                    "number": 32,    /* GPIO (with interrupt) */
+                    "name": "P3.5",
+                    "ball": "37"
+                },
+                {
+                    "number": 31,    /* GPIO (with interrupt) */
+                    "name": "P3.7",
+                    "ball": "39"
+                },
+
+                {
+                    "number": 20,    /* Ground */
+                    "name": "GND"
+                },
+                {
+                    "number": 19,    /* PWM | GPIO (with interrupt) */
+                    "name": "P2.5",
+                    "ball": "21"
+                },
+                {
+                    "number": 18,    /* SPI CS (Wireless) | GPIO (with interrupt) */
+                    "name": "P3.0",
+                    "ball": "32"
+                },
+                {
+                    "number": 17,    /* GPIO */
+                    "name": "P5.7",
+                    "ball": "71"
+                },
+                {
+                    "number": 16,    /* Reset */
+                    "name": "RST"
+                },
+                {
+                    "number": 15,
+                    "name": "P1.6",
+                    "ball": "10",
+                    "preferredType" : ["SPI_MOSI"]
+                },
+                {
+                    "number": 14,
+                    "name": "P1.7",
+                    "ball": "11",
+                    "preferredType" : ["SPI_MISO"]
+                },
+                {
+                    "number": 13,    /* SPI CS (Display) | GPIO (with interrupt) */
+                    "name": "P5.0",
+                    "ball": "64"
+                },
+                {
+                    "number": 12,    /* SPI CS (other) | GPIO (with interrupt) */
+                    "name": "P5.2",
+                    "ball": "66"
+                },
+                {
+                    "number": 11,    /* GPIO (with interrupt) */
+                    "name": "P3.6",
+                    "ball": "38"
+                }
+            ]
+        }
+    ],
+
+    "components": {
+        "LED1_RED": {
+            "displayName": "LaunchPad LED 1 Red",
+            "definition": "/ti/boards/components/led.json",
+            "connections": {
+                "OUTPUT": "4"
+            }
+        },
+        "LED2_RED": {
+            "displayName": "LaunchPad LED 2 Red",
+            "definition": "/ti/boards/components/led_dimmable.json",
+            "connections": {
+                "OUTPUT": "16"
+            }
+        },
+        "LED2_GREEN": {
+            "displayName": "LaunchPad LED 2 Green",
+            "definition": "/ti/boards/components/led_dimmable.json",
+            "connections": {
+                "OUTPUT": "17"
+            }
+        },
+        "LED2_BLUE": {
+            "displayName": "LaunchPad LED 2 Blue",
+            "definition": "/ti/boards/components/led_dimmable.json",
+            "connections": {
+                "OUTPUT": "18"
+            }
+        },
+
+        /* symbolic links/aliases for LED portability between LaunchPads */
+        "LED": {
+            "link" : "LED1_RED"
+        },
+        "LED_DIMMABLE": {
+            "link" : "LED2_RED"
+        },
+        "LED0": {
+            "link": "LED1_RED"
+        },
+        "LED1": {
+            "link": "LED2_RED"
+        },
+        "LED2": {
+            "link": "LED2_GREEN"
+        },
+        "LED3": {
+            "link": "LED2_BLUE"
+        },
+        "LED0_PWM" : {
+            "link" : "LED1"
+        },
+        "LED1_PWM" : {
+            "link" : "LED2"
+        },
+        "LED2_PWM" : {
+            "link" : "LED3"
+        },
+
+        "S1": {
+            "displayName" : "LaunchPad Button S1 (Left)",
+            "definition"  : "/ti/boards/components/button.json",
+            "longDescription" : "S1 (Left) LaunchPad button with no external pull.",
+            "settings": {
+                "DIN": {
+                    "pull": "Pull Up",
+                    "interruptTrigger": "Falling Edge"
+                }
+            },
+            "connections" : {
+                "INPUT": "5"
+            }
+        },
+        "S2": {
+            "displayName" : "LaunchPad Button S2 (Right)",
+            "definition"  : "/ti/boards/components/button.json",
+            "longDescription" : "S2 (Right) LaunchPad button with no external pull.",
+            "settings": {
+                "DIN": {
+                    "pull": "Pull Up",
+                    "interruptTrigger": "Falling Edge"
+                }
+            },
+            "connections" : {
+                "INPUT": "8"
+            }
+        },
+
+        /* symbolic links/aliases for BUTTON portability between LaunchPads */
+        "BUTTON0": {
+            "link": "S1"
+        },
+        "BUTTON1": {
+            "link": "S2"
+        },
+
+        "XDS110UART": {
+            "definition": "/ti/boards/components/xds110Uart.json",
+            "connections": {
+                "RXD": "6",
+                "TXD": "7"
+            }
+        }
+    }
+}

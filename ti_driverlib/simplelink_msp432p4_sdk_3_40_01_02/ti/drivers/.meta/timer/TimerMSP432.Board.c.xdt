@@ -1,0 +1,114 @@
+%%{
+/*
+ * Copyright (c) 2018-2019, Texas Instruments Incorporated - http://www.ti.com
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
+/*
+ *  ======== TimerMSP432.Board.c.xdt ========
+ */
+
+    let Timer  = args[0];
+    let Common = system.getScript("/ti/drivers/Common.js");
+
+    /* shorthand names for some common references in template below */
+    let instances = Timer.$instances;
+    if (instances.length == 0) return;
+
+    /* CONFIG_XXXCOUNT string, derived from defaultInstanceName */
+    let countDef = Timer.defaultInstanceName + "COUNT";
+%%}
+/*
+ *  =============================== Timer ===============================
+ */
+
+#include <ti/drivers/Timer.h>
+#include <ti/drivers/timer/TimerMSP432.h>
+#include <ti/devices/msp432p4xx/driverlib/interrupt.h>
+#include <ti/devices/msp432p4xx/driverlib/timer_a.h>
+#include <ti/devices/msp432p4xx/driverlib/timer32.h>
+
+#define `countDef` `instances.length`
+
+/*
+ *  ======== timerMSP432Objects ========
+ */
+TimerMSP432_Object timerMSP432Objects[`countDef`];
+
+/*
+ *  ======== timerMSP432HWAttrs ========
+ */
+const TimerMSP432_HWAttrs TimerMSP432HWAttrs[`countDef`] = {
+% for (let i = 0; i < instances.length; i++) {
+    % let inst = instances[i];
+    % let timer = inst.timer.$solution.peripheralName;
+    % let baseAddr = (timer + "_BASE").toUpperCase();
+    % let intNum = timer[timer.length - 1];
+    % let clockSource = "TIMER_A_CLOCKSOURCE_";
+    % if (inst.timerType === "32 Bits") {
+        % intNum++;
+        % intNum = "INT_T32_INT" + intNum;
+    % }
+    % else {
+        % intNum = "INT_TA" + intNum + "_0";
+        % clockSource += inst.clockSource.replace(/ /g, "_");
+    % }
+    /* `inst.$name` */
+    {
+        .timerBaseAddress  = `baseAddr`,
+        .intNum            = `intNum`,
+        .intPriority       = `Common.intPriority2Hex(inst.interruptPriority)`,
+    % if (inst.timerType !== "32 Bits") {
+        .clockSource       = `clockSource`
+    % }
+    },
+% }
+};
+
+/*
+ *  ======== Timer_config ========
+ */
+const Timer_Config Timer_config[`countDef`] = {
+% for (let i = 0; i < instances.length; i++) {
+    % let inst = instances[i];
+    % let name = inst.$name;
+    % let timerType;
+    % inst.timerType === ("32 Bits") ? timerType = "Timer32" : timerType = "Timer_A";
+    /* `name` */
+    {
+        .fxnTablePtr = &TimerMSP432_`timerType`_fxnTable,
+        .object      = &timerMSP432Objects[`name`],
+        .hwAttrs     = &TimerMSP432HWAttrs[`name`]
+    },
+% }
+};
+
+const uint_least8_t Timer_count = `countDef`;
