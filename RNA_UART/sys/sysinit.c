@@ -8,7 +8,7 @@
 /****************************************************/
 
 //High:48MHz  Low:32768Hz
-//MCLK=12MHz  SMCLK=48MHz
+//MCLK=48MHz  SMCLK=48MHz
 void SysInit(void)
 {
     WDTCTL = WDTPW | WDTHOLD; // 停用看门狗
@@ -32,6 +32,6 @@ void SysInit(void)
 	CS_startHFXT(false);          //这是晶体 需要驱动
     CS_startLFXT(CS_LFXT_DRIVE3); //驱动等级3
 
-    MAP_CS_initClockSignal(CS_MCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1);  //12MHz   16分频时，滴答延时可达到最长
+    MAP_CS_initClockSignal(CS_MCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1);  //48MHz   16分频时，滴答延时可达到最长
     MAP_CS_initClockSignal(CS_SMCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1); //48MHz
 }

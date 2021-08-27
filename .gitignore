@@ -52,3 +52,5 @@ dkms.conf
 
 # Other
 *.zip
+*.vscode
+*.orig

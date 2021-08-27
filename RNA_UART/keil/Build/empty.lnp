@@ -1,0 +1,15 @@
+--cpu=Cortex-M4.fp.sp
+".\build\main.o"
+".\build\system_msp432p401r.o"
+".\build\startup_msp432p401r_uvision.o"
+"..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\ti\devices\msp432p4xx\driverlib\keil\msp432p4xx_driverlib.lib"
+".\build\led.o"
+".\build\key.o"
+".\build\key4x4.o"
+".\build\sysinit.o"
+".\build\uartinit.o"
+".\build\baudrate_calculate.o"
+--library_type=microlib --strict --scatter ".\Build\empty.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\empty.map" -o .\Build\empty.axf
