@@ -55,3 +55,11 @@ dkms.conf
 *.vscode
 *.orig
 RNA_UART/keil/.vscode/c_cpp_properties.json
+.gitignore
+*.json
+*.log
+*.crf
+*.htm
+*.crf
+RNA_UART/keil/startup_msp432p401r_uvision.lst
+
