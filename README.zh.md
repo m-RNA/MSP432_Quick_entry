@@ -10,7 +10,8 @@
 
 ★若想与我版本一致，则可下载ti_driverlib，下载后ti_driverlib文件夹与RNA_xx文件夹同一目录。
 
-★若不需要，则注意将历程RNA_xx文件夹与官方历程放与同一目录。
+★若不需要，则注意将历程RNA_xx文件夹与官方历程放与同一目录。但打开工程时，Libary下的msp432p4xx_driverlib.lib会提示找不到，这时我们移除它，再重新添加，比如我的路径在 D:\ti\simplelink_msp432p4_sdk_3_40_01_02\source\ti\devices\msp432p4xx\driverlib\keil\msp432p4xx_driverlib.lib
+找不到应该时文件类型没选对，选择Toochain Library file（*.lib）或者 All files就可以找到了。
 
 
 
