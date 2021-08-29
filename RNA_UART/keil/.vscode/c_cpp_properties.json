@@ -5,17 +5,6 @@
             "includePath": [
                 "f:\\source",
                 "f:\\source\\third_party\\CMSIS\\Include\\",
-<<<<<<< HEAD
-                "f:\\RNA_MSP432_Quick_entry - 副本\\RNA_UART\\hardware",
-                "f:\\RNA_MSP432_Quick_entry - 副本\\RNA_UART\\sys",
-                "f:\\RNA_MSP432_Quick_entry - 副本\\ti_driverlib\\simplelink_msp432p4_sdk_3_40_01_02",
-                "f:\\RNA_MSP432_Quick_entry - 副本\\ti_driverlib\\simplelink_msp432p4_sdk_3_40_01_02\\third_party\\CMSIS\\Include",
-                "D:\\Keil_v5\\ARM\\ARMCC\\include",
-                "D:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
-                "f:\\RNA_MSP432_Quick_entry - 副本\\RNA_UART",
-                "f:\\RNA_MSP432_Quick_entry - 副本\\RNA_UART\\keil",
-                "f:\\RNA_MSP432_Quick_entry - 副本\\ti_driverlib\\simplelink_msp432p4_sdk_3_40_01_02\\ti\\devices\\msp432p4xx\\driverlib\\keil"
-=======
                 "f:\\RNA_MSP432_Quick_entry\\RNA_UART\\hardware",
                 "f:\\RNA_MSP432_Quick_entry\\RNA_UART\\sys",
                 "f:\\RNA_MSP432_Quick_entry\\ti_driverlib\\simplelink_msp432p4_sdk_3_40_01_02",
@@ -25,7 +14,6 @@
                 "f:\\RNA_MSP432_Quick_entry\\RNA_UART",
                 "f:\\RNA_MSP432_Quick_entry\\RNA_UART\\keil",
                 "f:\\RNA_MSP432_Quick_entry\\ti_driverlib\\simplelink_msp432p4_sdk_3_40_01_02\\ti\\devices\\msp432p4xx\\driverlib\\keil"
->>>>>>> b0ee1c63cd65e0ee71fa1a5a66a52c87ee1a2125
             ],
             "defines": [
                 "__MSP432P401R__",

@@ -98,11 +98,12 @@ void uart_init(uint32_t baudRate)
         };
     eusci_calcBaudDividers((eUSCI_UART_Config *)&uartConfig, baudRate); //配置波特率
 #endif
+	//GPIO复用
     MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P1, GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
 
-    /* Configuring UART Module */
+    //初始化串口
     MAP_UART_initModule(EUSCI_A0_BASE, &uartConfig);
-    /* Enable UART module */
+
+    //开启串口
     MAP_UART_enableModule(EUSCI_A0_BASE);
-    UART_enableModule(EUSCI_A0_BASE);
 }
