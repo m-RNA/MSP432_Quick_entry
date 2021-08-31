@@ -64,3 +64,4 @@ Build
 *.lst
 keilkill.bat
 RNA_UART/keil/.vscode/c_cpp_properties.json
+RTE
