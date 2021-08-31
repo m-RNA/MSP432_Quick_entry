@@ -16,7 +16,7 @@
 
 
 ### 视频章节
-1 电赛人对keil熟 故讲keil的配置 还补充了VScode 直接用CCS也可 安装包在百度网盘[点击🔗](https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA) 提取码:6666
+1 电赛人对keil熟 故讲keil的配置 还补充了VScode 直接用CCS也可 安装包在百度网盘[[点击链接]](https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA) 提取码:6666
 
 2-1 GPIO输出 跑马灯 RNA_LED
 
