@@ -16,27 +16,28 @@
 
 
 ### 视频章节
-1 电赛人对keil熟 故讲keil的配置 还补充了VScode 直接用CCS也可
+1 电赛人对keil熟 故讲keil的配置 还补充了VScode 直接用CCS也可 安装包百度网盘:https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA 
+提取码:6666
 
-2-1 GPIO输出 跑马灯
+2-1 GPIO输出 跑马灯 RNA_LED
 
-2-2 GPIO输入 按键 矩阵键盘
+2-2 GPIO输入 按键 矩阵键盘 RNA_KEY RNA_KEY4x4
 
 2-3 GPIO复用 
 
 3-1 时钟简介
 
-3-2 配置外部晶振
+3-2 配置外部晶振 RNA_CS_LFXT_HFXT
 
-4 滴答计时器延时（移植正点原子）
+4 滴答计时器延时（移植正点原子）RNA_SysTick_delay
 
-5 外部中断
+5 外部中断 RNA_External_Interrupt
 
-6-1 中断优先级管理
+6-1 中断优先级管理 RNA_Interrupt_Priority
 
 6-2 软件挂起中断
 
 6-3 屏蔽中断优先级
 
-7 串口配置
+7 串口配置 RNA_UART RNA_UART_Int
 
