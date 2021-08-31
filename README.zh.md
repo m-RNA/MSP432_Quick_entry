@@ -20,7 +20,7 @@
 
 2-1 GPIO输出 跑马灯 RNA_LED
 
-2-2 GPIO输入 按键 矩阵键盘 RNA_KEY RNA_KEY4x4
+2-2 GPIO输入 按键 矩阵键盘 RNA_KEY & RNA_KEY4x4
 
 2-3 GPIO复用 
 
@@ -38,5 +38,5 @@
 
 6-3 屏蔽中断优先级
 
-7 串口配置 RNA_UART RNA_UART_Int
+7 串口配置 RNA_UART & RNA_UART_Int
 
