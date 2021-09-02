@@ -40,3 +40,5 @@
 
 7 串口配置 [RNA_UART] & [RNA_UART_Int]
 
+8-1 定时器A中断 [RNA_TimA_Int]
+
