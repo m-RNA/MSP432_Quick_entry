@@ -42,3 +42,5 @@
 
 8-1 定时器A中断 [RNA_TimA_Int]
 
+8-2 定时器A 输出PWM [RNA_TimA_PWM_Square_Wave] & [RNA_TimA_PWM_Servo]
+
