@@ -443,6 +443,11 @@
               <FileType>1</FileType>
               <FilePath>..\sys\uartinit.c</FilePath>
             </File>
+            <File>
+              <FileName>baudrate_calculate.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sys\baudrate_calculate.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

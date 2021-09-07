@@ -32,7 +32,7 @@ int main(void)
 	CS_initClockSignal(CS_SMCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1);
 	CS_initClockSignal(CS_HSMCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1);
 
-	UART_Init(); //第7讲 串口实验
+	uart_init(115200); //第7讲 串口实验
 
 	printf("MSP432\r\n");
 	printf("2021/8/15\r\n");

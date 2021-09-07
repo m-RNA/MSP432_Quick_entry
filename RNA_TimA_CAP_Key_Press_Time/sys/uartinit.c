@@ -53,10 +53,11 @@ int fgetc(FILE *f)
  * 以上两条对接标准输入输出库的函数:
  * int fputc(int ch, FILE *f);
  * int fgetc(FILE *f);
- * 源码为BiliBili平台UP主 “CloudBoyStudio” 编写
- * 本人RNA，不是作者
- * 在此也表感谢
- * 使用时记得勾选魔术棒里的Use MicroLIB
+ * 源码为BiliBili平台UP主 “CloudBoyStudio” 编写。
+ * 本人RNA，不是作者。
+ * 在此也表感谢。
+ * 为了避免使用半主机模式，
+ * 在Keil里记得勾选魔术棒里的Use MicroLIB
  *
  *****************   说明结束   *****************/
 
@@ -98,7 +99,7 @@ void uart_init(uint32_t baudRate)
         };
     eusci_calcBaudDividers((eUSCI_UART_Config *)&uartConfig, baudRate); //配置波特率
 #endif
-	//GPIO复用
+    //GPIO复用
     MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P1, GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
 
     //初始化串口

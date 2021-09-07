@@ -238,7 +238,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../../../../../source/ti/devices/msp432p4xx/driverlib/keil/msp432p4xx_driverlib.lib</PathWithFileName>
+      <PathWithFileName>..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\ti\devices\msp432p4xx\driverlib\keil\msp432p4xx_driverlib.lib</PathWithFileName>
       <FilenameWithoutPath>msp432p4xx_driverlib.lib</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -310,18 +310,6 @@
     <File>
       <GroupNumber>4</GroupNumber>
       <FileNumber>9</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\sys\uartinit.c</PathWithFileName>
-      <FilenameWithoutPath>uartinit.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>4</GroupNumber>
-      <FileNumber>10</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
