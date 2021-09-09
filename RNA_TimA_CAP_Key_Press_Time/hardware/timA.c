@@ -10,81 +10,92 @@
 
 /*********************************************************************************************************/
 /**************************************         TIMA2          *******************************************/
-#define CAP_TIMA_SELECTION TIMER_A2_BASE
-#define CAP_REGISTER_SELECTION TIMER_A_CAPTURECOMPARE_REGISTER_1
 
-uint16_t TIMA2_CAP_STA = 0;
-uint16_t TIMA2_CAP_VAL = 0;
+#define CAP_TIMA_SELECTION TIMER_A2_BASE                         //在这里改定时器
+#define CAP_REGISTER_SELECTION TIMER_A_CAPTURECOMPARE_REGISTER_1 //在这里改定时器通道
+#define CAP_CCR_NUM 1                                            //在这里改定时器通道
+#define CAP_PORT_PIN GPIO_PORT_P5, GPIO_PIN6                     //在这里改复用引脚
 
 void TimA2_Cap_Init(void)
 {
     /* 定时器配置参数*/
     Timer_A_ContinuousModeConfig continuousModeConfig = {
-
         TIMER_A_CLOCKSOURCE_SMCLK,      // SMCLK Clock Source
         TIMER_A_CLOCKSOURCE_DIVIDER_48, // SMCLK/48 = 1MHz
-        TIMER_A_TAIE_INTERRUPT_ENABLE,  // Enable Timer ISR
-        TIMER_A_DO_CLEAR                // Skup Clear Counter
+        TIMER_A_TAIE_INTERRUPT_ENABLE,  // 开启定时器溢出中断
+        TIMER_A_DO_CLEAR                // Clear Counter
     };
 
     /* Timer_A 捕捉模式配置参数 */
     const Timer_A_CaptureModeConfig captureModeConfig_TA2 = {
-        CAP_REGISTER_SELECTION,                      //CCR1在这里改引脚
-        TIMER_A_CAPTUREMODE_RISING_AND_FALLING_EDGE, //上升沿捕获
+        CAP_REGISTER_SELECTION,                      //在这里改引脚
+        TIMER_A_CAPTUREMODE_RISING_AND_FALLING_EDGE, //上升下降沿捕获
         TIMER_A_CAPTURE_INPUTSELECT_CCIxA,           //CCIxA:外部引脚输入  （CCIxB:与内部ACLK连接(手册)
         TIMER_A_CAPTURE_SYNCHRONOUS,                 //同步捕获
-        TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE,     //开启中断
+        TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE,     //开启CCRN捕获中断
         TIMER_A_OUTPUTMODE_OUTBITVALUE               //输出位值
     };
 
-    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P5, GPIO_PIN6, GPIO_PRIMARY_MODULE_FUNCTION); //在这里改引脚
+    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(CAP_PORT_PIN, GPIO_PRIMARY_MODULE_FUNCTION); //在这里改引脚
 
-    Timer_A_initCapture(CAP_TIMA_SELECTION, &captureModeConfig_TA2);
-    Timer_A_configureContinuousMode(CAP_TIMA_SELECTION, &continuousModeConfig);
-    Timer_A_startCounter(CAP_TIMA_SELECTION, TIMER_A_CONTINUOUS_MODE);
+    MAP_Timer_A_initCapture(CAP_TIMA_SELECTION, &captureModeConfig_TA2);            //初始化定时器的捕获模式
+    MAP_Timer_A_configureContinuousMode(CAP_TIMA_SELECTION, &continuousModeConfig); //将定时器初始化为连续计数模式
+    MAP_Timer_A_startCounter(CAP_TIMA_SELECTION, TIMER_A_CONTINUOUS_MODE);          //开始以连续模式计数
 
-    Timer_A_clearInterruptFlag(CAP_TIMA_SELECTION);                                   //定时器更新中断
-    Timer_A_clearCaptureCompareInterrupt(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION); //CCR1更新中断
+    MAP_Timer_A_clearInterruptFlag(CAP_TIMA_SELECTION);                                   //清除定时器溢出中断标志位
+    MAP_Timer_A_clearCaptureCompareInterrupt(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION); //清除 CCR1 更新中断标志位
 
-    Interrupt_enableInterrupt(INT_TA2_N);
+    MAP_Interrupt_enableInterrupt(INT_TA2_N); //开启定时器A2端口中断
 }
+
+//TIMA2_CAP_STA 捕获状态
+//[7]:收到了引导码标志
+//[6]:0表示捕获上升沿，1表示捕获下降沿
+//[5:0]:溢出次数
+uint16_t TIMA2_CAP_STA = 0;
+uint16_t TIMA2_CAP_VAL = 0;
 
 void TA2_N_IRQHandler(void)
 {
     if ((TIMA2_CAP_STA & 0X80) == 0) //还未成功捕获
     {
-        if (Timer_A_getEnabledInterruptStatus(CAP_TIMA_SELECTION)) //溢出中断
+        if (MAP_Timer_A_getEnabledInterruptStatus(CAP_TIMA_SELECTION)) //溢出中断
         {
-            Timer_A_clearInterruptFlag(CAP_TIMA_SELECTION);
-            BITBAND_PERI(TIMER_A_CMSIS(CAP_TIMA_SELECTION)->CCTL[1], TIMER_A_CCTLN_COV_OFS) = 0; //软件复位COV
-            if (TIMA2_CAP_STA & 0X40)                                                            //已经捕获到高电平了 4 0100
+            MAP_Timer_A_clearInterruptFlag(CAP_TIMA_SELECTION); //清除定时器溢出中断标志位
+
+            /* ★ 软件复位COV ★ */
+            BITBAND_PERI(TIMER_A_CMSIS(CAP_TIMA_SELECTION)->CCTL[CAP_CCR_NUM], TIMER_A_CCTLN_COV_OFS) = 0;
+
+            if (TIMA2_CAP_STA & 0X40) //已经捕获到高电平了 40H = 0x 0100 0000
             {
                 if ((TIMA2_CAP_STA & 0X3F) == 0X3F) //高电平太长了
                 {
-                    TIMA2_CAP_STA |= 0X80; //强制标记成功捕获完高电平 8 = 0x1000
+                    TIMA2_CAP_STA |= 0X80; //强制标记成功捕获完高电平 80H = 0x 1000 0000
                     TIMA2_CAP_VAL = 0XFFFF;
                 }
                 else
-                    TIMA2_CAP_STA++; //溢出次数加一
+                    TIMA2_CAP_STA++; //溢出次数加1
             }
         }
 
-        if (Timer_A_getCaptureCompareEnabledInterruptStatus(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION)) //捕获中断
+        if (MAP_Timer_A_getCaptureCompareEnabledInterruptStatus(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION)) //捕获中断
         {
-            Timer_A_clearCaptureCompareInterrupt(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION);
-            if (TIMA2_CAP_STA & 0X40 && (Timer_A_getSynchronizedCaptureCompareInput(CAP_TIMA_SELECTION,
-                                                                                    CAP_REGISTER_SELECTION,
-                                                                                    TIMER_A_READ_CAPTURE_COMPARE_INPUT) == TIMER_A_CAPTURECOMPARE_INPUT_LOW))
+            MAP_Timer_A_clearCaptureCompareInterrupt(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION); //清除 CCR1 更新中断标志位
+
+            //判断是否捕获到下降沿
+            if (TIMA2_CAP_STA & 0X40 && (MAP_Timer_A_getSynchronizedCaptureCompareInput(CAP_TIMA_SELECTION,
+                                                                                        CAP_REGISTER_SELECTION,
+                                                                                        TIMER_A_READ_CAPTURE_COMPARE_INPUT) == TIMER_A_CAPTURECOMPARE_INPUT_LOW))
             {
                 TIMA2_CAP_STA |= 0X80; //标记成功捕获完高电平
                 TIMA2_CAP_VAL = Timer_A_getCaptureCompareCount(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION);
             }
             else //还未开始,第一次捕获上升沿
             {
-                TIMA2_CAP_STA = 0; //清空
+                TIMA2_CAP_STA = 0;
                 TIMA2_CAP_VAL = 0;
-                Timer_A_clearTimer(CAP_TIMA_SELECTION);
-                TIMA2_CAP_STA |= 0X40; //标记捕获到了上升沿
+                MAP_Timer_A_clearTimer(CAP_TIMA_SELECTION); //清空定时器 重新从0计数
+                TIMA2_CAP_STA |= 0X40;                      //标记捕获到了上升沿
             }
         }
     }
