@@ -18,6 +18,9 @@
 
 void TimA2_Cap_Init(void)
 {
+    // 1.复用输出
+    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(CAP_PORT_PIN, GPIO_PRIMARY_MODULE_FUNCTION);
+
     /* 定时器配置参数*/
     Timer_A_ContinuousModeConfig continuousModeConfig = {
         TIMER_A_CLOCKSOURCE_SMCLK,      // SMCLK Clock Source
@@ -25,8 +28,10 @@ void TimA2_Cap_Init(void)
         TIMER_A_TAIE_INTERRUPT_ENABLE,  // 开启定时器溢出中断
         TIMER_A_DO_CLEAR                // Clear Counter
     };
+    // 3.将定时器初始化为连续计数模式
+    MAP_Timer_A_configureContinuousMode(CAP_TIMA_SELECTION, &continuousModeConfig);
 
-    /* Timer_A 捕捉模式配置参数 */
+    // 4.配置捕捉模式结构体 */
     const Timer_A_CaptureModeConfig captureModeConfig_TA2 = {
         CAP_REGISTER_SELECTION,                      //在这里改引脚
         TIMER_A_CAPTUREMODE_RISING_AND_FALLING_EDGE, //上升下降沿捕获
@@ -35,24 +40,26 @@ void TimA2_Cap_Init(void)
         TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE,     //开启CCRN捕获中断
         TIMER_A_OUTPUTMODE_OUTBITVALUE               //输出位值
     };
+    // 5.初始化定时器的捕获模式
+    MAP_Timer_A_initCapture(CAP_TIMA_SELECTION, &captureModeConfig_TA2);
 
-    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(CAP_PORT_PIN, GPIO_PRIMARY_MODULE_FUNCTION); //在这里改引脚
+    // 6.选择连续模式计数开始计数
+    MAP_Timer_A_startCounter(CAP_TIMA_SELECTION, TIMER_A_CONTINUOUS_MODE);
 
-    MAP_Timer_A_initCapture(CAP_TIMA_SELECTION, &captureModeConfig_TA2);            //初始化定时器的捕获模式
-    MAP_Timer_A_configureContinuousMode(CAP_TIMA_SELECTION, &continuousModeConfig); //将定时器初始化为连续计数模式
-    MAP_Timer_A_startCounter(CAP_TIMA_SELECTION, TIMER_A_CONTINUOUS_MODE);          //开始以连续模式计数
-
+    // 7.清除中断标志位
     MAP_Timer_A_clearInterruptFlag(CAP_TIMA_SELECTION);                                   //清除定时器溢出中断标志位
     MAP_Timer_A_clearCaptureCompareInterrupt(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION); //清除 CCR1 更新中断标志位
 
+    // 8.开启定时器端口中断
     MAP_Interrupt_enableInterrupt(INT_TA2_N); //开启定时器A2端口中断
 }
+// 10.编写TIMA ISR ↓↓↓↓
 
-//TIMA2_CAP_STA 捕获状态
-//[7]:收到了引导码标志
-//[6]:0表示捕获上升沿，1表示捕获下降沿
-//[5:0]:溢出次数
-uint16_t TIMA2_CAP_STA = 0;
+// TIMA2_CAP_STA 捕获状态
+// [7]:捕获高电平完成状态
+// [6]:0表示未捕获到上升沿，1表示捕获过上升沿
+// [5:0]:溢出次数
+uint8_t TIMA2_CAP_STA = 0;
 uint16_t TIMA2_CAP_VAL = 0;
 
 void TA2_N_IRQHandler(void)
@@ -64,13 +71,14 @@ void TA2_N_IRQHandler(void)
             MAP_Timer_A_clearInterruptFlag(CAP_TIMA_SELECTION); //清除定时器溢出中断标志位
 
             /* ★ 软件复位COV ★ */
+            /* 这里UP忘记讲了，如果在未清除中断位值时，来了一次中断，COV会置位，需要软件复位，这里没有官方库函数。具体可以参考技术手册(slau356h.pdf) P790 */
             BITBAND_PERI(TIMER_A_CMSIS(CAP_TIMA_SELECTION)->CCTL[CAP_CCR_NUM], TIMER_A_CCTLN_COV_OFS) = 0;
 
-            if (TIMA2_CAP_STA & 0X40) //已经捕获到高电平了 40H = 0x 0100 0000
+            if (TIMA2_CAP_STA & 0X40) //已经捕获到高电平了 40H = 0x01000000
             {
                 if ((TIMA2_CAP_STA & 0X3F) == 0X3F) //高电平太长了
                 {
-                    TIMA2_CAP_STA |= 0X80; //强制标记成功捕获完高电平 80H = 0x 1000 0000
+                    TIMA2_CAP_STA |= 0X80; //强制标记成功捕获完高电平 80H = 0x10000000
                     TIMA2_CAP_VAL = 0XFFFF;
                 }
                 else

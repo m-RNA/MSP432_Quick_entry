@@ -10,7 +10,7 @@
 // 创建日期:2021/8/26
 /****************************************************/
 
-extern uint16_t TIMA2_CAP_STA;
+extern uint8_t TIMA2_CAP_STA;
 extern uint16_t TIMA2_CAP_VAL;
 
 void TimA0_Int_Init(uint16_t ccr0, uint16_t psc);
