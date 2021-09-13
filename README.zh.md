@@ -49,7 +49,7 @@ D:\ti\simplelink_msp432p4_sdk_3_40_01_02\source\ti\devices\msp432p4xx\driverlib\
 ### 7 串口收发  
 
 - 串口收发  
-  - [RNA_UART]         printf("HELLO,WORLD");  
+  - [RNA_UART]          printf("HELLO,WORLD");  
   - [RNA_UART_Int]   使用带串口的外部模块可参考  
 
 ### 8 定时器A
@@ -63,15 +63,17 @@ D:\ti\simplelink_msp432p4_sdk_3_40_01_02\source\ti\devices\msp432p4xx\driverlib\
   
 - 8-3 定时器A 捕获  
 
-  - [RNA_TimA_CAP_Key_Press_Time]   捕获并计时高电平时长  
+  - [RNA_TimA_CAP_Key_Press_Time]   捕获并计算高电平时长（移植正点原子）
 
 ### 9 定时器32
-- 定时器32中断
-  - [RNA_Tim32_Int]（未上传）
+- 定时器32
+  - [RNA_Tim32_Int]     定时器32中断
+  - [RNA_Multi_Timer]  软件定时器拓展
 
-### 10 OLED显示 (IIC)
-- 待更新  
-  - [ ]
+### 10 OLED (IIC)
+- OLED模拟IIC
+  - [RNA_OLED_IIC_Test]       OLED显示测试
+  - [RNA_OLED_Multilevel_Menu] 多级菜单
 
 ### 11 ADC数模转换
 - 待更新
