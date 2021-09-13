@@ -49,7 +49,7 @@ D:\ti\simplelink_msp432p4_sdk_3_40_01_02\source\ti\devices\msp432p4xx\driverlib\
 ### 7 串口收发  
 
 - 串口收发  
-  - [RNA_UART] ·········· printf("HELLO,WORLD");  
+  - [RNA_UART]          printf("HELLO,WORLD");  
   - [RNA_UART_Int]   使用带串口的外部模块可参考  
 
 ### 8 定时器A
@@ -57,9 +57,9 @@ D:\ti\simplelink_msp432p4_sdk_3_40_01_02\source\ti\devices\msp432p4xx\driverlib\
   - [RNA_TimA_Int]   
 
 - 8-2 定时器A 输出PWM  
-  - [RNA_TimA_PWM_Servo] ················· 驱动舵机  
+  - [RNA_TimA_PWM_Servo]   驱动舵机  
   
-  - [RNA_TimA_PWM_Square_Wave]  ·· 输出50Hz方波  
+  - [RNA_TimA_PWM_Square_Wave]   输出50Hz方波  
   
 - 8-3 定时器A 捕获  
 
@@ -67,17 +67,20 @@ D:\ti\simplelink_msp432p4_sdk_3_40_01_02\source\ti\devices\msp432p4xx\driverlib\
 
 ### 9 定时器32
 - 定时器32
-  - [RNA_Tim32_Int] ··········· 定时器32中断
-  - [RNA_Multi_Timer]·········软件无限定时器拓展
-  - [RNA_Multi_Timer_Dev] 软件无限定时器拓展 开发者版本
+  - [RNA_Tim32_Int]       定时器32中断
+### 9.5 定时器扩展
+
+- 软件无限扩展定时器
+    - [RNA_Multi_Timer] 
+    - [RNA_Multi_Timer_Dev]  开发者版本
 
 ### 10 OLED (IIC)
 - OLED模拟IIC
   - [RNA_OLED_IIC_Test]       OLED显示测试
-  - [RNA_OLED_Multilevel_Menu] 多级菜单（待）
+  - [RNA_OLED_Multilevel_Menu]  多级菜单（待）
 
 ### 11 ADC数模转换
-- 待更新
-  - [ ]
+- ADC多路采集
+  - [RNA_ADC_Multi_Channel]
 ### 12 DMA传输
 - 这是一个大坑......
