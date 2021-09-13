@@ -9,22 +9,35 @@
 //创建日期:2021/8/10
 /****************************************************/
 
-#define LED_RED_Off() MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0)
-#define LED_R_Off() MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0)
-#define LED_G_Off() MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN1)
-#define LED_B_Off() MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN2)
-
-#define LED_RED_On() MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P1, GPIO_PIN0)
-#define LED_R_On() MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN0)
-#define LED_G_On() MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN1)
-#define LED_B_On() MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN2)
-
-#define LED_RED_Tog() MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN0)
-#define LED_R_Tog() MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN0)
-#define LED_G_Tog() MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN1)
-#define LED_B_Tog() MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN2)
+/**
+  * V1.1 2021/9/13 
+  * 添加其他颜色 把宏定义修改为函数
+  *
+  * V1.0 2021/8/10
+  * 完成基本驱动 
+  */
 
 void LED_Init(void);
+
+void LED_RED_On(void);
+void LED_RED_Off(void);
+void LED_RED_Tog(void);
+
+void LED_Y_On(void);
+void LED_C_On(void);
+void LED_P_On(void);
+
+void LED_R_On(void);
+void LED_G_On(void);
+void LED_B_On(void);
+
+void LED_R_Off(void);
+void LED_G_Off(void);
+void LED_B_Off(void);
+
+void LED_R_Tog(void);
+void LED_G_Tog(void);
+void LED_B_Tog(void);
 
 void LED_W_On(void);
 void LED_W_Off(void);

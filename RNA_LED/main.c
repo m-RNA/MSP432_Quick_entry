@@ -40,5 +40,18 @@ int main(void)
         LED_B_On();
         for (i = 0; i < 500000; i++);
         LED_B_Off();
+		
+		LED_C_On();
+        for (i = 0; i < 500000; i++);
+		
+		LED_P_On();
+        for (i = 0; i < 500000; i++);
+		
+		LED_Y_On();
+        for (i = 0; i < 500000; i++);
+		
+		LED_W_On();
+        for (i = 0; i < 500000; i++);
+        LED_W_Off();
     }
 }
