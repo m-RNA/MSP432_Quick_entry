@@ -14,13 +14,13 @@
 /*
  * 定时器中断周期：
  *
- * T_timer_32 = CLKDIV * (CCR0 + 1) / f_clk 
- *            = 256 * 187500 / 48000000 
+ * T_timer_32 = CLKDIV * (ARR + 1) / f_clk 
+ *            = 1 * 48000000 / 48000000 
  *            = 1s = 1Hz
  */
 
-#define CLKDIV TIMER32_PRESCALER_256 // 时钟源分频
-#define ARR 187500                   // 自动重装载值
+#define CLKDIV TIMER32_PRESCALER_1 // 时钟源分频
+#define ARR 47999999               // 自动重装载值
 
 int main(void)
 {

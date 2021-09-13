@@ -29,7 +29,8 @@ void T32_INT1_IRQHandler(void)
 
     /*开始填充用户代码*/
     static uint8_t timer_second = 0;
-
+	
+	//一般在频率较高的中断不常用 这个printf比较费时间 这里只是演示
     printf("%d秒过去了\r\n\r\n", ++timer_second);
 
     /*结束填充用户代码*/
