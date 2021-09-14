@@ -10,6 +10,6 @@
 // 创建日期:2021/9/8
 /****************************************************/
 
-void Tim32_0_Int_Init(uint32_t aar, uint8_t psc);
+void Tim32_0_Int_Init(uint32_t arr, uint8_t psc);
 
 #endif
