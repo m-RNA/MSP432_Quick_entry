@@ -12,17 +12,18 @@
 *******************************************************************************/
 
 /*********  声明  **********
- * 
+ *
  * 0.96寸OLED
  * UP将中景园的MSP430驱动
  * 移植到了MSP432上来了
  * 并稍微修改了一下测试代码
- * 
+ *
  * 引脚接法:
- * P5.3 SDA
- * P5.4 SCL
+ * P6.0 SCL
+ * P6.1 SDA
  * 可以去头文件更改引脚
 ****************************/
+
 int main(void)
 {
     char t;
@@ -50,10 +51,10 @@ int main(void)
         OLED_ShowChinese(108, 0, 6, 16); //技
 
         //显示字符串
-        OLED_ShowString(8, 2, "ZHONGJINGYUAN", 16);
-        OLED_ShowString(20, 4, "2014/05/01", 16);
-        OLED_ShowString(0, 6, "ASCII:", 16);
-        OLED_ShowString(63, 6, "CODE:", 16);
+        OLED_ShowString(8, 2, (uint8_t *)"ZHONGJINGYUAN", 16);
+        OLED_ShowString(20, 4, (uint8_t *)"2014/05/01", 16);
+        OLED_ShowString(0, 6, (uint8_t *)"ASCII:", 16);
+        OLED_ShowString(63, 6, (uint8_t *)"CODE:", 16);
 
         //显示字符，数字
         while (t < '~')

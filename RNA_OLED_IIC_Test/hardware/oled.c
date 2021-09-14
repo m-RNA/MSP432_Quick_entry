@@ -10,7 +10,8 @@
 //[4]0 1 2 3 ... 127	
 //[5]0 1 2 3 ... 127	
 //[6]0 1 2 3 ... 127	
-//[7]0 1 2 3 ... 127 			   
+//[7]0 1 2 3 ... 127 	
+
 void OLED_delay_ms(unsigned int ms)
 {                         
   unsigned int a;
@@ -23,7 +24,7 @@ void OLED_delay_ms(unsigned int ms)
   return;
 }
 //反显函数
-void OLED_ColorTurn(u8 i)
+void OLED_ColorTurn(uint8_t i)
 {
   if(i==0)
   {
@@ -36,7 +37,7 @@ void OLED_ColorTurn(u8 i)
 }
 
 //屏幕旋转180度
-void OLED_DisplayTurn(u8 i)
+void OLED_DisplayTurn(uint8_t i)
 {
   if(i==0)
   {
@@ -83,9 +84,9 @@ void I2C_WaitAck(void) //测数据信号的电平
 }
 
 //写入一个字节
-void Send_Byte(u8 dat)
+void Send_Byte(uint8_t dat)
 {
-  u8 i;
+  uint8_t i;
   for(i=0;i<8;i++)
   {
     OLED_SCL_Clr();//将时钟信号设置为低电平
@@ -108,7 +109,7 @@ void Send_Byte(u8 dat)
 //发送一个字节
 //向SSD1306写入一个字节。
 //mode:数据/命令标志 0,表示命令;1,表示数据;
-void OLED_WR_Byte(u8 dat,u8 mode)
+void OLED_WR_Byte(uint8_t dat,uint8_t mode)
 {
   I2C_Start();
   Send_Byte(0x78);
@@ -124,7 +125,7 @@ void OLED_WR_Byte(u8 dat,u8 mode)
 
 //坐标设置
 
-void OLED_Set_Pos(u8 x, u8 y) 
+void OLED_Set_Pos(uint8_t x, uint8_t y) 
 { 
   OLED_WR_Byte(0xb0+y,OLED_CMD);
   OLED_WR_Byte(((x&0xf0)>>4)|0x10,OLED_CMD);
@@ -147,7 +148,7 @@ void OLED_Display_Off(void)
 //清屏函数,清完屏,整个屏幕是黑色的!和没点亮一样!!!	  
 void OLED_Clear(void)  
 {  
-  u8 i,n;		    
+  uint8_t i,n;		    
   for(i=0;i<8;i++)  
   {  
     OLED_WR_Byte (0xb0+i,OLED_CMD);    //设置页地址（0~7）
@@ -161,10 +162,10 @@ void OLED_Clear(void)
 //x:0~127
 //y:0~63				 
 //sizey:选择字体 6x8  8x16
-void OLED_ShowChar(u8 x,u8 y,u8 chr,u8 sizey)
+void OLED_ShowChar(uint8_t x,uint8_t y,uint8_t chr,uint8_t sizey)
 {      	
-  u8 c=0,sizex=sizey/2;
-  u16 i=0,size1;
+  uint8_t c=0,sizex=sizey/2;
+  uint16_t i=0,size1;
   if(sizey==8)size1=6;
   else size1=(sizey/8+((sizey%8)?1:0))*(sizey/2);
   c=chr-' ';//得到偏移后的值
@@ -179,9 +180,9 @@ void OLED_ShowChar(u8 x,u8 y,u8 chr,u8 sizey)
   }
 }
 //m^n函数
-u32 oled_pow(u8 m,u8 n)
+uint32_t oled_pow(uint8_t m,uint8_t n)
 {
-  u32 result=1;	 
+  uint32_t result=1;	 
   while(n--)result*=m;    
   return result;
 }				  
@@ -190,10 +191,10 @@ u32 oled_pow(u8 m,u8 n)
 //num:要显示的数字
 //len :数字的位数
 //sizey:字体大小		  
-void OLED_ShowNum(u8 x,u8 y,u32 num,u8 len,u8 sizey)
+void OLED_ShowNum(uint8_t x,uint8_t y,uint32_t num,uint8_t len,uint8_t sizey)
 {         	
-  u8 t,temp,m=0;
-  u8 enshow=0;
+  uint8_t t,temp,m=0;
+  uint8_t enshow=0;
   if(sizey==8)m=2;
   for(t=0;t<len;t++)
   {
@@ -210,9 +211,9 @@ void OLED_ShowNum(u8 x,u8 y,u32 num,u8 len,u8 sizey)
   }
 }
 //显示一个字符号串
-void OLED_ShowString(u8 x,u8 y,u8 *chr,u8 sizey)
+void OLED_ShowString(uint8_t x,uint8_t y,uint8_t *chr,uint8_t sizey)
 {
-  u8 j=0;
+  uint8_t j=0;
   while (chr[j]!='\0')
   {		
     OLED_ShowChar(x,y,chr[j++],sizey);
@@ -221,9 +222,9 @@ void OLED_ShowString(u8 x,u8 y,u8 *chr,u8 sizey)
   }
 }
 //显示汉字
-void OLED_ShowChinese(u8 x,u8 y,u8 no,u8 sizey)
+void OLED_ShowChinese(uint8_t x,uint8_t y,uint8_t no,uint8_t sizey)
 {
-  u16 i,size1=(sizey/8+((sizey%8)?1:0))*sizey;
+  uint16_t i,size1=(sizey/8+((sizey%8)?1:0))*sizey;
   for(i=0;i<size1;i++)
   {
     if(i%sizey==0) OLED_Set_Pos(x,y++);
@@ -238,10 +239,10 @@ void OLED_ShowChinese(u8 x,u8 y,u8 no,u8 sizey)
 //x,y显示坐标
 //sizex,sizey,图片长宽
 //BMP：要显示的图片
-void OLED_DrawBMP(u8 x,u8 y,u8 sizex, u8 sizey,u8 BMP[])
+void OLED_DrawBMP(uint8_t x,uint8_t y,uint8_t sizex, uint8_t sizey,uint8_t BMP[])
 { 	
-  u16 j=0;
-  u8 i,m;
+  uint16_t j=0;
+  uint8_t i,m;
   sizey=sizey/8+((sizey%8)?1:0);
   for(i=0;i<sizey;i++)
   {
