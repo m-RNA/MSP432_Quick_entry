@@ -1,4 +1,4 @@
-# MSP432入门速成 电赛延期不掉队 Ti杯 Keil
+# MSP432入门速成 电赛代码储备 Ti杯 Keil
 ## 介绍
 2021/8/27  [@BILIBILI：m-RNA](https://space.bilibili.com/41224928  "@BILIBILI：m-RNA 个人主页")    
 参加电赛分秒必争，光速掌握快速移植代码的能力十分重要，为了让学过stm32的电赛人，快速迁移到MSP432平台，我趁着电赛延期，尝试制作这门速成课[[MSP432入门速成]](https://www.bilibili.com/video/BV1Rb4y1z7K "Bilibili: MSP432入门速成")，但由于我一人能力有限，难免会有疏漏，还请大家多多指正包涵，E-mail：m-RNA@qq.com。使用了MSP432P401R作为实验板。
