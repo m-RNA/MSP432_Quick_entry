@@ -34,8 +34,6 @@ int main(void)
 
     while (1)
     {
-        t = ' ';
-
         //显示图片
         OLED_DrawBMP(0, 0, 128, 64, BMP1);
         delay_ms(500);
@@ -57,12 +55,12 @@ int main(void)
         OLED_ShowString(63, 6, (uint8_t *)"CODE:", 16);
 
         //显示字符，数字
-        while (t < '~')
-        {
-            t++;
-            OLED_ShowNum(103, 6, t, 3, 16);
-            OLED_ShowChar(48, 6, t, 16);
-        }
+		for (t = ' '; t < '~'; t++)
+		{
+			OLED_ShowChar(48, 6, t, 16);	//显示ASCII字符
+			OLED_ShowNum(103, 6, t, 3, 16); //显示ASCII字符的码值
+		}
+		
         delay_ms(500);
         OLED_Clear(); //清屏
     }
