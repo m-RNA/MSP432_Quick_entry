@@ -77,7 +77,7 @@
 	#if (TRANSFER_METHOD==HW_IIC)
 			//IIC_1: PB6 -- SCL; PB7 -- SDA
 			//IIC_2: PB10-- SCL; PB11 --SDA
-			#define USE_HW_IIC		IIC_1
+			#define USE_HW_IIC		IIC_0
 	#elif (TRANSFER_METHOD==SW_IIC)
 
 	#elif (TRANSFER_METHOD==HW_SPI)

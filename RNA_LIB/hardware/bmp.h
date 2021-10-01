@@ -1,34 +1,12 @@
+
+
+#ifndef __BMP_H
+#define __BMP_H
 #include "sysinit.h"
-#include "uartinit.h"
-#include "delay.h"
-#include "bmp.h"
-#include "test.h"
-#include "draw_api.h"
+//#include	<intrinsics.h>
 
-/******************************************************************************
-//MSP432P401R
-//10 OLED图形库（模拟IIC）
-//Bilibili：m-RNA
-//E-mail:m-RNA@qq.com
-//创建日期:2021/9/17
-*******************************************************************************/
-
-/*********  声明  **********
- *
- * 0.96寸OLED
- * UP将OLED图形库驱动
- * 移植到了MSP432上来了
- * 目前是移植了模拟IIC方式（传输比较慢，但是方便改引脚）
- * 后续会添加硬件IIC方式等
- * 
- * 项目地址：https://github.com/hello-myj/stm32_oled
- *
- * 引脚接法:
- * P6.0 SCL
- * P6.1 SDA
- * 可以去头文件更改引脚
-****************************/
-unsigned char BMP111[] ={
+unsigned char BMP1[] =
+{
 	0x00,0x03,0x05,0x09,0x11,0xFF,0x11,0x89,0x05,0xC3,0x00,0xE0,0x00,0xF0,0x00,0xF8,
 	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x44,0x28,0xFF,0x11,0xAA,0x44,0x00,0x00,0x00,
 	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
@@ -95,41 +73,10 @@ unsigned char BMP111[] ={
 	0x00,0x00,0x26,0x49,0x49,0x49,0x32,0x00,0x00,0x7F,0x02,0x04,0x08,0x10,0x7F,0x00,
 };
 
-int main(void)
-{
-    char t;
-    uint32_t i = 0;
-    SysInit();
-    //UartInit();
-    delay_init();
-    InitGraph();
-	delay_ms(200);
-    	SetFontSize(1);
-ClearScreen(); //清屏
-    while (1)
-    {
-        //DrawBitmap(0, 0, BMP111,  128, 64);
-        //UpdateScreen();
-        //delay_ms(500);
+#endif
 
-        ClearScreen(); //清屏
-       
 
-        //显示字符串
-        DrawString(8, 16, "ZHONGJINGYUAN");
-        DrawString(20, 32, "2014/05/01");
-        DrawString(0, 48, "ASCII:");
-        DrawString(63, 48, "CODE:");
-        UpdateScreen();
-        //显示字符，数字
-		for (t = ' '; t < '~'; t++)
-		{
-			DrawChar(48, 48, t);	//显示ASCII字符
-			DrawNum(103, 48, t, 3); //显示ASCII字符的码值
-            UpdateScreen();
-		}
-		
-        delay_ms(500);
-        ClearScreen(); //清屏
-    }
-}
+
+
+
+

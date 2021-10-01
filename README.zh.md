@@ -11,6 +11,10 @@ D:\ti\simplelink_msp432p4_sdk_3_40_01_02\source\ti\devices\msp432p4xx\driverlib\
 找不到应该时文件类型没选对，选择 Toochain Library file（*.lib）或者 All files 就可以找到了。  
 其他文件如果出现类似情况也是同理，先移除，再添加。
 
+★RNA_Emtpy是空工程，RNA写的库是独立的，使用时RNA_Emtpy需要与RNA_LIB同路径。这样做是为了RNA方便更新驱动。
+
+
+
 ## 视频章节
 ### 1 开发环境  
 ​        电赛人对keil熟，故讲keil的配置，还补充了VScode，但然也可以直接用CCS，如果会配置的话。安装包在百度网盘[[点击链接]](https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA) 提取码:6666
@@ -85,3 +89,4 @@ D:\ti\simplelink_msp432p4_sdk_3_40_01_02\source\ti\devices\msp432p4xx\driverlib\
   - [RNA_ADC_Multi_Channel]
 ### 12 DMA传输
 - 这是一个大坑......
+

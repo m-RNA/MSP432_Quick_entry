@@ -7,22 +7,15 @@
 
 #if (TRANSFER_METHOD ==HW_IIC)
 
-	#if (USE_HW_IIC ==IIC_1)
+	#if (USE_HW_IIC ==IIC_0)
 		#define OLED_ADDRESS	0x78 //通过调整0R电阻,屏可以0x78和0x7A两个地址 -- 默认0x78
 		/*STM32F103C8T6芯片的硬件I2C: PB6 -- SCL; PB7 -- SDA */
-		#define IIC_RCC_APB1Periph_I2CX   	RCC_APB1Periph_I2C1
-		#define IIC_RCC_APB2Periph_GPIOX  	RCC_APB2Periph_GPIOB
-		#define IIC_GPIOX               	GPIOB
-		#define IIC_SCL_Pin_X				GPIO_Pin_6
-		#define IIC_SDA_Pin_X        		GPIO_Pin_7
-		#define I2CX                  		I2C1
+		#define IIC_GPIOX               GPIO_PORT_P1
+		#define IIC_SCL_Pin				GPIO_PIN7
+		#define IIC_SDA_Pin       		GPIO_PIN6
+		#define EUSCI_BX                EUSCI_B0_BASE
 	#elif (USE_HW_IIC ==IIC_2)
-		#define IIC_RCC_APB1Periph_I2CX   	RCC_APB1Periph_I2C2
-		#define IIC_RCC_APB2Periph_GPIOX  	RCC_APB2Periph_GPIOB
-		#define IIC_GPIOX                		GPIOB
-		#define IIC_SCL_Pin_X								GPIO_Pin_10
-		#define IIC_SDA_Pin_X       			 	GPIO_Pin_11
-		#define I2CX                  			I2C2
+
 	#endif
 	
 #elif (TRANSFER_METHOD ==SW_IIC)

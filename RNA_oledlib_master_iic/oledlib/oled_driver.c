@@ -5,22 +5,25 @@
 //I2C_Configuration，初始化硬件IIC引脚
 void I2C_Configuration(void)
 {
-	eUSCI_I2C_MasterConfig i2c_cfg;
+	GPIO_setAsPeripheralModuleFunctionInputPin(
+		IIC_GPIOX, IIC_SCL_Pin | IIC_SDA_Pin, GPIO_PRIMARY_MODULE_FUNCTION);
+	const eUSCI_I2C_MasterConfig i2cConfig =
+		{
+			EUSCI_B_I2C_CLOCKSOURCE_SMCLK,	   // SMCLK Clock Source
+			48000000,						   // SMCLK = 48MHz
+			EUSCI_B_I2C_SET_DATA_RATE_400KBPS, // Desired I2C Clock of 400khz
+			0,								   // No byte counter threshold
+			EUSCI_B_I2C_NO_AUTO_STOP		   // No Autostop
+		};
+	I2C_initMaster(EUSCI_B0_BASE, &i2cConfig);
 
-	GPIO_setAsPeripheralModuleFunctionOutputPin(
-		GPIO_PORT_P1, GPIO_PIN6 | GPIO_PIN7, GPIO_PRIMARY_MODULE_FUNCTION);
-	i2c_cfg.selectClockSource = EUSCI_B_I2C_CLOCKSOURCE_SMCLK;
-	i2c_cfg.i2cClk = 48000000;
-	i2c_cfg.dataRate = EUSCI_B_I2C_SET_DATA_RATE_400KBPS;
-	i2c_cfg.byteCounterThreshold = 0;
-	i2c_cfg.autoSTOPGeneration = EUSCI_B_I2C_NO_AUTO_STOP;
-	I2C_initMaster(EUSCI_B0_BASE, &i2c_cfg);
 	I2C_setSlaveAddress(EUSCI_B0_BASE, OLED_ADDRESS);
+	I2C_setMode(EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_MODE);
 	I2C_enableModule(EUSCI_B0_BASE);
 
-	WaitTimeMs(200);
+	delay_ms(200);
 }
-#define moduleInstance EUSCI_B0_BASE
+
 /**
   * @brief  I2C_WriteByte，向OLED寄存器地址写一个byte的数据
   * @param  addr：寄存器地址
@@ -29,31 +32,34 @@ void I2C_Configuration(void)
   */
 void I2C_WriteByte(uint8_t addr, uint8_t data)
 {
-	while (I2C_isBusBusy(moduleInstance))
-		;
-
-	// while (!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_MODE_SELECT))
-	// 	; /*EV5,主模式*/
-
-	// I2C_Send7bitAddress(I2CX, OLED_ADDRESS, I2C_Direction_Transmitter); //器件地址 -- 默认0x78
-	// while (!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
-	// 	;
-
-	I2C_masterSendMultiByteStart(moduleInstance, addr);
-	while (I2C_isBusBusy(moduleInstance))
-		;
-	I2C_masterSendMultiByteFinish(moduleInstance, data);
-	//I2C_SendData(I2CX, addr); //寄存器地址
-	// while (!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
-	// 	;
-
-	// I2C_SendData(I2CX, data); //发送数据
-	// while (!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
-	// 	;
-
-	// I2C_GenerateSTOP(I2CX, ENABLE); //关闭I2C1总线
+	I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x78);
+	I2C_masterSendMultiByteNext(EUSCI_B0_BASE, addr);
+	I2C_masterSendMultiByteFinish(EUSCI_B0_BASE, data);
 }
-
+void i2c_master_tx(uint32_t moduleInstance, const uint8_t *data, uint32_t len)
+{
+	if (len == 0)
+		return;
+	if (len == 1)
+	{
+		I2C_masterSendSingleByte(moduleInstance, data[0]);
+	}
+	else if (len == 2)
+	{
+		I2C_masterSendMultiByteStart(moduleInstance, data[0]);
+		I2C_masterSendMultiByteFinish(moduleInstance, data[1]);
+	}
+	else
+	{
+		//1次Start -> n-2次Next -> 1次Finish
+		I2C_masterSendMultiByteStart(moduleInstance, data[0]);
+		for (int i = 1; i < len - 1; i++)
+		{
+			I2C_masterSendMultiByteNext(moduleInstance, data[i]);
+		}
+		I2C_masterSendMultiByteFinish(moduleInstance, data[len - 1]);
+	}
+}
 void WriteCmd(unsigned char cmd) //写命令
 {
 	I2C_WriteByte(0x00, cmd);
@@ -66,37 +72,13 @@ void WriteDat(unsigned char dat) //写数据
 
 void OLED_FILL(unsigned char BMP[])
 {
-	unsigned int n;
 	unsigned char *p;
 	p = BMP;
 	WriteCmd(0xb0); //page0-page1
 	WriteCmd(0x00); //low column start address
 	WriteCmd(0x10); //high column start address
-	while (I2C_isBusBusy(moduleInstance))
-		;
 
-	// I2C_GenerateSTART(I2C1, ENABLE); //开启I2C1
-	// while (!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_MODE_SELECT))
-	// 	;																/*EV5,主模式*/
-	// I2C_Send7bitAddress(I2CX, OLED_ADDRESS, I2C_Direction_Transmitter); //器件地址 -- 默认0x78
-	// while (!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
-	// 	;
-	I2C_masterSendMultiByteStart(moduleInstance, 0x40); //寄存器地址
-	// while (!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
-	// 	;
-	while (I2C_isBusBusy(moduleInstance))
-		;
-	for (n = 0; n < 128 * 8 - 1; n++)
-	{
-		I2C_masterSendMultiByteStart(moduleInstance, *p++); //发送数据
-		while (I2C_isBusBusy(moduleInstance))
-			;
-		// while (!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
-		// 	;
-	}
-	I2C_masterSendMultiByteFinish(moduleInstance, *p++); //发送数据
-
-	//I2C_GenerateSTOP(I2CX, ENABLE); //关闭I2C1总线
+	i2c_master_tx(EUSCI_B0_BASE, p, 128 * 8);
 }
 
 #elif (TRANSFER_METHOD == SW_IIC)
@@ -171,15 +153,6 @@ void I2C_WriteByte(uint8_t addr, uint8_t data)
 	I2C_WaitAck();
 	Send_Byte(data);
 	I2C_WaitAck();
-	I2C_Stop();
-	I2C_Start();
-	Send_Byte(0x78);
-	I2C_WaitAck();
-	Send_Byte(0x40);
-	I2C_WaitAck();
-	Send_Byte(data);
-	I2C_WaitAck();
-	I2C_Stop();
 }
 
 void WriteCmd(unsigned char cmd) //写命令
@@ -208,29 +181,29 @@ void WriteDat(unsigned char dat) //写数据
 
 void OLED_FILL(unsigned char BMP[])
 {
-	// unsigned int j;
-	// unsigned char m, n;
-	// for (m = 0; m < 8; m++)
-	// {
-	// 	WriteCmd(0xb0 + m); //page0-page1
-	// 	WriteCmd(0x00);		//low column start address
-	// 	WriteCmd(0x10);		//high column start address
-	// 	for (n = 0; n < 128; n++)
-	// 	{
-	// 		WriteDat(BMP[j++]);
-	// 	}
-	// }
-	unsigned int n;
-	unsigned char *p;
-	p = BMP;
-	WriteCmd(0xb0); //page0-page1
-	WriteCmd(0x00); //low column start address
-	WriteCmd(0x10); //high column start address
-
-	for (n = 0; n < 128 * 8; n++)
+	unsigned int j;
+	unsigned char m, n;
+	for (m = 0; m < 8; m++)
 	{
-		WriteDat(*p++); //发送数据
+		WriteCmd(0xb0 + m); //page0-page1
+		WriteCmd(0x00);		//low column start address
+		WriteCmd(0x10);		//high column start address
+		for (n = 0; n < 128; n++)
+		{
+			WriteDat(BMP[j++]);
+		}
 	}
+	// unsigned int n;
+	// unsigned char *p;
+	// p = BMP;
+	// WriteCmd(0xb0); //page0-page1
+	// WriteCmd(0x00); //low column start address
+	// WriteCmd(0x10); //high column start address
+
+	// for (n = 0; n < 128 * 8; n++)
+	// {
+	// 	WriteDat(*p++); //发送数据
+	// }
 }
 #elif (TRANSFER_METHOD == HW_SPI)
 

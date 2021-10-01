@@ -13,7 +13,7 @@ void ShowSnow(void);
 void demo(void)
 {
 	int i, j;
-	//demoÑÝÊ¾
+	//demo????
 	ClearScreen();
 	DrawBitmap(0, 0, TempLogo, 128, 64);
 	UpdateScreen();
@@ -22,7 +22,7 @@ void demo(void)
 	delay_ms(400);
 	delay_ms(400);
 
-	//×ÖÌå²âÊÔ£¬Ö»ÓÐÓ¢ÎÄ
+	//��?????????????????
 	ClearScreen();
 	SetFontSize(1);
 	DrawString(0, 0, "test");
@@ -42,7 +42,7 @@ void demo(void)
 	delay_ms(400);
 	delay_ms(400);
 
-	//»®Ïß
+	//????
 	ClearScreen();
 	for (i = 0; i < 20; i++)
 	{
@@ -59,7 +59,7 @@ void demo(void)
 	delay_ms(400);
 	delay_ms(400);
 
-	//¾ØÐÎ
+	//????
 
 	for (j = 0; j < 2; j++)
 	{
@@ -86,7 +86,7 @@ void demo(void)
 	SetDrawColor(pix_white);
 	SetFillcolor(pix_white);
 
-	//Ô²½Ç¾ØÐÎ
+	//????????
 	for (j = 0; j < 2; j++)
 	{
 		if (j == 0)
@@ -112,7 +112,7 @@ void demo(void)
 	SetDrawColor(pix_white);
 	SetFillcolor(pix_white);
 
-	//ÍÖÔ²
+	//????
 	ClearScreen();
 	DrawEllipse(63, 31, 63, 31);
 	UpdateScreen();
@@ -133,7 +133,7 @@ void demo(void)
 	UpdateScreen();
 	delay_ms(400);
 	delay_ms(400);
-	//Ô²
+	//??
 	ClearScreen();
 	DrawCircle(63, 31, 30);
 	UpdateScreen();
@@ -145,7 +145,7 @@ void demo(void)
 	delay_ms(400);
 	delay_ms(400);
 
-	//Èý½ÇÐÎ
+	//??????
 	ClearScreen();
 	DrawTriangle(5, 10, 100, 30, 60, 50);
 	UpdateScreen();
@@ -156,7 +156,7 @@ void demo(void)
 	UpdateScreen();
 	delay_ms(400);
 	delay_ms(400);
-	//»æÖÆÍ¼ÐÎ
+	//????????
 	ClearScreen();
 	DrawBitmap(0, 0, BmpTest1, 16, 16);
 	UpdateScreen();
@@ -171,7 +171,7 @@ void demo(void)
 	delay_ms(400);
 	delay_ms(400);
 
-	//Ô²»¡
+	//????
 	ClearScreen();
 	for (i = 0; i < 369; i++)
 	{
@@ -192,7 +192,7 @@ void demo(void)
 		delay_ms(100);
 	}
 
-	//ÈÆµã
+	//????
 	for (i = 0; i < 720; i++)
 	{
 		TypeXY temp;
@@ -219,13 +219,13 @@ void demo(void)
 		ClearScreen();
 	}
 
-	//¶¯»­
+	//????
 	ShowStars();
 	ShowWatch();
 	ShowTest();
 	delay_ms(400);
 	delay_ms(400);
-	//½áÊø
+	//?��??
 	ClearScreen();
 	SetFontSize(2);
 	DrawString(8, 16, " Show End ");
@@ -241,7 +241,7 @@ void demo(void)
 		;
 }
 
-//ÐÇ¿Õ¶¯»­
+//????????
 void ShowStars(void)
 {
 	int i; //j;
@@ -273,7 +273,7 @@ void ShowStars(void)
 		if (FrameRateUpdateScreen(fps) == 1)
 		{
 			count++;
-			if (count >= fps * 10) //10ÃëÖÓ
+			if (count >= fps * 10) //10????
 				return;
 		}
 
