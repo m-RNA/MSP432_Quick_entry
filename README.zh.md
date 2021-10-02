@@ -15,7 +15,7 @@
 ★若不需要，则注意将历程RNA_xx文件夹与官方历程放与同一目录。但打开工程时，Libary下的msp432p4xx_driverlib.lib会提示找不到，这时我们移除它，再重新添加，比如我的路径在 :
 D:\ti\simplelink_msp432p4_sdk_3_40_01_02\source\ti\devices\msp432p4xx\driverlib\keil\msp432p4xx_driverlib.lib  
 找不到应该时文件类型没选对，选择 Toochain Library file（*.lib）或者 All files 就可以找到了。  
-其他文件如果出现类似情况也是同理，先移除，再添加。
+其他文件如果出现类似情况也是同理，先移除，再添加。  
 ★RNA_Emtpy是空工程，RNA写的库是独立的，使用时RNA_Emtpy需要与RNA_LIB同路径。这样做是为了RNA方便更新驱动。
 
 
