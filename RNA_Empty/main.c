@@ -1,5 +1,5 @@
 #include "sysinit.h"
-#include "uartinit.h"
+#include "usart.h"
 #include "delay.h"
 #include "led.h"
 #include "tim32.h"
@@ -7,7 +7,7 @@
 
 /****************************************************/
 // MSP432P401R
-// 配置Keil空工程 (RNA_xx与RNA_LIB放于同一目录)
+// 配置Keil空工程 (RNA_xx与RNA_LIB放于同一目录，已将ti固件库打包至工程)
 // Bilibili：m-RNA
 // E-mail:m-RNA@qq.com
 // 创建日期:2021/9/28
