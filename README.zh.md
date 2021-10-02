@@ -4,13 +4,18 @@
 参加电赛分秒必争，光速掌握快速移植代码的能力十分重要，为了让学过stm32的电赛人，快速迁移到MSP432平台，我趁着电赛延期，尝试制作这门速成课[[MSP432入门速成]](https://www.bilibili.com/video/BV1Rb4y1z7K "Bilibili: MSP432入门速成")，但由于我一人能力有限，难免会有疏漏，还请大家多多指正包涵，E-mail：m-RNA@qq.com。使用了MSP432P401R作为实验板。
 
 ## 注意
+### 开源协议
+
+本代码基于Apache-2.0开源，引用或者修改时表明作者及出处。尊重作者，尊重开源~
+
+### 编译报错
+
 ★以后不知官方的固件库还会不会改，编译报错请自行对比，这里UP所用的固件库版本v3_40_01_02。  
 ★若想与我版本一致，则可下载ti_driverlib，下载后ti_driverlib文件夹与RNA_xx文件夹同一目录。  
 ★若不需要，则注意将历程RNA_xx文件夹与官方历程放与同一目录。但打开工程时，Libary下的msp432p4xx_driverlib.lib会提示找不到，这时我们移除它，再重新添加，比如我的路径在 :
 D:\ti\simplelink_msp432p4_sdk_3_40_01_02\source\ti\devices\msp432p4xx\driverlib\keil\msp432p4xx_driverlib.lib  
 找不到应该时文件类型没选对，选择 Toochain Library file（*.lib）或者 All files 就可以找到了。  
 其他文件如果出现类似情况也是同理，先移除，再添加。
-
 ★RNA_Emtpy是空工程，RNA写的库是独立的，使用时RNA_Emtpy需要与RNA_LIB同路径。这样做是为了RNA方便更新驱动。
 
 
