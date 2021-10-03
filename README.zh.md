@@ -16,7 +16,7 @@
 D:\ti\simplelink_msp432p4_sdk_3_40_01_02\source\ti\devices\msp432p4xx\driverlib\keil\msp432p4xx_driverlib.lib  
 找不到应该时文件类型没选对，选择 Toochain Library file（*.lib）或者 All files 就可以找到了。  
 其他文件如果出现类似情况也是同理，先移除，再添加。  
-★RNA_Emtpy是空工程，RNA写的库是独立的，使用时RNA_Emtpy需要与RNA_LIB同路径。这样做是为了RNA方便更新驱动。
+★RNA_Emtpy是空工程，此工程完全独立，已将驱动打包至此工程。
 
 ## 视频章节
 ### 1 开发环境  

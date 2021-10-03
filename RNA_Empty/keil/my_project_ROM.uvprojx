@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>__MSP432P401R__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\RNA_LIB\hardware;..\..\RNA_LIB\package\MultiTimer;..\..\RNA_LIB\sys;..\msp432p4xx_lib;..\msp432p4xx_lib\CMSIS\Include</IncludePath>
+              <IncludePath>..\hardware;..\package\MultiTimer;..\sys;..\msp432p4xx_lib;..\msp432p4xx_lib\CMSIS\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
