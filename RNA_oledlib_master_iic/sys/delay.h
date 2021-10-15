@@ -1,21 +1,29 @@
-/*
- * delay.h
+/*******************************************
+//MSP432P401R
+//4 移植滴答延时
+//Bilibili：m-RNA
+//E-mail:m-RNA@qq.com
+//创建日期:2021/7/22
+*******************************************/
+
+/********      正点原子@ALIENTEK      ********
+ * 技术论坛:www.openedv.com
+ * 创建日期:2010/1/1
+ * 版本：V1.8
  *
- *  Created on: 2016年1月29日
- *      Author: Mike
- */
+ * 说明 ：
+ * 源码为正点原子@ALIENTEK 编写
+ * 本人RNA，只是移植到了MSP432平台
+ * 仅作为学习使用
+ * 在此也感谢正点原子
+ *********************************************/
 
-#ifndef SYS_DELAY_H_
-#define SYS_DELAY_H_
+#ifndef __DELAY_H
+#define __DELAY_H
+#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
-#include "stdint.h"
-#include "msp432p401r.h"
-#include "core_cm4.h"
-#include <ti/devices/msp432p4xx/driverlib/cs.h>
-
-//void delay_init(uint32_t SystemCoreClock);
 void delay_init(void);
-void delay_us(uint32_t nus);
 void delay_ms(uint16_t nms);
+void delay_us(uint32_t nus);
 
-#endif /* SYS_DELAY_H_ */
+#endif

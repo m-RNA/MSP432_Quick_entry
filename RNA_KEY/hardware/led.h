@@ -1,6 +1,3 @@
-#ifndef __LED_H
-#define __LED_H
-#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 /****************************************************/
 //MSP432P401R
 //LED驱动
@@ -9,13 +6,21 @@
 //创建日期:2021/8/10
 /****************************************************/
 
-/**
+/**************************
+  *
   * V1.1 2021/9/13 
-  * 添加其他颜色 把宏定义修改为函数
+  * 添加其他颜色 
+  * 并为了支持Multi_timer扩展包
+  * 将宏定义修改为函数
   *
   * V1.0 2021/8/10
   * 完成基本驱动 
-  */
+  *
+  ************************/
+
+#ifndef __LED_H
+#define __LED_H
+#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
 void LED_Init(void);
 

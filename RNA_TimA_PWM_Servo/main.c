@@ -1,9 +1,3 @@
-#include "sysinit.h"
-#include "uartinit.h"
-#include "delay.h"
-#include "timA.h"
-#include "led.h"
-
 /****************************************************/
 // MSP432P401R
 // 8-2 定时器A PWM模式 驱动舵机
@@ -11,6 +5,11 @@
 // E-mail:m-RNA@qq.com
 // 创建日期:2021/9/1
 /****************************************************/
+
+#include "sysinit.h"
+#include "usart.h"
+#include "delay.h"
+#include "timA.h"
 
 /*
  * 定时器PWM周期：
@@ -32,9 +31,8 @@ int main(void)
 
     SysInit();    //第3讲 时钟配置
     delay_init(); //第4讲 滴答延时
-
+	
     TimA1_PWM_Init(CCR0, CLKDIV); //第8讲 定时器A PWM
-
     while (1)
     {
         if (dir)

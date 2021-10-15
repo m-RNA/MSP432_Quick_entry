@@ -423,11 +423,6 @@
               <FileType>1</FileType>
               <FilePath>..\sys\sysinit.c</FilePath>
             </File>
-            <File>
-              <FileName>uartinit.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\sys\uartinit.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

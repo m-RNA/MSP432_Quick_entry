@@ -419,11 +419,6 @@
               <FilePath>..\sys\sysinit.c</FilePath>
             </File>
             <File>
-              <FileName>uartinit.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\sys\uartinit.c</FilePath>
-            </File>
-            <File>
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\RNA_TimA_Int\sys\delay.c</FilePath>
@@ -432,6 +427,11 @@
               <FileName>baudrate_calculate.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\sys\baudrate_calculate.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sys\usart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -442,11 +442,6 @@
               <FileName>timA.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\hardware\timA.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\hardware\led.c</FilePath>
             </File>
           </Files>
         </Group>

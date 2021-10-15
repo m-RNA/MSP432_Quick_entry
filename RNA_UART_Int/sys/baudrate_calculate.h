@@ -1,7 +1,3 @@
-#ifndef __RNA_BAUDRATE_CALCULATE_H
-#define __RNA_BAUDRATE_CALCULATE_H
-#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
-
 /****************************************************/
 // MSP432P401R
 // 串口波特率计算
@@ -15,7 +11,7 @@
  * http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSP430BaudRateConverter/index.html
  * 
  * ? 已知问题：
- * 调试时发现C语言的小数的大小与官方JS的不一样，
+ * 调试时发现某些情况下，C语言的小数的大小与JS的相差较大，
  * 导致了算出的UCSx(即secondModReg)不一样，
  * 这时如果出现不能准确传输时，请换一个波特率。
  *
@@ -24,6 +20,9 @@
  * 
  * *****************************   版本说明   ******************************
  * 
+ * ? v1.2 2021/8/29
+ * 注释掉了闪烁灯的代码
+ * 
  * ? v1.1  2021/8/27
  * 添加支持固件库v3_21_00_05 
  * 
@@ -31,6 +30,10 @@
  * 仅支持固件库v3_40_01_02
  * 
  * *******************************   结束    *******************************/
+ 
+ #ifndef __RNA_BAUDRATE_CALCULATE_H
+#define __RNA_BAUDRATE_CALCULATE_H
+#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
 //错误指示灯宏定义 方便移植使用
 //MSP432P401R 有两个红灯P1.0 P2.0
@@ -41,7 +44,6 @@
 //#define WARN_LED_INIT MAP_GPIO_setAsOutputPin
 //#define WARN_LED_ON MAP_GPIO_setOutputHighOnPin
 //#define WARN_LED_OFF MAP_GPIO_setOutputLowOnPin
-
 
 #ifdef EUSCI_A_UART_7_BIT_LEN
 void eusci_calcBaudDividers(eUSCI_UART_ConfigV1 *uart_config, uint32_t baudRate); //固件库v3_40_01_02

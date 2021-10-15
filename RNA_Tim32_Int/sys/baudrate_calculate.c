@@ -1,5 +1,3 @@
-#include "baudrate_calculate.h"
-
 /****************************************************/
 // MSP432P401R
 // 串口波特率计算
@@ -33,7 +31,9 @@
  *
  * *******************************   结束    *******************************/
 
-void uart_warning_led(void);
+#include "baudrate_calculate.h"
+
+//void uart_warning_led(void);
 
 /*
  *  ======== bitPosition ========

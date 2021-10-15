@@ -1,7 +1,3 @@
-#ifndef __ADC_H
-#define __ADC_H
-#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
-
 /****************************************************/
 //MSP432P401R
 //ADC采集
@@ -9,6 +5,10 @@
 //E-mail:m-RNA@qq.com
 //创建日期:2021/9/13
 /****************************************************/
+
+#ifndef __ADC_H
+#define __ADC_H
+#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
 #define ADC_TRIGGER_TA0_C1 ADC_TRIGGER_SOURCE1
 #define ADC_TRIGGER_TA0_C2 ADC_TRIGGER_SOURCE2

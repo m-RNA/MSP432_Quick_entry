@@ -1,8 +1,3 @@
-#include "sysinit.h"
-#include "delay.h"
-#include "oled.h"
-#include "bmp.h"
-
 /******************************************************************************
 //MSP432P401R
 //10 OLED显示（模拟IIC）
@@ -10,6 +5,11 @@
 //E-mail:m-RNA@qq.com
 //创建日期:2021/9/12
 *******************************************************************************/
+
+#include "sysinit.h"
+#include "delay.h"
+#include "oled.h"
+#include "bmp.h"
 
 /*********  声明  **********
  *

@@ -1,9 +1,3 @@
-#include "sysinit.h"
-#include "uartinit.h"
-#include "timA.h"
-#include "led.h"
-#include "key.h"
-
 /****************************************************/
 // MSP432P401R
 // 8-3 定时器捕获
@@ -29,6 +23,13 @@
  *
  **************   说明结束   **************/
 
+#include "sysinit.h"
+#include "usart.h"
+#include "usart.h"
+#include "timA.h"
+#include "led.h"
+#include "key.h"
+
 int main(void)
 {
     uint8_t key;
@@ -37,14 +38,11 @@ int main(void)
     SysInit();         //第3讲 时钟配置
     uart_init(115200); //第7讲 串口配置
     LED_Init();        //第2讲 GPIO输出
-    KEY_Init();        //第2讲 GPIO输入
-
-    TimA2_Cap_Init(); //第8讲 定时器A 捕获
+    KEY_Init(0);       //第2讲 GPIO输入
+    TimA2_Cap_Init();  //第8讲 定时器A 捕获
 
     printf("\r\n\r\nHello,MSP432!\r\n");
-
     MAP_Interrupt_enableMaster();
-
     while (1)
     {
         key = KEY_Scan(0);

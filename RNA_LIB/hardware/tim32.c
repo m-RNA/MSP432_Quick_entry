@@ -1,7 +1,3 @@
-#include "tim32.h"
-#include "usart.h"
-#include "multi_timer.h"
-
 /****************************************************/
 // MSP432P401R
 // 定时器32
@@ -9,6 +5,10 @@
 // E-mail:m-RNA@qq.com
 // 创建日期:2021/9/8
 /****************************************************/
+
+#include "tim32.h"
+#include "usart.h"
+#include "multi_timer.h"
 
 void Tim32_0_Int_Init(uint32_t aar, uint8_t psc)
 {
@@ -36,6 +36,7 @@ void T32_INT1_IRQHandler(void)
 
     /*结束填充用户代码*/
 }
+
 void Tim32_1_Int_Init(uint32_t aar, uint8_t psc)
 {
     MAP_Timer32_initModule(TIMER32_1_BASE, psc, TIMER32_32BIT, TIMER32_PERIODIC_MODE);

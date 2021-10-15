@@ -1,10 +1,3 @@
-#include "sysinit.h"
-#include "usart.h"
-#include "delay.h"
-#include "led.h"
-#include "tim32.h"
-#include "multi_timer.h"
-
 /****************************************************/
 // MSP432P401R
 // 配置Keil独立空工程 (已将ti固件库打包至工程)
@@ -12,6 +5,13 @@
 // E-mail:m-RNA@qq.com
 // 创建日期:2021/9/28
 /****************************************************/
+
+#include "sysinit.h"
+#include "usart.h"
+#include "delay.h"
+#include "led.h"
+#include "tim32.h"
+#include "multi_timer.h"
 
 int main(void)
 {
@@ -25,7 +25,7 @@ int main(void)
 
 	printf("Hello,World!\r\n");
 	printf("加油，电赛人！\r\n");
-
+	
 	MAP_Interrupt_enableMaster(); // 开启总中断
 
 	while (1)

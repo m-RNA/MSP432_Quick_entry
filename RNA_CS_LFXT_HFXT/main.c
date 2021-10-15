@@ -1,6 +1,3 @@
-#include "sysinit.h"
-#include "uartinit.h"
-
 /******************************************************************************
 //MSP432P401R
 //3-2 配置外部晶振
@@ -8,6 +5,9 @@
 //E-mail:m-RNA@qq.com
 //创建日期:2021/8/15
 *******************************************************************************/
+
+#include "sysinit.h"
+#include "usart.h"
 
 int main(void)
 {
@@ -30,7 +30,8 @@ int main(void)
 
 	CS_initClockSignal(CS_MCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1);
 	CS_initClockSignal(CS_SMCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1);
-	CS_initClockSignal(CS_HSMCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1);
+	//配置了SMCLK就不需要配置HSMCLK了 从时钟树可以看出它两的分频器时同一个
+	//CS_initClockSignal(CS_HSMCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1);
 
 	uart_init(115200); //第7讲 串口实验
 

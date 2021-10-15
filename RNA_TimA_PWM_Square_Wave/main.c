@@ -1,9 +1,3 @@
-#include "sysinit.h"
-#include "uartinit.h"
-#include "timA.h"
-#include "uartinit.h"
-#include "led.h"
-
 /****************************************************/
 // MSP432P401R
 // 8-1 定时器 PWM输出 50Hz 方波
@@ -11,6 +5,10 @@
 // E-mail:m-RNA@qq.com
 // 创建日期:2021/9/3
 /****************************************************/
+
+#include "sysinit.h"
+#include "usart.h"
+#include "timA.h"
 
 /*
  * 定时器PWM周期：

@@ -429,9 +429,9 @@
               <FilePath>..\sys\sysinit.c</FilePath>
             </File>
             <File>
-              <FileName>uartinit.c</FileName>
+              <FileName>usart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\sys\uartinit.c</FilePath>
+              <FilePath>..\sys\usart.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,6 +1,4 @@
-#ifndef __KEY_H
-#define __KEY_H
-#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
+
 /**************************************************************************************/
 /*************                   正点原子@ALIENTEK                **********************/
 //技术论坛:www.openedv.com
@@ -21,6 +19,10 @@
 //E-mail:m-RNA@qq.com
 //创建日期:2021/8/12
 *******************************************************************************/
+
+#ifndef __KEY_H
+#define __KEY_H
+#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
 #define KEY1 GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN1) //读取按键1
 #define KEY2 GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN4) //读取按键2

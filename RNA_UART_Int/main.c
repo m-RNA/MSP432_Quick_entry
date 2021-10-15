@@ -1,7 +1,24 @@
-/* DriverLib Includes */
-#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
+/******************************************************************************
+// MSP432P401R
+// 7 串口配置
+// Bilibili：m-RNA
+// E-mail:m-RNA@qq.com
+// 创建日期:2021/8/25
+*******************************************************************************/
+
+/*
+ * 2021/10/15 更新
+ * 
+ * 此版本支持 标准C库
+ * 终于可以不使用微库啦
+ *
+ * 使用标准C库时，将无法使用scanf；
+ * 如果需要使用scanf时，请使用微库 MicroLIB。
+ * 
+ */
 
 #include "sysinit.h"
+#include "usart.h"
 #include "baudrate_calculate.h"
 
 int main(void)
@@ -73,7 +90,6 @@ int main(void)
 //8.编写UART ISR
 void EUSCIA0_IRQHandler(void)
 {
-	
     uint32_t status = UART_getEnabledInterruptStatus(EUSCI_A0_BASE);
 
     if(status & EUSCI_A_UART_RECEIVE_INTERRUPT_FLAG) //接收中断

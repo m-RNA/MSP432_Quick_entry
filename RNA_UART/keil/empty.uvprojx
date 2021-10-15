@@ -384,11 +384,6 @@
           <GroupName>Source</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\main.c</FilePath>
-            </File>
-            <File>
               <FileName>system_msp432p401r.c</FileName>
               <FileType>1</FileType>
               <FilePath>../system_msp432p401r.c</FilePath>
@@ -397,6 +392,11 @@
               <FileName>startup_msp432p401r_uvision.s</FileName>
               <FileType>2</FileType>
               <FilePath>startup_msp432p401r_uvision.s</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -411,26 +411,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Hardware</GroupName>
-          <Files>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\hardware\led.c</FilePath>
-            </File>
-            <File>
-              <FileName>key.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\hardware\key.c</FilePath>
-            </File>
-            <File>
-              <FileName>key4x4.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\hardware\key4x4.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>System</GroupName>
           <Files>
             <File>
@@ -439,14 +419,14 @@
               <FilePath>..\sys\sysinit.c</FilePath>
             </File>
             <File>
-              <FileName>uartinit.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\sys\uartinit.c</FilePath>
-            </File>
-            <File>
               <FileName>baudrate_calculate.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\sys\baudrate_calculate.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sys\usart.c</FilePath>
             </File>
           </Files>
         </Group>

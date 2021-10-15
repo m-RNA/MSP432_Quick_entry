@@ -1,28 +1,38 @@
+/****************************************************/
+//MSP432P401R
+//Ê±ÖÓÅäÖÃ
+//Bilibili£ºm-RNA
+//E-mail:m-RNA@qq.com
+//´´½¨ÈÕÆÚ:2021/8/11
+/****************************************************/
+
 #include "sysinit.h"
 
 //High:48MHz  Low:32768Hz
+//MCLK=48MHz  SMCLK=48MHz
 void SysInit(void)
 {
-    WDTCTL = WDTPW | WDTHOLD; // Stop watchdog timer
+    WDTCTL = WDTPW | WDTHOLD; // Í£ÓÃ¿´ÃÅ¹·
 
-    /* ç¬¬ä¸€æ­¥éœ€è¦é…ç½®æˆ‘ä»¬çš„æ—¶é’Ÿå¼•è„šï¼Œè¿™é‡Œçš„é«˜é€Ÿæ—¶é’Ÿä½¿ç”¨çš„æ˜¯ */
-    //ä½Žé€Ÿæ—¶é’Ÿåˆå§‹åŒ–æ¯”è¾ƒæ…¢
+    /* µÚÒ»²½ÐèÒªÅäÖÃÎÒÃÇµÄÊ±ÖÓÒý½Å£¬ÕâÀïµÄ¸ßËÙÊ±ÖÓÊ¹ÓÃµÄÊÇÍâ²¿¾§Õñ*/
+    //µÍËÙÊ±ÖÓ³õÊ¼»¯±È½ÏÂý
     MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_PJ, GPIO_PIN3 | GPIO_PIN2, GPIO_PRIMARY_MODULE_FUNCTION); //High
     MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_PJ, GPIO_PIN0 | GPIO_PIN1, GPIO_PRIMARY_MODULE_FUNCTION); //Low
-
     CS_setExternalClockSourceFrequency(32768, 48000000);
 
     /* Starting HFXT in non-bypass mode without a timeout. Before we start
      * we have to change VCORE to 1 to support the 48MHz frequency */
     MAP_PCM_setCoreVoltageLevel(PCM_VCORE1);
 
-    CS_startHFXT(false);          //è¿™æ˜¯æ™¶ä½“ éœ€è¦é©±åŠ¨
-    CS_startLFXT(CS_LFXT_DRIVE3); //é©±åŠ¨ç­‰çº§3
+    /* ¸ü¸ÄÉÁ´æ¿ØÖÆÆ÷Ê¹ÓÃµÄµÈ´ý×´Ì¬ÊýÓÃÓÚ¶ÁÈ¡²Ù×÷¡£
+    µ±¸Ä±äÊ±ÖÓµÄÆµÂÊ·¶Î§Ê±£¬±ØÐëÊ¹ÓÃ´Ëº¯ÊýÒÔÔÊÐí¿É¶ÁÉÁ´æ
+    Í¨Ë×À´½²¾ÍÊÇCPUÅÜÌ«¿ìÁË£¬Flash¸ú²»ÉÏ£¬ÈÃCPUµÈµÈËü */
+    MAP_FlashCtl_setWaitState(FLASH_BANK0, 1);
+    MAP_FlashCtl_setWaitState(FLASH_BANK1, 1);
 
-    MAP_CS_initClockSignal(CS_MCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_4);  //12MHz   16åˆ†é¢‘æ˜¯ç»™å»¶æ—¶é•¿ç‚¹çš„
+    CS_startHFXT(false);          //ÕâÊÇ¾§Ìå ÐèÒªÇý¶¯
+    CS_startLFXT(CS_LFXT_DRIVE3); //Çý¶¯µÈ¼¶3
+
+    MAP_CS_initClockSignal(CS_MCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1);  //48MHz   16·ÖÆµÊ±£¬µÎ´ðÑÓÊ±¿É´ïµ½×î³¤
     MAP_CS_initClockSignal(CS_SMCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1); //48MHz
-	    /*       æ›´æ”¹é—ªå­˜æŽ§åˆ¶å™¨ä½¿ç”¨çš„ç­‰å¾…çŠ¶æ€æ•°
-     ç”¨äºŽè¯»å–æ“ä½œã€‚å½“æ”¹å˜æ—¶é’Ÿçš„é¢‘çŽ‡èŒƒå›´æ—¶ï¼Œå¿…é¡»ä½¿ç”¨æ­¤å‡½æ•°ä»¥å…è®¸å¯è¯»é—ªå­˜  */
-    MAP_FlashCtl_setWaitState(FLASH_BANK0, 2); //å•¥çš„flash è¿˜æ²¡å­¦
-    MAP_FlashCtl_setWaitState(FLASH_BANK1, 2); //å•¥çš„flash è¿˜æ²¡å­¦
 }

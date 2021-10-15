@@ -1,9 +1,3 @@
-#include "sysinit.h"
-#include "uartinit.h"
-#include "led.h"
-#include "tim32.h"
-#include "multi_timer.h"
-
 /****************************************************/
 // MSP432P401R
 // 9* 定时器32 软件无限扩展定时器（master）
@@ -12,6 +6,12 @@
 // E-mail:m-RNA@qq.com
 // 创建日期:2021/9/13
 /****************************************************/
+
+#include "sysinit.h"
+#include "usart.h"
+#include "led.h"
+#include "tim32.h"
+#include "multi_timer.h"
 
 /*
  * 定时器中断周期：

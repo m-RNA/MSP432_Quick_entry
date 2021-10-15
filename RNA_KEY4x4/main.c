@@ -1,7 +1,3 @@
-#include "sysinit.h"
-#include "uartinit.h"
-#include "key4x4.h"
-
 /******************************************************************************
 //MSP432P401R
 //2-2-3 GPIO输入 外接矩阵键盘
@@ -9,6 +5,10 @@
 //E-mail:m-RNA@qq.com
 //创建日期:2021/8/11
 *******************************************************************************/
+
+#include "sysinit.h"
+#include "uartinit.h"
+#include "key4x4.h"
 
 int main(void)
 {

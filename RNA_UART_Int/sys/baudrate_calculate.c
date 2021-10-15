@@ -1,5 +1,3 @@
-#include "baudrate_calculate.h"
-
 /****************************************************/
 // MSP432P401R
 // 串口波特率计算
@@ -22,6 +20,9 @@
  *
  * *****************************   版本说明   ******************************
  *
+ * ? v1.2 2021/8/29
+ * 注释掉了闪烁灯的代码
+ * 
  * ? v1.1  2021/8/27
  * 添加支持固件库v3_21_00_05
  *
@@ -30,7 +31,9 @@
  *
  * *******************************   结束    *******************************/
 
-void uart_warning_led(void);
+#include "baudrate_calculate.h"
+
+//void uart_warning_led(void);
 
 /*
  *  ======== bitPosition ========
@@ -71,13 +74,13 @@ void eusci_calcBaudDividers(eUSCI_UART_Config *uart_config, uint32_t baudRate) /
     uint16_t NN;
     uint32_t count;
     uint32_t clockRate;
-	
-	if (!uart_config || !baudRate)//传参错误 退出函数
+
+    if (!uart_config || !baudRate) //传参错误 退出函数
     {
         //uart_warning_led(); //闪烁错误指示灯10次
-		return;
+        return;
     }
-	
+
     if (uart_config->selectClockSource == EUSCI_A_UART_CLOCKSOURCE_SMCLK)
         clockRate = MAP_CS_getSMCLK();
     else if (uart_config->selectClockSource == EUSCI_A_UART_CLOCKSOURCE_ACLK)
@@ -90,7 +93,7 @@ void eusci_calcBaudDividers(eUSCI_UART_Config *uart_config, uint32_t baudRate) /
     if (baudRate > clockRate) //判断波特率是否大于时钟频率 是则退出函数
     {
         //uart_warning_led(); //闪烁错误指示灯10次
-		return;
+        return;
     }
     //var result = {UCOS16 : 0, UCBRx : 0, UCFx : 0, UCSx : 0, maxAbsError : 0};
 

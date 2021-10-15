@@ -418,16 +418,6 @@
               <FileType>1</FileType>
               <FilePath>..\hardware\led.c</FilePath>
             </File>
-            <File>
-              <FileName>key.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\hardware\key.c</FilePath>
-            </File>
-            <File>
-              <FileName>key4x4.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\hardware\key4x4.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

@@ -1,6 +1,3 @@
-#ifndef __KEY_H
-#define __KEY_H
-#include "sysinit.h"
 /****************************************************/
 //MSP432P401R
 //板载按键驱动
@@ -8,6 +5,10 @@
 //E-mail:m-RNA@qq.com
 //创建日期:2021/8/11
 /****************************************************/
+
+#ifndef __KEY_H
+#define __KEY_H
+#include "sysinit.h"
 
 #define KEY1 MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN1) //读取按键1
 #define KEY2 MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN4) //读取按键2

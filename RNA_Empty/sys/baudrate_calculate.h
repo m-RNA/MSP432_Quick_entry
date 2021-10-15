@@ -1,7 +1,3 @@
-#ifndef __RNA_BAUDRATE_CALCULATE_H
-#define __RNA_BAUDRATE_CALCULATE_H
-#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
-
 /****************************************************/
 // MSP432P401R
 // 串口波特率计算
@@ -34,6 +30,10 @@
  * 仅支持固件库v3_40_01_02
  * 
  * *******************************   结束    *******************************/
+ 
+ #ifndef __RNA_BAUDRATE_CALCULATE_H
+#define __RNA_BAUDRATE_CALCULATE_H
+#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
 //错误指示灯宏定义 方便移植使用
 //MSP432P401R 有两个红灯P1.0 P2.0
