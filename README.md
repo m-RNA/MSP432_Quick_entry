@@ -10,7 +10,7 @@
 
 2. 本代码基于Apache-2.0开源，开源您的代码时，有引用或者修改本代码的地方，请标明作者请出处。尊重作者，尊重开源~
 
-3. 仓库地址：[[🔗GitHub链接]]( https://github.com/m-RNA/MSP432_Quick_entry	"GitHub链接")   [[🔗Gitee链接"]](https://gitee.com/chenjjian/MSP432_Quick_entry	"Gitee链接")
+3. 仓库地址：[[🔗GitHub链接]]( https://github.com/m-RNA/MSP432_Quick_entry	"GitHub链接")   [[🔗Gitee链接]](https://gitee.com/chenjjian/MSP432_Quick_entry	"Gitee链接")
 
    
 
