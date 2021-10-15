@@ -1,9 +1,3 @@
-#include "sysinit.h"
-#include "uartinit.h"
-#include "led.h"
-#include "tim32.h"
-#include "MultiTimer.h"
-
 /****************************************************/
 // MSP432P401R
 // 9* 定时器32 软件扩展定时器（跟随开发更新）
@@ -12,6 +6,12 @@
 // E-mail:m-RNA@qq.com
 // 创建日期:2021/9/13
 /****************************************************/
+
+#include "sysinit.h"
+#include "usart.h"
+#include "led.h"
+#include "tim32.h"
+#include "MultiTimer.h"
 
 MultiTimer timer1;
 MultiTimer timer2;
