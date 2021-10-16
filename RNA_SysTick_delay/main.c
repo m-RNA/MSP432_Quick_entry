@@ -19,6 +19,6 @@ int main(void)
   while (1)
   {
     LED_RED_Tog();
-    delay_ms(250);
+    delay_ms(100);
   }
 }
