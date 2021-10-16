@@ -33,7 +33,7 @@
  
  #ifndef __RNA_BAUDRATE_CALCULATE_H
 #define __RNA_BAUDRATE_CALCULATE_H
-#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
+#include <driverlib.h>
 
 //错误指示灯宏定义 方便移植使用
 //MSP432P401R 有两个红灯P1.0 P2.0

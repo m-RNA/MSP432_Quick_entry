@@ -6,11 +6,6 @@
 //创建日期:2021/9/12
 *******************************************************************************/
 
-#include "sysinit.h"
-#include "delay.h"
-#include "oled.h"
-#include "bmp.h"
-
 /*********  声明  **********
  *
  * 0.96寸OLED
@@ -24,6 +19,11 @@
  * 可以去头文件更改引脚
 ****************************/
 
+#include "sysinit.h"
+#include "delay.h"
+#include "oled.h"
+#include "bmp.h"
+
 int main(void)
 {
     char t;
@@ -36,7 +36,7 @@ int main(void)
     {
         //显示图片
         OLED_DrawBMP(0, 0, 128, 64, BMP1);
-        delay_ms(500);
+        delay_ms(300);
         OLED_Clear(); //清屏
 
         //显示汉字
@@ -61,7 +61,7 @@ int main(void)
 			OLED_ShowNum(103, 6, t, 3, 16); //显示ASCII字符的码值
 		}
 		
-        delay_ms(500);
+        delay_ms(300);
         OLED_Clear(); //清屏
     }
 }

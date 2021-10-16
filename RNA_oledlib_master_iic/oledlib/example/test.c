@@ -17,30 +17,30 @@ void demo(void)
 	ClearScreen();
 	DrawBitmap(0, 0, TempLogo, 128, 64);
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
+	delay_ms(300);
+	delay_ms(300);
 
 	//б┴?????????????????
 	ClearScreen();
 	SetFontSize(1);
 	DrawString(0, 0, "test");
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 
 	SetFontSize(2);
 	DrawString(0, 8, "test");
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 
 	SetFontSize(3);
 	DrawString(0, 24, "test");
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 
 	//????
 	ClearScreen();
@@ -56,8 +56,8 @@ void demo(void)
 		UpdateScreen();
 		delay_ms(100);
 	}
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 
 	//????
 
@@ -116,60 +116,60 @@ void demo(void)
 	ClearScreen();
 	DrawEllipse(63, 31, 63, 31);
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 	ClearScreen();
 	DrawEllipse(63, 31, 16, 31);
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 	ClearScreen();
 	DrawFillEllipse(63, 31, 63, 31);
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 	ClearScreen();
 	DrawFillEllipse(63, 31, 16, 31);
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 	//??
 	ClearScreen();
 	DrawCircle(63, 31, 30);
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 	ClearScreen();
 	DrawFillCircle(63, 31, 30);
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 
 	//??????
 	ClearScreen();
 	DrawTriangle(5, 10, 100, 30, 60, 50);
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 	ClearScreen();
 	DrawFillTriangle(5, 10, 100, 30, 60, 50);
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 	//????????
 	ClearScreen();
 	DrawBitmap(0, 0, BmpTest1, 16, 16);
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 	DrawBitmap(16, 0, BmpTest2, 32, 32);
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 	DrawBitmap(48, 0, BmpTest3, 64, 64);
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 
 	//????
 	ClearScreen();
@@ -223,17 +223,17 @@ void demo(void)
 	ShowStars();
 	ShowWatch();
 	ShowTest();
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
 	//?ив??
 	ClearScreen();
 	SetFontSize(2);
 	DrawString(8, 16, " Show End ");
 	UpdateScreen();
-	delay_ms(400);
-	delay_ms(400);
-	delay_ms(400);
-	delay_ms(400);
+	delay_ms(300);
+	delay_ms(300);
+	delay_ms(300);
+	delay_ms(300);
 	ClearScreen();
 	DrawBitmap(0, 10, DZTBGZ, 128, 40);
 	UpdateScreen();
