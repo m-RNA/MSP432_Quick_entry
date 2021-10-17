@@ -25,10 +25,10 @@
 
 #include "sysinit.h"
 #include "usart.h"
-#include "usart.h"
 #include "timA.h"
 #include "led.h"
 #include "key.h"
+#include "delay.h"
 
 int main(void)
 {
@@ -39,6 +39,7 @@ int main(void)
     uart_init(115200); //第7讲 串口配置
     LED_Init();        //第2讲 GPIO输出
     KEY_Init(0);       //第2讲 GPIO输入
+    delay_init();      //第4讲 滴答延时
     TimA2_Cap_Init();  //第8讲 定时器A 捕获
 
     printf("\r\n\r\nHello,MSP432!\r\n");
