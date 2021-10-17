@@ -1,7 +1,7 @@
 # MSP432入门速成 电赛代码储备 Ti杯 Keil
 ## 介绍
 2021/8/27  [@BILIBILI：m-RNA](https://space.bilibili.com/41224928  "@BILIBILI：m-RNA 个人主页")    
-参加电赛分秒必争，光速掌握快速移植代码的能力十分重要，为了让学过stm32的电赛人，快速迁移到MSP432平台，我趁着电赛延期，尝试制作这门速成课[[🔗MSP432入门速成]](https://www.bilibili.com/video/BV1Rb4y1z7K "Bilibili: MSP432入门速成")，PPT、脑图和安装包在百度网盘[[🔗点击链接]](https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA) 提取码:6666。但由于我一人能力有限，难免会有疏漏，还请大家多多指正包涵，E-mail：m-RNA@qq.com。使用了MSP432P401R作为实验板。
+参加电赛分秒必争，光速掌握快速移植代码的能力十分重要，为了让学过stm32的电赛人，快速迁移到MSP432平台，我趁着电赛延期，尝试制作这门速成课[[MSP432入门速成]](https://www.bilibili.com/video/BV1Rb4y1z7K "Bilibili: MSP432入门速成")，PPT、脑图和安装包在百度网盘(https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA) 提取码:6666。但由于我一人能力有限，难免会有疏漏，还请大家多多指正包涵，E-mail：m-RNA@qq.com。使用了MSP432P401R作为实验板。
 
 ## 注意
 ### 开源协议
@@ -10,8 +10,11 @@
 
 2. 本代码基于Apache-2.0开源，开源您的代码时，有引用或者修改本代码的地方，请标明作者请出处。尊重作者，尊重开源~
 
-3. 仓库地址：[[🔗GitHub链接]]( https://github.com/m-RNA/MSP432_Quick_entry	"GitHub链接")   [[🔗Gitee链接]](https://gitee.com/chenjjian/MSP432_Quick_entry	"Gitee链接")
+3. 仓库地址
 
+   - GitHub链接：https://github.com/m-RNA/MSP432_Quick_entry
+   - Gitee链接：https://gitee.com/chenjjian/MSP432_Quick_entry
+   
    
 
 ### 编译报错
@@ -30,7 +33,7 @@
 ## 视频章节
 ### 1 开发环境  
 ​        一般电赛人对Keil比较熟，故讲Keil的配置，还补充了VScode与Keil联动。当然也可以直接用CCS，如果会配置的话.  
-安装包在百度网盘[[🔗点击链接]](https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA) 提取码:6666
+安装包在百度网盘[[点击链接]](https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA) 提取码:6666
 
 ### 2 GPIO
 - 2-1 GPIO输出
@@ -87,14 +90,14 @@
   - [RNA_Tim32_Int]       定时器32中断
 ### 9.5 定时器扩展
 
-- 软件无限扩展定时器(移植) [[🔗项目地址]](https://github.com/0x1abin/MultiTimer  "@GitHub： MultiTimer")
-    - [RNA_Multi_Timer] 
-    - [RNA_Multi_Timer_Dev]  开发者版本
+- 软件无限扩展定时器(移植) [[项目地址]](https://github.com/0x1abin/MultiTimer  "@GitHub： MultiTimer")
+    - [RNA_Multi_Timer_SysTick]  移植最新版（基于滴答定时器，支持delay_ms）
+    - [RNA_Multi_Timer_Old]  原作者2020年视频使用版本
 
 ### 10 OLED (IIC)
 - OLED模拟IIC
   - [RNA_OLED_IIC_Test]       OLED显示测试
-  - [RNA_oledlib_master] OLED图像库（移植）[[🔗项目地址]](https://github.com/hello-myj/stm32_oled  "@GitHub： STM32 OLED图形库")
+  - [RNA_oledlib_master] OLED图像库（移植）[[项目地址]](https://github.com/hello-myj/stm32_oled  "@GitHub： STM32 OLED图形库")
   - [RNA_OLED_Multilevel_Menu]  多级菜单（待）
 
 ### 11 ADC数模转换
