@@ -40,8 +40,7 @@ void MultiTimerInit(void)
     MAP_SysTick_enableModule();
     MAP_SysTick_setPeriod(MAP_CS_getMCLK() / 1000);
     MAP_SysTick_enableInterrupt();
-	//delay_init();
-    //printf("%d",MultiTimerGetValue());
+	delay_init();
 }
 
 void SysTick_Handler(void)
@@ -138,18 +137,18 @@ static void delay_init(void)
 	delay_ms(0);
 }
 
-static uint32_t _DelayTimer_ms = 0;
+static uint32_t _delayTimer_ms = 0;
 void DelayTimer1Callback(MultiTimer *timer, void *userData)
 {
-    volatile uint32_t temp = _multi_timer_ticks + _DelayTimer_ms;
+    volatile uint32_t temp = _multi_timer_ticks + _delayTimer_ms;
     while (_multi_timer_ticks < temp)
         ;
 }
 
-MultiTimer DelayTimer;
+MultiTimer delayTimer;
 void delay_ms(uint32_t ms)
 {
-    _DelayTimer_ms = ms;
-    MultiTimerStart(&DelayTimer, 0, DelayTimer1Callback, NULL);
+    _delayTimer_ms = ms;
+    MultiTimerStart(&delayTimer, 0, DelayTimer1Callback, NULL);
     MultiTimerYield();
 }

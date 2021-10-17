@@ -92,8 +92,8 @@ extern "C"
   uint32_t MultiTimerGetValue(void);
 
   /**
-  * @brief  delay function.
-  * @param  delay time ms.
+  * @brief  Delay Function.
+  * @param  Delay ms.
   * @retval None.
   */
   void delay_ms(uint32_t ms);
