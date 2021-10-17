@@ -1,6 +1,6 @@
 /****************************************************/
 // MSP432P401R
-// 9* 定时器32 软件扩展定时器（跟随开发更新）
+// 9* 软件扩展定时器（跟随开发更新）
 // 项目地址：https://github.com/0x1abin/MultiTimer
 // Bilibili：m-RNA
 // E-mail:m-RNA@qq.com
@@ -18,6 +18,11 @@ MultiTimer timer2;
 MultiTimer timer3;
 MultiTimer timer4;
 MultiTimer timer5;
+
+void delay_init(void)
+{
+    return;
+}
 
 void exampleTimer1Callback(MultiTimer *timer, void *userData)
 {
@@ -38,8 +43,29 @@ void exampleTimer3Callback(MultiTimer *timer, void *userData)
 
 void exampleTimer4Callback(MultiTimer *timer, void *userData)
 {
-    LED_W_Tog();
+    LED_G_Tog();
     MultiTimerStart(&timer5, 500, exampleTimer4Callback, NULL);
+}
+
+void delay_ms_Demo_BreathLight_BaseOnMultiTime(void)
+{
+    static bool dir = 1;
+    static char temp = 0;
+    if (dir)
+        ++temp;
+    else
+        --temp;
+    if (temp == 14)
+        dir = 0;
+    else if (temp == 0)
+        dir = 1;
+    for (int i = 0; i < 14 - temp; ++i)
+    {
+        delay_ms(temp);
+        LED_RED_On();
+        delay_ms(14 - temp);
+        LED_RED_Off();
+    }
 }
 
 int main(void)
@@ -49,16 +75,19 @@ int main(void)
     LED_Init();        // 第2讲 GPIO输出
     MultiTimerInit();  // 第10讲 软件定时器
 
-    MultiTimerStart(&timer1, 1000, exampleTimer1Callback, "1000ms ONCE timer"); //单次中断
-    MultiTimerStart(&timer2, 5000, exampleTimer2Callback, "5000ms CYCLE timer");//循环中断
-    MultiTimerStart(&timer3, 3456, exampleTimer3Callback, "3456ms delay start, 4567ms CYCLE timer");
-    MultiTimerStart(&timer4, 0, exampleTimer4Callback, NULL); //立即中断
+    delay_ms_Demo_BreathLight_BaseOnMultiTime();
+
+    MultiTimerStart(&timer1, 1000, exampleTimer1Callback, "1000ms ONCE timer");                      //单次中断
+    MultiTimerStart(&timer2, 5000, exampleTimer2Callback, "5000ms CYCLE timer");                     //循环中断
+    MultiTimerStart(&timer3, 3456, exampleTimer3Callback, "3456ms delay start, 4567ms CYCLE timer"); //不同步中断
+    MultiTimerStart(&timer4, 0, exampleTimer4Callback, NULL);                                        //立即中断
 
     MAP_Interrupt_enableMaster(); // 开启总中断
     while (1)
     {
         MultiTimerYield();
-        LED_RED_Tog();
-        delay_ms(50);
+
+        /*先观察没有这条函数时，串口的的数值；之后在添加试试*/
+        //delay_ms_Demo_BreathLight_BaseOnMultiTime();
     }
 }

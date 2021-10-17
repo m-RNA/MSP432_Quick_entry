@@ -22,35 +22,36 @@
 
 #ifndef _MULTI_TIMER_H_
 #define _MULTI_TIMER_H_
+#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
-#include <stdint.h>
-
-#ifdef __cplusplus  
-extern "C" {  
+#ifdef __cplusplus
+extern "C"
+{
 #endif
 
-typedef uint32_t (*PlatformTicksFunction_t)(void);
+  typedef uint32_t (*PlatformTicksFunction_t)(void);
 
-typedef struct MultiTimerHandle MultiTimer;
+  typedef struct MultiTimerHandle MultiTimer;
 
-typedef void (*MultiTimerCallback_t)(MultiTimer* timer, void* userData);
+  typedef void (*MultiTimerCallback_t)(MultiTimer *timer, void *userData);
 
-struct MultiTimerHandle {
-    MultiTimer* next;
+  struct MultiTimerHandle
+  {
+    MultiTimer *next;
     uint32_t deadline;
     MultiTimerCallback_t callback;
-    void* userData;
-};
+    void *userData;
+  };
 
-/**
+  /**
  * @brief Platform ticks function.
  * 
  * @param ticksFunc ticks function.
  * @return NULL
  */
-void MultiTimerInit(void);
+  void MultiTimerInit(void);
 
-/**
+  /**
  * @brief Start the timer work, add the handle into work list.
  * 
  * @param timer target handle strcut.
@@ -59,32 +60,46 @@ void MultiTimerInit(void);
  * @param userData user data.
  * @return int 0: success, -1: fail.
  */
-int MultiTimerStart(MultiTimer* timer, uint32_t timing, MultiTimerCallback_t callback, void* userData);
+  int MultiTimerStart(MultiTimer *timer, uint32_t timing, MultiTimerCallback_t callback, void *userData);
 
-/**
+  /**
  * @brief Stop the timer work, remove the handle off work list.
  * 
  * @param timer target handle strcut.
  * @return int 0: success, -1: fail.
  */
-int MultiTimerStop(MultiTimer* timer);
+  int MultiTimerStop(MultiTimer *timer);
 
-/**
+  /**
   * @brief  background ticks, timer repeat invoking interval nms.
   * @param  None.
   * @retval None.
   */
-void MultiTimerTicks(void);
+  void MultiTimerTicks(void);
 
-/**
+  /**
  * @brief Check the timer expried and call callback.
  * 
  * @return int The next timer expires.
  */
-int MultiTimerYield(void);
+  int MultiTimerYield(void);
+
+  /**
+ * @brief Gets the current value of the MultiTimer counter.
+ * 
+ * @return Returns the current value of the MultiTimer counter
+ */
+  uint32_t MultiTimerGetValue(void);
+
+  /**
+  * @brief  delay function.
+  * @param  delay time ms.
+  * @retval None.
+  */
+  void delay_ms(uint32_t ms);
 
 #ifdef __cplusplus
-} 
+}
 #endif
 
 #endif

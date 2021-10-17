@@ -23,10 +23,10 @@
 //如果需要使用OS,则包括下面的头文件即可.
 #if SYSTEM_SUPPORT_OS
 #include "includes.h" //ucos 使用
-static uint16_t fac_ms = 0; //ms延时倍乘数,在ucos下,代表每个节拍的ms数
 #endif
-static uint8_t fac_us = 0;	//us延时倍乘数
 
+static uint8_t fac_us = 0;	//us延时倍乘数
+static uint16_t fac_ms = 0; //ms延时倍乘数,在ucos下,代表每个节拍的ms数
 
 #if SYSTEM_SUPPORT_OS //如果SYSTEM_SUPPORT_OS定义了,说明要支持OS了(不限于UCOS).
 //当delay_us/delay_ms需要支持OS的时候需要三个与OS相关的宏定义和函数来支持
@@ -119,6 +119,9 @@ void delay_init()
 	SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk; //开启SYSTICK中断
 	SysTick->LOAD = reload;					   //每1/delay_ostickspersec秒中断一次
 	SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;  //开启SYSTICK
+
+#else
+	fac_ms = (uint16_t)fac_us * 1000; //非OS下,代表每个ms需要的systick时钟数
 #endif
 	SysTick->CTRL |= SysTick_CTRL_CLKSOURCE_Msk; //内部时钟源
 }
@@ -168,11 +171,6 @@ void delay_ms(uint16_t nms)
 #else //不用OS时
 //延时nus
 //nus为要延时的us数.
-//注意nus的范围
-//SysTick->LOAD为24位寄存器,所以,最大延时为:
-//nus<=0xffffff*1000000/SYSCLK
-//SYSCLK单位为Hz,nms单位为ms
-//对48M条件下,nus<=349525 (349ms)
 void delay_us(uint32_t nus)
 {
 	uint32_t temp;
@@ -187,7 +185,12 @@ void delay_us(uint32_t nus)
 	SysTick->VAL = 0X00;							//清空计数器
 }
 //延时nms
-void delay_ms(uint32_t nms)
+//注意nms的范围
+//SysTick->LOAD为24位寄存器,所以,最大延时为:
+//nms<=0xffffff*8*1000/SYSCLK
+//SYSCLK单位为Hz,nms单位为ms
+//对72M条件下,nms<=1864
+void delay_ms(uint16_t nms)
 {
 	while(nms)
 	{
