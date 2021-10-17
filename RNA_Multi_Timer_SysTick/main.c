@@ -19,11 +19,6 @@ MultiTimer timer3;
 MultiTimer timer4;
 MultiTimer timer5;
 
-void delay_init(void)
-{
-    return;
-}
-
 void exampleTimer1Callback(MultiTimer *timer, void *userData)
 {
     printf("[T:%010d] Timer:%p callback-> %s.\r\n", MultiTimerGetValue(), timer, (char *)userData);
@@ -74,8 +69,6 @@ int main(void)
     uart_init(115200); // 第7讲 串口配置
     LED_Init();        // 第2讲 GPIO输出
     MultiTimerInit();  // 第10讲 软件定时器
-
-    delay_ms_Demo_BreathLight_BaseOnMultiTime();
 
     MultiTimerStart(&timer1, 1000, exampleTimer1Callback, "1000ms ONCE timer");                      //单次中断
     MultiTimerStart(&timer2, 5000, exampleTimer2Callback, "5000ms CYCLE timer");                     //循环中断
