@@ -39,7 +39,7 @@ void exampleTimer3Callback(MultiTimer *timer, void *userData)
 void exampleTimer4Callback(MultiTimer *timer, void *userData)
 {
     LED_G_Tog();
-    MultiTimerStart(&timer5, 500, exampleTimer4Callback, NULL);
+    MultiTimerStart(&timer5, 1500, exampleTimer4Callback, NULL);
 }
 
 void delay_ms_Demo_BreathLight_BaseOnMultiTime(void)
@@ -54,7 +54,7 @@ void delay_ms_Demo_BreathLight_BaseOnMultiTime(void)
         dir = 0;
     else if (temp == 0)
         dir = 1;
-    for (int i = 0; i < 14 - temp; ++i)
+    for (int i = 0; i < 14 - temp; ++i) //加这个循环可以让呼吸等的现象更明显
     {
         delay_ms(temp);
         LED_RED_On();
@@ -79,8 +79,6 @@ int main(void)
     while (1)
     {
         MultiTimerYield();
-
-        /*先观察没有这条函数时，串口的的数值；之后在添加试试*/
-        //delay_ms_Demo_BreathLight_BaseOnMultiTime();
+        delay_ms_Demo_BreathLight_BaseOnMultiTime();
     }
 }

@@ -142,7 +142,7 @@ void DelayTimer1Callback(MultiTimer *timer, void *userData)
 {
     volatile uint32_t temp = _multi_timer_ticks + _delayTimer_ms;
     while (_multi_timer_ticks < temp)
-        ;
+        MultiTimerYield();
 }
 
 MultiTimer delayTimer;
