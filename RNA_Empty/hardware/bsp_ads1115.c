@@ -1,5 +1,5 @@
 #include "bsp_ads1115.h"
-#include "uartinit.h"
+#include "usart.h"
 
 /* ÔöÒæ */
 adsGain_t m_gain;

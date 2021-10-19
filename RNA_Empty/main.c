@@ -15,23 +15,19 @@
 
 int main(void)
 {
-	SysInit();		   // 第3讲 时钟配置
-	uart_init(115200); // 第7讲 串口配置
-	delay_init();	   // 第4讲 滴答延时
+    SysInit();         // 第3讲 时钟配置
+    uart_init(115200); // 第7讲 串口配置
+    delay_init();      // 第4讲 滴答延时
 
-	/*开始填充初始化代码*/
+    /*开始填充初始化代码*/
 
-	/*停止填充初始化代码*/
+    /*停止填充初始化代码*/
 
-	printf("Hello,World!\r\n");
-	printf("加油，电赛人！\r\n");
-	
-	MAP_Interrupt_enableMaster(); // 开启总中断
+    MAP_Interrupt_enableMaster(); // 开启总中断
+    while (1)
+    {
+        /*开始填充用户代码*/
 
-	while (1)
-	{
-		/*开始填充用户代码*/
-
-		/*停止填充用户代码*/
-	}
+        /*停止填充用户代码*/
+    }
 }
