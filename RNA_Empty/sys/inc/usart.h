@@ -7,7 +7,7 @@
 
 /******************   版本更新说明   *****************
  * 
- * 此版本CCS支持微库，Keil支持标准C库跟微库
+ * 此版本CCS支持printf，Keil支持标准C库跟微库
  * 用Keil开发终于可以不开微库啦
  * 
  * ? 需要注意：
@@ -50,6 +50,7 @@
 #ifndef __USART_H
 #define __USART_H
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
+
 #ifdef __TI_COMPILER_VERSION__
 //CCS平台
 #include "stdarg.h"
