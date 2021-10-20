@@ -21,66 +21,118 @@ void I2C_Configuration(void)
 	I2C_setMode(EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_MODE);
 	I2C_enableModule(EUSCI_B0_BASE);
 
-	delay_ms(200);
+	MAP_I2C_clearInterruptFlag(
+		EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
+	MAP_I2C_enableInterrupt(
+		EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
+	MAP_Interrupt_enableInterrupt(INT_EUSCIB0);
 }
 
-/**
-  * @brief  I2C_WriteByte，向OLED寄存器地址写一个byte的数据
-  * @param  addr：寄存器地址
-	*					data：要写入的数据
-  * @retval 无
-  */
-void I2C_WriteByte(uint8_t addr, uint8_t data)
-{
-	I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x78);
-	I2C_masterSendMultiByteNext(EUSCI_B0_BASE, addr);
-	I2C_masterSendMultiByteFinish(EUSCI_B0_BASE, data);
-}
-void i2c_master_tx(uint32_t moduleInstance, const uint8_t *data, uint32_t len)
-{
-	if (len == 0)
-		return;
-	if (len == 1)
-	{
-		I2C_masterSendSingleByte(moduleInstance, data[0]);
-	}
-	else if (len == 2)
-	{
-		I2C_masterSendMultiByteStart(moduleInstance, data[0]);
-		I2C_masterSendMultiByteFinish(moduleInstance, data[1]);
-	}
-	else
-	{
-		//1次Start -> n-2次Next -> 1次Finish
-		I2C_masterSendMultiByteStart(moduleInstance, data[0]);
-		for (int i = 1; i < len - 1; i++)
-		{
-			I2C_masterSendMultiByteNext(moduleInstance, data[i]);
-		}
-		I2C_masterSendMultiByteFinish(moduleInstance, data[len - 1]);
-	}
-}
+static uint32_t _OLED_IIC_sending = 0;	  // 剩余要发送的数据量
+static uint8_t *_OLED_IIC_sendingPtr = 0; // 数据指针
+
 void WriteCmd(unsigned char cmd) //写命令
 {
-	I2C_WriteByte(0x00, cmd);
+	while (_OLED_IIC_sending)
+		;
+
+	// 中断续发变量初始化
+	_OLED_IIC_sending = 2;
+	_OLED_IIC_sendingPtr[0] = 0x00;
+	_OLED_IIC_sendingPtr[1] = cmd;
+
+	// 启动多字节数据发送
+	MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, OLED_ADDRESS);
 }
 
 void WriteDat(unsigned char dat) //写数据
 {
-	I2C_WriteByte(0x40, dat);
+	while (_OLED_IIC_sending)
+		;
+
+	// 中断续发变量初始化
+	_OLED_IIC_sending = 2;
+	_OLED_IIC_sendingPtr[0] = 0x40;
+	_OLED_IIC_sendingPtr[1] = dat;
+	// 启动多字节数据发送
+	MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, OLED_ADDRESS);
 }
 
 void OLED_FILL(unsigned char BMP[])
 {
-	unsigned char *p;
-	p = BMP;
 	WriteCmd(0xb0); //page0-page1
 	WriteCmd(0x00); //low column start address
 	WriteCmd(0x10); //high column start address
 
-	i2c_master_tx(EUSCI_B0_BASE, p, 128 * 8);
+	_OLED_IIC_sending = 1025; //1 + 128 * 8
+	*_OLED_IIC_sendingPtr = 0x40;
+	++_OLED_IIC_sendingPtr;
+	*_OLED_IIC_sendingPtr = BMP;
+	--_OLED_IIC_sendingPtr;
+
+	// 启动多字节数据发送
+	MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, OLED_ADDRESS);
 }
 
+/**
+ * @brief   IIC中断处理函数
+ */
+void EUSCIB0_IRQHandler(void)
+{
+	// 中断状态
+	uint_fast16_t status;
+	status = MAP_I2C_getEnabledInterruptStatus(EUSCI_B0_BASE);
+
+	// 没接收到应答（ACK）信号
+	if (status & EUSCI_B_I2C_NAK_INTERRUPT)
+	{
+		// 清除中断
+		MAP_I2C_clearInterruptFlag(EUSCI_B0_BASE, EUSCI_B_I2C_NAK_INTERRUPT);
+
+		/* ---处理--- */
+	}
+
+	// 接收中断
+	if (status & EUSCI_B_I2C_RECEIVE_INTERRUPT0)
+	{
+		// 清除中断
+		MAP_I2C_clearInterruptFlag(EUSCI_B0_BASE, EUSCI_B_I2C_RECEIVE_INTERRUPT0);
+		// 失能中断
+		MAP_I2C_disableInterrupt(EUSCI_B0_BASE, EUSCI_B_I2C_RECEIVE_INTERRUPT0);
+	}
+
+	// 发送完成中断
+	if (status & EUSCI_B_I2C_TRANSMIT_INTERRUPT0)
+	{
+		// 清除中断
+		MAP_I2C_clearInterruptFlag(EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0);
+
+		/* ---发送完成中断处理--- */
+		if (_OLED_IIC_sending == 0) // 发完了
+		{
+			MAP_I2C_masterSendMultiByteStop(EUSCI_B0_BASE); // 发送IIC结束信号
+			_OLED_IIC_sendingPtr = 0;						// 指针处理
+		}
+		else if (_OLED_IIC_sending == 1) // 还有一个就发完了
+		{
+			MAP_I2C_masterSendMultiByteFinish(EUSCI_B0_BASE, *_OLED_IIC_sendingPtr); // 发送完下一个信号自动跟上结束信号
+			_OLED_IIC_sendingPtr = 0;												 // 指针处理
+			_OLED_IIC_sending = 0;
+		}
+		else // 还有很多数据待发
+		{
+			MAP_I2C_masterSendMultiByteNext(EUSCI_B0_BASE, *_OLED_IIC_sendingPtr); // 放一个数据到发送寄存器
+			_OLED_IIC_sendingPtr++;												   // 指针迭代
+			_OLED_IIC_sending--;												   // 计数器自减
+		}
+	}
+
+	// 发送结束中断
+	if (status & EUSCI_B_I2C_STOP_INTERRUPT)
+	{
+		MAP_I2C_clearInterruptFlag(EUSCI_B0_BASE, EUSCI_B_I2C_STOP_INTERRUPT);
+	}
+}
 #elif (TRANSFER_METHOD == SW_IIC)
 
 void I2C_SW_Configuration(void)
@@ -181,17 +233,26 @@ void WriteDat(unsigned char dat) //写数据
 
 void OLED_FILL(unsigned char BMP[])
 {
-	unsigned int j;
+	unsigned char* p = BMP;
 	unsigned char m, n;
 	for (m = 0; m < 8; m++)
 	{
 		WriteCmd(0xb0 + m); //page0-page1
 		WriteCmd(0x00);		//low column start address
 		WriteCmd(0x10);		//high column start address
+
+		I2C_Start();
+		Send_Byte(0x78);
+		I2C_WaitAck();
+		Send_Byte(0x40);
+		I2C_WaitAck();
+
 		for (n = 0; n < 128; n++)
 		{
-			WriteDat(BMP[j++]);
+			Send_Byte(*p++);
+			I2C_WaitAck();
 		}
+		I2C_Stop();
 	}
 	// unsigned int n;
 	// unsigned char *p;
