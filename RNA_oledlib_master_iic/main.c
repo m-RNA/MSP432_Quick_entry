@@ -30,13 +30,14 @@
 
 int main(void)
 {
-	SysInit();
+    SysInit();
     delay_init();
     InitGraph();
-	delay_ms(200);
-	ClearScreen(); //清屏
+    delay_ms(200);
+    ClearScreen(); //清屏
     while (1)
     {
         demo();
+        ZJY_Demo(); //OLED_TEST里的例子
     }
 }

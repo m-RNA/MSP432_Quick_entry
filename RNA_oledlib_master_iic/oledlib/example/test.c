@@ -13,36 +13,30 @@ void ShowSnow(void);
 void demo(void)
 {
 	int i, j;
-	//demo????
+	//demo??
 	ClearScreen();
 	DrawBitmap(0, 0, TempLogo, 128, 64);
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(2000);
 
-	//б┴?????????????????
+	//?????????
 	ClearScreen();
 	SetFontSize(1);
 	DrawString(0, 0, "test");
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 
 	SetFontSize(2);
 	DrawString(0, 8, "test");
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 
 	SetFontSize(3);
 	DrawString(0, 24, "test");
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 
-	//????
+	//??
 	ClearScreen();
 	for (i = 0; i < 20; i++)
 	{
@@ -50,16 +44,15 @@ void demo(void)
 		UpdateScreen();
 		delay_ms(100);
 	}
-	for (i = 0; i < 19; i++)
+	for (i = 0; i < 20; i++)
 	{
-		DrawLine(127, 0, 128 - i * 10, 63);
+		DrawLine(128, 0, 128 - i * 10, 63);
 		UpdateScreen();
 		delay_ms(100);
 	}
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 
-	//????
+	//??
 
 	for (j = 0; j < 2; j++)
 	{
@@ -86,7 +79,7 @@ void demo(void)
 	SetDrawColor(pix_white);
 	SetFillcolor(pix_white);
 
-	//????????
+	//????
 	for (j = 0; j < 2; j++)
 	{
 		if (j == 0)
@@ -112,66 +105,55 @@ void demo(void)
 	SetDrawColor(pix_white);
 	SetFillcolor(pix_white);
 
-	//????
+	//??
 	ClearScreen();
 	DrawEllipse(63, 31, 63, 31);
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 	ClearScreen();
 	DrawEllipse(63, 31, 16, 31);
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 	ClearScreen();
 	DrawFillEllipse(63, 31, 63, 31);
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 	ClearScreen();
 	DrawFillEllipse(63, 31, 16, 31);
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
-	//??
+	delay_ms(1000);
+	//?
 	ClearScreen();
 	DrawCircle(63, 31, 30);
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 	ClearScreen();
 	DrawFillCircle(63, 31, 30);
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 
-	//??????
+	//???
 	ClearScreen();
 	DrawTriangle(5, 10, 100, 30, 60, 50);
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 	ClearScreen();
 	DrawFillTriangle(5, 10, 100, 30, 60, 50);
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
-	//????????
+	delay_ms(1000);
+	//????
 	ClearScreen();
 	DrawBitmap(0, 0, BmpTest1, 16, 16);
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 	DrawBitmap(16, 0, BmpTest2, 32, 32);
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 	DrawBitmap(48, 0, BmpTest3, 64, 64);
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(1000);
 
-	//????
+	//??
 	ClearScreen();
 	for (i = 0; i < 369; i++)
 	{
@@ -192,7 +174,7 @@ void demo(void)
 		delay_ms(100);
 	}
 
-	//????
+	//??
 	for (i = 0; i < 720; i++)
 	{
 		TypeXY temp;
@@ -219,29 +201,24 @@ void demo(void)
 		ClearScreen();
 	}
 
-	//????
-	ShowStars();
+	//??
+	//ShowStars();
 	ShowWatch();
 	ShowTest();
-	delay_ms(300);
-	delay_ms(300);
-	//?ив??
+	delay_ms(1000);
+	//??
 	ClearScreen();
 	SetFontSize(2);
 	DrawString(8, 16, " Show End ");
 	UpdateScreen();
-	delay_ms(300);
-	delay_ms(300);
-	delay_ms(300);
-	delay_ms(300);
+	delay_ms(2000);
 	ClearScreen();
 	DrawBitmap(0, 10, DZTBGZ, 128, 40);
 	UpdateScreen();
-	while (1)
-		;
+	delay_ms(2000);
 }
 
-//????????
+//????
 void ShowStars(void)
 {
 	int i; //j;
@@ -273,7 +250,7 @@ void ShowStars(void)
 		if (FrameRateUpdateScreen(fps) == 1)
 		{
 			count++;
-			if (count >= fps * 10) //10????
+			if (count >= fps * 10) //10??
 				return;
 		}
 
@@ -408,5 +385,38 @@ void ShowSnow(void)
 		delay_ms(30);
 		UpdateScreen();
 		ClearScreen();
+	}
+}
+
+void ZJY_Demo(void)
+{
+	char t;
+	SetFontSize(1);
+	ClearScreen(); //??
+	while (1)
+	{
+		//????
+		DrawBitmap(0, 0, ZJYEX, 128, 64);
+		UpdateScreen();
+		delay_ms(1000);
+		ClearScreen(); //??
+
+		//?????
+		DrawString(8, 16, "ZHONGJINGYUAN");
+		DrawString(20, 32, "2014/05/01");
+		DrawString(0, 48, "ASCII:");
+		DrawString(63, 48, "CODE:");
+		UpdateScreen();
+
+		//???????
+		for (t = ' '; t < '~'; t++)
+		{
+			DrawChar(48, 48, t);	//??ASCII??
+			DrawNum(103, 48, t, 3); //??ASCII?????
+			UpdateScreen();
+		}
+
+		delay_ms(1000);
+		ClearScreen(); //??
 	}
 }
