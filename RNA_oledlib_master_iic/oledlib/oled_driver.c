@@ -9,11 +9,11 @@ void I2C_Configuration(void)
 		IIC_GPIOX, IIC_SCL_Pin | IIC_SDA_Pin, GPIO_PRIMARY_MODULE_FUNCTION);
 	const eUSCI_I2C_MasterConfig i2cConfig =
 		{
-			EUSCI_B_I2C_CLOCKSOURCE_SMCLK,	 // SMCLK Clock Source
-			48000000,						 // SMCLK = 48MHz
-			EUSCI_B_I2C_SET_DATA_RATE_1MBPS, // Desired I2C Clock of 1MHz
-			0,								 // No byte counter threshold
-			EUSCI_B_I2C_NO_AUTO_STOP		 // No Autostop
+			EUSCI_B_I2C_CLOCKSOURCE_SMCLK, // SMCLK Clock Source
+			48000000,					   // SMCLK = 48MHz
+			2000000,					   // Desired I2C Clock of 2MHz
+			0,							   // No byte counter threshold
+			EUSCI_B_I2C_NO_AUTO_STOP	   // No Autostop
 		};
 	MAP_I2C_initMaster(EUSCI_B0_BASE, &i2cConfig);
 	MAP_I2C_setSlaveAddress(EUSCI_B0_BASE, OLED_ADDRESS);

@@ -11,15 +11,15 @@
  * 0.96寸OLED
  * UP将OLED图形库驱动
  * 移植到了MSP432上来了
- * 支持模拟IIC、硬件IIC
- * 
  * 项目地址：https://github.com/hello-myj/stm32_oled
- *
+ 
+ * 支持模拟IIC、硬件IIC
  * 引脚接法:
  * P1.7 SCL
  * P1.6 SDA
  * 可以去头文件更改引脚
-****************************/
+ *
+ ****************************/
 
 #include "sysinit.h"
 #include "delay.h"

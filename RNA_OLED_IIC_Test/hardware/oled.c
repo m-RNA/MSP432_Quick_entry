@@ -1,5 +1,9 @@
 #include "oled.h"
 #include "oledfont.h"
+#include "delay.h"
+
+#define OLED_DATA 1
+#define OLED_CMD 0
 
 //OLED的显存
 //存放格式如下.
@@ -12,44 +16,50 @@
 //[6]0 1 2 3 ... 127
 //[7]0 1 2 3 ... 127
 
-void OLED_delay_ms(unsigned int ms)
+#if (TRANSFER_METHOD == HW_IIC)
+//I2C_Configuration，初始化硬件IIC引脚
+void I2C_Configuration(void)
 {
-  unsigned int a;
-  while (ms)
-  {
-    a = 10800; //8M 1800
-    while (a--)
-      ;
-    ms--;
-  }
-  return;
+  MAP_GPIO_setAsPeripheralModuleFunctionInputPin(
+      IIC_GPIOX, IIC_SCL_Pin | IIC_SDA_Pin, GPIO_PRIMARY_MODULE_FUNCTION);
+  const eUSCI_I2C_MasterConfig i2cConfig =
+      {
+          EUSCI_B_I2C_CLOCKSOURCE_SMCLK,   // SMCLK Clock Source
+          48000000,                        // SMCLK = 48MHz
+          EUSCI_B_I2C_SET_DATA_RATE_1MBPS, // Desired I2C Clock of 1MHz（实际可以更高，根据I2C协议可以3.4MHz，注意上拉电阻配置
+          0,                               // No byte counter threshold
+          EUSCI_B_I2C_NO_AUTO_STOP         // No Autostop
+      };
+  MAP_I2C_initMaster(EUSCI_B0_BASE, &i2cConfig);
+  MAP_I2C_setSlaveAddress(EUSCI_B0_BASE, OLED_ADDRESS);
+  MAP_I2C_setMode(EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_MODE);
+  MAP_I2C_enableModule(EUSCI_B0_BASE);
+
+  // MAP_I2C_clearInterruptFlag(
+  // 	EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
+  // MAP_I2C_enableInterrupt(
+  // 	EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
+  // MAP_Interrupt_enableInterrupt(INT_EUSCIB0);
 }
-//反显函数
-void OLED_ColorTurn(uint8_t i)
+//发送一个字节
+//向SSD1306写入一个字节。
+//mode:数据/命令标志 0,表示命令;1,表示数据;
+void OLED_WR_Byte(uint8_t dat, uint8_t mode)
 {
-  if (i == 0)
-  {
-    OLED_WR_Byte(0xA6, OLED_CMD); //正常显示
-  }
-  if (i == 1)
-  {
-    OLED_WR_Byte(0xA7, OLED_CMD); //反色显示
-  }
+  if (mode)
+    MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x40);
+  else
+    MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x00);
+  MAP_I2C_masterSendMultiByteFinish(EUSCI_B0_BASE, dat);
 }
 
-//屏幕旋转180度
-void OLED_DisplayTurn(uint8_t i)
+#elif (TRANSFER_METHOD == SW_IIC)
+
+void I2C_SW_Configuration()
 {
-  if (i == 0)
-  {
-    OLED_WR_Byte(0xC8, OLED_CMD); //正常显示
-    OLED_WR_Byte(0xA1, OLED_CMD);
-  }
-  if (i == 1)
-  {
-    OLED_WR_Byte(0xC0, OLED_CMD); //反转显示
-    OLED_WR_Byte(0xA0, OLED_CMD);
-  }
+  OLED_SSD1306_SCL_IO_INIT;
+  OLED_SSD1306_SDA_IO_INIT;
+  delay_ms(200);
 }
 
 //起始信号
@@ -120,6 +130,37 @@ void OLED_WR_Byte(uint8_t dat, uint8_t mode)
   Send_Byte(dat);
   I2C_WaitAck();
   I2C_Stop();
+}
+#elif (TRANSFER_METHOD == HW_SPI)
+//暂未支持
+#endif
+
+//反显函数
+void OLED_ColorTurn(uint8_t i)
+{
+  if (i == 0)
+  {
+    OLED_WR_Byte(0xA6, OLED_CMD); //正常显示
+  }
+  if (i == 1)
+  {
+    OLED_WR_Byte(0xA7, OLED_CMD); //反色显示
+  }
+}
+
+//屏幕旋转180度
+void OLED_DisplayTurn(uint8_t i)
+{
+  if (i == 0)
+  {
+    OLED_WR_Byte(0xC8, OLED_CMD); //正常显示
+    OLED_WR_Byte(0xA1, OLED_CMD);
+  }
+  if (i == 1)
+  {
+    OLED_WR_Byte(0xC0, OLED_CMD); //反转显示
+    OLED_WR_Byte(0xA0, OLED_CMD);
+  }
 }
 
 //坐标设置
@@ -270,13 +311,13 @@ void OLED_DrawBMP(uint8_t x, uint8_t y, uint8_t sizex, uint8_t sizey, uint8_t BM
 //初始化SSD1306
 void OLED_Init(void)
 {
-  OLED_SSD1306_SCL_IO_INIT;
-  OLED_SSD1306_SDA_IO_INIT;
-  //OLED_SSD1306_RES_IO_INIT;
-
-  //OLED_RES_Clr();
-  OLED_delay_ms(200);
-  //OLED_RES_Set();
+#if (TRANSFER_METHOD == HW_IIC)
+  I2C_Configuration();
+#elif (TRANSFER_METHOD == SW_IIC)
+  I2C_SW_Configuration();
+#elif (TRANSFER_METHOD == HW_SPI)
+  SPI_Configuration();
+#endif
 
   OLED_WR_Byte(0xAE, OLED_CMD); //--turn off oled panel
   OLED_WR_Byte(0x00, OLED_CMD); //---set low column address
