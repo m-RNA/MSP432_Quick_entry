@@ -1,10 +1,10 @@
 # MSP432入门速成 Keil/CCS 电赛代码储备 Ti杯 
 ## 介绍
 2021/8/27  [@BILIBILI：m-RNA](https://space.bilibili.com/41224928  "@BILIBILI：m-RNA 个人主页")    
-参加电赛分秒必争，光速掌握快速移植代码的能力十分重要，为了让学过stm32的电赛人，快速迁移到MSP432平台，我趁着电赛延期，尝试制作这门速成课[[MSP432入门速成]](https://www.bilibili.com/video/BV1Rb4y1z7K "Bilibili: MSP432入门速成")，PPT、脑图和安装包在百度网盘(https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA) 提取码:6666。但由于我一人能力有限，难免会有疏漏，还请大家多多指正包涵，E-mail：m-RNA@qq.com。使用了MSP432P401R作为实验板。
+参加电赛分秒必争，光速掌握快速移植代码的能力十分重要，为了让学过stm32的电赛人，快速迁移到MSP432平台，我趁着电赛延期，尝试制作这门速成课[[Bilibili：MSP432入门速成]](https://www.bilibili.com/video/BV1Rb4y1z7K "Bilibili: MSP432入门速成")，PPT、脑图和安装包在百度网盘 https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA 提取码:6666。但由于我一人能力有限，难免会有疏漏，还请大家多多指正包涵 E-mail：m-RNA@qq.com 使用了MSP432P401R作为实验板
 
 ## 注意
-### 开源协议
+### 开源
 
 1. 本项目完全免费，不要被骗money💴了呀朋友
 2. 本代码基于Apache-2.0开源，开源您的代码时，有引用或者修改本代码的地方，请标明作者请出处。尊重作者，尊重开源~
@@ -73,17 +73,17 @@
 
 ### 9 定时器32
 - 定时器32
-  - [RNA_Tim32_Int]       定时器32中断
+  - [RNA_Tim32_Int] 定时器32中断
 ### 9.5 定时器扩展
 
-- 软件无限扩展定时器(移植) [[项目地址]](https://github.com/0x1abin/MultiTimer  "@GitHub： MultiTimer")
+- 软件无限扩展定时器 [[移植：项目地址]](https://github.com/0x1abin/MultiTimer  "@GitHub： MultiTimer")
     - [RNA_Multi_Timer_SysTick]  移植最新版（基于滴答定时器，支持delay_ms）
     - [RNA_Multi_Timer_Old]  原作者2020年视频使用版本
 
 ### 10 OLED (IIC)
 - OLED模拟IIC
-  - [RNA_OLED_IIC_Test]       OLED显示测试
-  - [RNA_oledlib_master] OLED图像库 硬件I2C + 软件I2C（移植）[[项目地址]](https://github.com/hello-myj/stm32_oled  "@GitHub： STM32 OLED图形库")
+  - [RNA_OLED_IIC_Test] OLED显示测试 支持 硬件I2C/软件I2C
+  - [RNA_oledlib_master] OLED图像库 支持 硬件I2C/软件I2C [[移植：项目地址]](https://github.com/hello-myj/stm32_oled  "@GitHub： STM32 OLED图形库")
   - ？？[RNA_OLED_Multilevel_Menu]  多级菜单（待）
 
 ### 11 ADC
