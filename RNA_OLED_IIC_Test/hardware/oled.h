@@ -7,23 +7,27 @@
 #define HW_SPI 2
 #define SW_SPI 3
 
-#define IIC_1 0
-#define IIC_2 1
-#define IIC_3 2
-#define IIC_4 3
+#define IIC_1 10
+#define IIC_2 11
+#define IIC_3 12
+#define IIC_4 13
 
 /*****************************************************************/
 //配置驱动
-//1.HW_IIC    硬件IIC
-//2.SW_IIC    软件IIC
-//3.HW_SPI		硬件SPI
-//4.SW_SPI		软件IIC
+//1.HW_IIC  硬件IIC
+//2.SW_IIC  软件IIC
+//3.HW_SPI	硬件SPI
+//4.SW_SPI	软件IIC
 
-//现在只支持 硬件iic 和 软件iic
+//现在只支持 硬件IIC 和 软件IIC
 #define TRANSFER_METHOD HW_IIC
 
 /*****************************************************************/
+
 #if TRANSFER_METHOD == HW_IIC
+//IIC_0: P1.7 -- SCL; P1.6 -- SDA
+//IIC_1: P6.5 -- SCL; P6.4 -- SDA
+//IIC_2: P3.7 -- SCL; P3.6 -- SDA
 #define USE_HW_IIC IIC_0
 #elif (TRANSFER_METHOD == HW_SPI)
 //#define USE_HW_SPI SPI_2

@@ -75,8 +75,9 @@
 
 //驱动还未完善，现在使用的IIC1
 	#if (TRANSFER_METHOD==HW_IIC)
-			//IIC_1: PB6 -- SCL; PB7 -- SDA
-			//IIC_2: PB10-- SCL; PB11 --SDA
+			//IIC_0: P1.7 -- SCL; P1.6 -- SDA
+			//IIC_1: P6.5 -- SCL; P6.4 -- SDA
+			//IIC_2: P3.7 -- SCL; P3.6 -- SDA
 			#define USE_HW_IIC		IIC_0
 	#elif (TRANSFER_METHOD==SW_IIC)
 

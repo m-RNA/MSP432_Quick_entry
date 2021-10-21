@@ -1,6 +1,6 @@
 #ifndef __KEY4X4_H
 #define __KEY4X4_H
-#include "sysinit.h"
+#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 /****************************************************/
 //MSP432P401R
 //Íâ½Ó¾ØÕó¼üÅÌÇı¶¯
