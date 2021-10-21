@@ -5,73 +5,62 @@
 //I2C_Configuration，初始化硬件IIC引脚
 void I2C_Configuration(void)
 {
-	GPIO_setAsPeripheralModuleFunctionInputPin(
+	MAP_GPIO_setAsPeripheralModuleFunctionInputPin(
 		IIC_GPIOX, IIC_SCL_Pin | IIC_SDA_Pin, GPIO_PRIMARY_MODULE_FUNCTION);
 	const eUSCI_I2C_MasterConfig i2cConfig =
 		{
-			EUSCI_B_I2C_CLOCKSOURCE_SMCLK,	   // SMCLK Clock Source
-			48000000,						   // SMCLK = 48MHz
-			EUSCI_B_I2C_SET_DATA_RATE_400KBPS, // Desired I2C Clock of 400khz
-			0,								   // No byte counter threshold
-			EUSCI_B_I2C_NO_AUTO_STOP		   // No Autostop
+			EUSCI_B_I2C_CLOCKSOURCE_SMCLK,	 // SMCLK Clock Source
+			48000000,						 // SMCLK = 48MHz
+			EUSCI_B_I2C_SET_DATA_RATE_1MBPS, // Desired I2C Clock of 1MHz
+			0,								 // No byte counter threshold
+			EUSCI_B_I2C_NO_AUTO_STOP		 // No Autostop
 		};
-	I2C_initMaster(EUSCI_B0_BASE, &i2cConfig);
+	MAP_I2C_initMaster(EUSCI_B0_BASE, &i2cConfig);
+	MAP_I2C_setSlaveAddress(EUSCI_B0_BASE, OLED_ADDRESS);
+	MAP_I2C_setMode(EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_MODE);
+	MAP_I2C_enableModule(EUSCI_B0_BASE);
 
-	I2C_setSlaveAddress(EUSCI_B0_BASE, OLED_ADDRESS);
-	I2C_setMode(EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_MODE);
-	I2C_enableModule(EUSCI_B0_BASE);
-
-	MAP_I2C_clearInterruptFlag(
-		EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
-	MAP_I2C_enableInterrupt(
-		EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
-	MAP_Interrupt_enableInterrupt(INT_EUSCIB0);
+	// MAP_I2C_clearInterruptFlag(
+	// 	EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
+	// MAP_I2C_enableInterrupt(
+	// 	EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
+	// MAP_Interrupt_enableInterrupt(INT_EUSCIB0);
 }
 
 static uint32_t _OLED_IIC_sending = 0;	  // 剩余要发送的数据量
 static uint8_t *_OLED_IIC_sendingPtr = 0; // 数据指针
+static uint8_t buff;					  // 指令/数据缓存
 
 void WriteCmd(unsigned char cmd) //写命令
 {
-	while (_OLED_IIC_sending)
-		;
-
-	// 中断续发变量初始化
-	_OLED_IIC_sending = 2;
-	_OLED_IIC_sendingPtr[0] = 0x00;
-	_OLED_IIC_sendingPtr[1] = cmd;
-
-	// 启动多字节数据发送
-	MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, OLED_ADDRESS);
+	MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x00);
+	MAP_I2C_masterSendMultiByteFinish(EUSCI_B0_BASE, cmd);
 }
 
 void WriteDat(unsigned char dat) //写数据
 {
-	while (_OLED_IIC_sending)
-		;
-
-	// 中断续发变量初始化
-	_OLED_IIC_sending = 2;
-	_OLED_IIC_sendingPtr[0] = 0x40;
-	_OLED_IIC_sendingPtr[1] = dat;
-	// 启动多字节数据发送
-	MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, OLED_ADDRESS);
+	MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x40);
+	MAP_I2C_masterSendMultiByteFinish(EUSCI_B0_BASE, dat);
 }
 
 void OLED_FILL(unsigned char BMP[])
 {
-	WriteCmd(0xb0); //page0-page1
-	WriteCmd(0x00); //low column start address
-	WriteCmd(0x10); //high column start address
+	unsigned char *p;
+	p = BMP;
+	for (unsigned char m = 0; m < 8; ++m)
+	{
+		WriteCmd(0xb0 + m); //page0-page1
+		WriteCmd(0x00);		//low column start address
+		WriteCmd(0x10);		//high column start address
 
-	_OLED_IIC_sending = 1025; //1 + 128 * 8
-	*_OLED_IIC_sendingPtr = 0x40;
-	++_OLED_IIC_sendingPtr;
-	*_OLED_IIC_sendingPtr = BMP;
-	--_OLED_IIC_sendingPtr;
-
-	// 启动多字节数据发送
-	MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, OLED_ADDRESS);
+		// 启动多字节数据发送
+		MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x40);
+		for (unsigned int n = 0; n < 127; ++n)
+		{
+			MAP_I2C_masterSendMultiByteNext(EUSCI_B0_BASE, *p++);
+		}
+		MAP_I2C_masterSendMultiByteFinish(EUSCI_B0_BASE, *p++);
+	}
 }
 
 /**
@@ -89,7 +78,7 @@ void EUSCIB0_IRQHandler(void)
 		// 清除中断
 		MAP_I2C_clearInterruptFlag(EUSCI_B0_BASE, EUSCI_B_I2C_NAK_INTERRUPT);
 
-		/* ---处理--- */
+		//MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, OLED_ADDRESS);
 	}
 
 	// 接收中断
@@ -233,7 +222,7 @@ void WriteDat(unsigned char dat) //写数据
 
 void OLED_FILL(unsigned char BMP[])
 {
-	unsigned char* p = BMP;
+	unsigned char *p = BMP;
 	unsigned char m, n;
 	for (m = 0; m < 8; m++)
 	{

@@ -8,7 +8,7 @@
 #if (TRANSFER_METHOD ==HW_IIC)
 
 	#if (USE_HW_IIC ==IIC_0)
-		#define OLED_ADDRESS	0x78 //通过调整0R电阻,屏可以0x78和0x7A两个地址 -- 默认0x78
+		#define OLED_ADDRESS	0x3C  //通过调整0R电阻,屏可以0x78和0x7A两个地址 -- 默认0x78
 		/*STM32F103C8T6芯片的硬件I2C: PB6 -- SCL; PB7 -- SDA */
 		#define IIC_GPIOX               GPIO_PORT_P1
 		#define IIC_SCL_Pin				GPIO_PIN7
@@ -26,20 +26,20 @@
 //----------------------------------------------------------------------------------
 //OLED SSD1306 SPI  时钟D0  P6.0
 
-#define OLED_SSD1306_SCL_PIN_NUM (BIT0)
+#define OLED_SSD1306_SCL_PIN_NUM (BIT7)
 
-#define OLED_SSD1306_SCL_IO_INIT (Set_Bit(P6DIR, OLED_SSD1306_SCL_PIN_NUM))
-#define OLED_SCL_Set() (Set_Bit(P6OUT, OLED_SSD1306_SCL_PIN_NUM))
-#define OLED_SCL_Clr() (Clr_Bit(P6OUT, OLED_SSD1306_SCL_PIN_NUM))
+#define OLED_SSD1306_SCL_IO_INIT (Set_Bit(P1DIR, OLED_SSD1306_SCL_PIN_NUM))
+#define OLED_SCL_Set() (Set_Bit(P1OUT, OLED_SSD1306_SCL_PIN_NUM))
+#define OLED_SCL_Clr() (Clr_Bit(P1OUT, OLED_SSD1306_SCL_PIN_NUM))
 
 //----------------------------------------------------------------------------------
 //OLED SSD1306 SPI 数据D1   P6.1
 
-#define OLED_SSD1306_SDA_PIN_NUM (BIT1)
+#define OLED_SSD1306_SDA_PIN_NUM (BIT6)
 
-#define OLED_SSD1306_SDA_IO_INIT (Set_Bit(P6DIR, OLED_SSD1306_SDA_PIN_NUM))
-#define OLED_SDA_Set() (Set_Bit(P6OUT, OLED_SSD1306_SDA_PIN_NUM))
-#define OLED_SDA_Clr() (Clr_Bit(P6OUT, OLED_SSD1306_SDA_PIN_NUM))
+#define OLED_SSD1306_SDA_IO_INIT (Set_Bit(P1DIR, OLED_SSD1306_SDA_PIN_NUM))
+#define OLED_SDA_Set() (Set_Bit(P1OUT, OLED_SSD1306_SDA_PIN_NUM))
+#define OLED_SDA_Clr() (Clr_Bit(P1OUT, OLED_SSD1306_SDA_PIN_NUM))
 
 
 #elif (TRANSFER_METHOD ==HW_SPI)
