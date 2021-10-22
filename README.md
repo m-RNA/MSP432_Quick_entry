@@ -20,6 +20,7 @@
  1. 本项目完全免费，不要被骗money💴了呀朋友
   2. 本代码基于Apache-2.0开源，开源您的代码时，有引用或者修改本代码的地方，请标明作者请出处。尊重作者，尊重开源~  
   3.  仓库地址
+
     - GitHub链接：https://github.com/m-RNA/MSP432_Quick_entry
     - Gitee链接：https://gitee.com/chenjjian/MSP432_Quick_entry
 ## 视频章节
@@ -85,8 +86,8 @@
 
 ### 10 OLED (硬件IIC/软件IIC)
 - OLED 支持 硬件IIC/软件IIC
-  - [RNA_OLED_IIC_Test] OLED显示测试
-  - [RNA_oledlib_master] OLED图像库 [[移植：项目地址]](https://github.com/hello-myj/stm32_oled  "@GitHub： STM32 OLED图形库")
+  - [RNA_OLED_Test] OLED显示测试
+  - [RNA_OLED_LIB] OLED图像库 [[移植：项目地址]](https://github.com/hello-myj/stm32_oled  "@GitHub： STM32 OLED图形库")
   - ？？[RNA_OLED_Multilevel_Menu]  多级菜单（待）
 
 ### 11 ADC
