@@ -25,10 +25,12 @@
 /*****************************************************************/
 
 #if TRANSFER_METHOD == HW_IIC
+
 //IIC_0: P1.7 -- SCL; P1.6 -- SDA
 //IIC_1: P6.5 -- SCL; P6.4 -- SDA
 //IIC_2: P3.7 -- SCL; P3.6 -- SDA
 #define USE_HW_IIC IIC_0
+
 #elif (TRANSFER_METHOD == HW_SPI)
 //#define USE_HW_SPI SPI_2
 #endif
