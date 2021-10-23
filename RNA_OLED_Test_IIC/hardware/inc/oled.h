@@ -30,7 +30,7 @@
 //IIC_1: P6.5  -- SCL;  P6.4  -- SDA
 //IIC_2: P3.7  -- SCL;  P3.6  -- SDA
 //IIC_3: P10.3 -- SCL;  P10.2 -- SDA
-#define USE_HW_IIC IIC_2
+#define USE_HW_IIC IIC_0
 
 #elif (TRANSFER_METHOD == HW_SPI)
 //#define USE_HW_SPI SPI_2
@@ -45,15 +45,13 @@
 #define IIC_SDA_Pin GPIO_PIN6
 #define EUSCI_BX EUSCI_B0_BASE
 
-#elif (USE_HW_IIC == IIC_1)
-// 未验证
+#elif (USE_HW_IIC == IIC_1) //已验证
 #define IIC_GPIOX GPIO_PORT_P6
 #define IIC_SCL_Pin GPIO_PIN5
 #define IIC_SDA_Pin GPIO_PIN4
 #define EUSCI_BX EUSCI_B1_BASE
 
-#elif (USE_HW_IIC == IIC_2)
-// 未验证
+#elif (USE_HW_IIC == IIC_2) //已验证
 #define IIC_GPIOX GPIO_PORT_P3
 #define IIC_SCL_Pin GPIO_PIN7
 #define IIC_SDA_Pin GPIO_PIN6

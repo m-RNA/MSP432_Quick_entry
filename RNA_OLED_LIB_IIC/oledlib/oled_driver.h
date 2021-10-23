@@ -13,15 +13,13 @@
 #define IIC_SDA_Pin GPIO_PIN6
 #define EUSCI_BX EUSCI_B0_BASE
 
-#elif (USE_HW_IIC == IIC_1)
-// 未验证
+#elif (USE_HW_IIC == IIC_1) // 已验证
 #define IIC_GPIOX GPIO_PORT_P6
 #define IIC_SCL_Pin GPIO_PIN5
 #define IIC_SDA_Pin GPIO_PIN4
 #define EUSCI_BX EUSCI_B1_BASE
 
-#elif (USE_HW_IIC == IIC_2)
-// 未验证
+#elif (USE_HW_IIC == IIC_2) // 已验证
 #define IIC_GPIOX GPIO_PORT_P3
 #define IIC_SCL_Pin GPIO_PIN7
 #define IIC_SDA_Pin GPIO_PIN6
@@ -40,19 +38,15 @@
 #define Clr_Bit(val, bitn) (val &= ~(/*1<<*/ (bitn))) //置0
 #define Get_Bit(val, bitn) (val & (1 << (bitn)))      //获取电平
 //----------------------------------------------------------------------------------
-//OLED SSD1306 SPI  时钟D0  P6.0
+//OLED SSD1306 SCL  P1.7
 
 #define OLED_SSD1306_SCL_PIN_NUM (BIT7)
-
 #define OLED_SSD1306_SCL_IO_INIT (Set_Bit(P1DIR, OLED_SSD1306_SCL_PIN_NUM))
 #define OLED_SCL_Set() (Set_Bit(P1OUT, OLED_SSD1306_SCL_PIN_NUM))
 #define OLED_SCL_Clr() (Clr_Bit(P1OUT, OLED_SSD1306_SCL_PIN_NUM))
 
-//----------------------------------------------------------------------------------
-//OLED SSD1306 SPI 数据D1   P6.1
-
+//OLED SSD1306 SDA   P1.6
 #define OLED_SSD1306_SDA_PIN_NUM (BIT6)
-
 #define OLED_SSD1306_SDA_IO_INIT (Set_Bit(P1DIR, OLED_SSD1306_SDA_PIN_NUM))
 #define OLED_SDA_Set() (Set_Bit(P1OUT, OLED_SSD1306_SDA_PIN_NUM))
 #define OLED_SDA_Clr() (Clr_Bit(P1OUT, OLED_SSD1306_SDA_PIN_NUM))
