@@ -15,15 +15,15 @@ void I2C_Configuration(void)
 			0,							   // No byte counter threshold
 			EUSCI_B_I2C_NO_AUTO_STOP	   // No Autostop
 		};
-	MAP_I2C_initMaster(EUSCI_B0_BASE, &i2cConfig);
-	MAP_I2C_setSlaveAddress(EUSCI_B0_BASE, OLED_ADDRESS);
-	MAP_I2C_setMode(EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_MODE);
-	MAP_I2C_enableModule(EUSCI_B0_BASE);
+	MAP_I2C_initMaster(EUSCI_BX, &i2cConfig);
+	MAP_I2C_setSlaveAddress(EUSCI_BX, OLED_ADDRESS);
+	MAP_I2C_setMode(EUSCI_BX, EUSCI_B_I2C_TRANSMIT_MODE);
+	MAP_I2C_enableModule(EUSCI_BX);
 
 	// MAP_I2C_clearInterruptFlag(
-	// 	EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
+	// 	EUSCI_BX, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
 	// MAP_I2C_enableInterrupt(
-	// 	EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
+	// 	EUSCI_BX, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
 	// MAP_Interrupt_enableInterrupt(INT_EUSCIB0);
 }
 
@@ -35,14 +35,14 @@ static uint8_t buff;					  // 指令/数据缓存
 
 void WriteCmd(unsigned char cmd) //写命令
 {
-	MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x00);
-	MAP_I2C_masterSendMultiByteFinish(EUSCI_B0_BASE, cmd);
+	MAP_I2C_masterSendMultiByteStart(EUSCI_BX, 0x00);
+	MAP_I2C_masterSendMultiByteFinish(EUSCI_BX, cmd);
 }
 
 void WriteDat(unsigned char dat) //写数据
 {
-	MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x40);
-	MAP_I2C_masterSendMultiByteFinish(EUSCI_B0_BASE, dat);
+	MAP_I2C_masterSendMultiByteStart(EUSCI_BX, 0x40);
+	MAP_I2C_masterSendMultiByteFinish(EUSCI_BX, dat);
 }
 
 void OLED_FILL(unsigned char BMP[])
@@ -57,12 +57,12 @@ void OLED_FILL(unsigned char BMP[])
 		WriteCmd(0x10);		//high column start address
 
 		// 启动多字节数据发送
-		MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x40);
+		MAP_I2C_masterSendMultiByteStart(EUSCI_BX, 0x40);
 		for (n = 0; n < 127; ++n)
 		{
-			MAP_I2C_masterSendMultiByteNext(EUSCI_B0_BASE, *p++);
+			MAP_I2C_masterSendMultiByteNext(EUSCI_BX, *p++);
 		}
-		MAP_I2C_masterSendMultiByteFinish(EUSCI_B0_BASE, *p++);
+		MAP_I2C_masterSendMultiByteFinish(EUSCI_BX, *p++);
 	}
 }
 
@@ -74,47 +74,47 @@ void EUSCIB0_IRQHandler(void)
 {
 	// 中断状态
 	uint_fast16_t status;
-	status = MAP_I2C_getEnabledInterruptStatus(EUSCI_B0_BASE);
+	status = MAP_I2C_getEnabledInterruptStatus(EUSCI_BX);
 
 	// 没接收到应答（ACK）信号
 	if (status & EUSCI_B_I2C_NAK_INTERRUPT)
 	{
 		// 清除中断
-		MAP_I2C_clearInterruptFlag(EUSCI_B0_BASE, EUSCI_B_I2C_NAK_INTERRUPT);
+		MAP_I2C_clearInterruptFlag(EUSCI_BX, EUSCI_B_I2C_NAK_INTERRUPT);
 
-		//MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, OLED_ADDRESS);
+		//MAP_I2C_masterSendMultiByteStart(EUSCI_BX, OLED_ADDRESS);
 	}
 
 	// 接收中断
 	if (status & EUSCI_B_I2C_RECEIVE_INTERRUPT0)
 	{
 		// 清除中断
-		MAP_I2C_clearInterruptFlag(EUSCI_B0_BASE, EUSCI_B_I2C_RECEIVE_INTERRUPT0);
+		MAP_I2C_clearInterruptFlag(EUSCI_BX, EUSCI_B_I2C_RECEIVE_INTERRUPT0);
 		// 失能中断
-		MAP_I2C_disableInterrupt(EUSCI_B0_BASE, EUSCI_B_I2C_RECEIVE_INTERRUPT0);
+		MAP_I2C_disableInterrupt(EUSCI_BX, EUSCI_B_I2C_RECEIVE_INTERRUPT0);
 	}
 
 	// 发送完成中断
 	if (status & EUSCI_B_I2C_TRANSMIT_INTERRUPT0)
 	{
 		// 清除中断
-		MAP_I2C_clearInterruptFlag(EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0);
+		MAP_I2C_clearInterruptFlag(EUSCI_BX, EUSCI_B_I2C_TRANSMIT_INTERRUPT0);
 
 		// ---发送完成中断处理--- 
 		if (_OLED_IIC_sending == 0) // 发完了
 		{
-			MAP_I2C_masterSendMultiByteStop(EUSCI_B0_BASE); // 发送IIC结束信号
+			MAP_I2C_masterSendMultiByteStop(EUSCI_BX); // 发送IIC结束信号
 			_OLED_IIC_sendingPtr = 0;						// 指针处理
 		}
 		else if (_OLED_IIC_sending == 1) // 还有一个就发完了
 		{
-			MAP_I2C_masterSendMultiByteFinish(EUSCI_B0_BASE, *_OLED_IIC_sendingPtr); // 发送完下一个信号自动跟上结束信号
+			MAP_I2C_masterSendMultiByteFinish(EUSCI_BX, *_OLED_IIC_sendingPtr); // 发送完下一个信号自动跟上结束信号
 			_OLED_IIC_sendingPtr = 0;												 // 指针处理
 			_OLED_IIC_sending = 0;
 		}
 		else // 还有很多数据待发
 		{
-			MAP_I2C_masterSendMultiByteNext(EUSCI_B0_BASE, *_OLED_IIC_sendingPtr); // 放一个数据到发送寄存器
+			MAP_I2C_masterSendMultiByteNext(EUSCI_BX, *_OLED_IIC_sendingPtr); // 放一个数据到发送寄存器
 			_OLED_IIC_sendingPtr++;												   // 指针迭代
 			_OLED_IIC_sending--;												   // 计数器自减
 		}
@@ -123,7 +123,7 @@ void EUSCIB0_IRQHandler(void)
 	// 发送结束中断
 	if (status & EUSCI_B_I2C_STOP_INTERRUPT)
 	{
-		MAP_I2C_clearInterruptFlag(EUSCI_B0_BASE, EUSCI_B_I2C_STOP_INTERRUPT);
+		MAP_I2C_clearInterruptFlag(EUSCI_BX, EUSCI_B_I2C_STOP_INTERRUPT);
 	}
 }
 */

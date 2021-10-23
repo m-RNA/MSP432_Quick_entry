@@ -30,15 +30,15 @@ void I2C_Configuration(void)
           0,                               // No byte counter threshold
           EUSCI_B_I2C_NO_AUTO_STOP         // No Autostop
       };
-  MAP_I2C_initMaster(EUSCI_B0_BASE, &i2cConfig);
-  MAP_I2C_setSlaveAddress(EUSCI_B0_BASE, OLED_ADDRESS);
-  MAP_I2C_setMode(EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_MODE);
-  MAP_I2C_enableModule(EUSCI_B0_BASE);
+  MAP_I2C_initMaster(EUSCI_BX, &i2cConfig);
+  MAP_I2C_setSlaveAddress(EUSCI_BX, OLED_ADDRESS);
+  MAP_I2C_setMode(EUSCI_BX, EUSCI_B_I2C_TRANSMIT_MODE);
+  MAP_I2C_enableModule(EUSCI_BX);
 
   // MAP_I2C_clearInterruptFlag(
-  // 	EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
+  // 	EUSCI_BX, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
   // MAP_I2C_enableInterrupt(
-  // 	EUSCI_B0_BASE, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
+  // 	EUSCI_BX, EUSCI_B_I2C_TRANSMIT_INTERRUPT0 | EUSCI_B_I2C_NAK_INTERRUPT);
   // MAP_Interrupt_enableInterrupt(INT_EUSCIB0);
 }
 //发送一个字节
@@ -47,10 +47,10 @@ void I2C_Configuration(void)
 void OLED_WR_Byte(uint8_t dat, uint8_t mode)
 {
   if (mode)
-    MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x40);
+    MAP_I2C_masterSendMultiByteStart(EUSCI_BX, 0x40);
   else
-    MAP_I2C_masterSendMultiByteStart(EUSCI_B0_BASE, 0x00);
-  MAP_I2C_masterSendMultiByteFinish(EUSCI_B0_BASE, dat);
+    MAP_I2C_masterSendMultiByteStart(EUSCI_BX, 0x00);
+  MAP_I2C_masterSendMultiByteFinish(EUSCI_BX, dat);
 }
 
 #elif (TRANSFER_METHOD == SW_IIC)

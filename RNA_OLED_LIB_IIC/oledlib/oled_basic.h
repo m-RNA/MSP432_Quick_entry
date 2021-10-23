@@ -30,7 +30,8 @@ typedef struct ROATE
 
 #define IIC_1     (10)
 #define IIC_2     (11)
-
+#define IIC_3     (12)
+#define IIC_4     (13)
 
 #define SPI_1     (20)
 #define SPI_2	    (21)	
