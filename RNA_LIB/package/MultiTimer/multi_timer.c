@@ -4,7 +4,7 @@
  */
 
 #include <stdio.h>
-#include "multi_timer.h"
+#include "MultiTimer.h"
 
 //timer handle list head.
 static struct Timer* head_handle = NULL;

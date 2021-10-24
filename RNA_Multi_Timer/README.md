@@ -4,15 +4,10 @@
 MultiTimer 是一个软件定时器扩展模块，可无限扩展你所需的定时器任务，取代传统的标志位判断方式， 更优雅更便捷地管理程序的时间触发时序。
 
 ## 使用方法
-1. 配置系统时间基准接口，安装定时器驱动；
+1. 初始化定时器得节拍定时器；
 
 ```c
-uint32_t PlatformTicksGetFunc(void)
-{
-    /* Platform implementation */
-}
-
-MultiTimerInstall(PlatformTicksGetFunc);
+MultiTimerInit();
 ```
 
 2. 实例化一个定时器对象；

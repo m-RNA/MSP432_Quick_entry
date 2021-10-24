@@ -21,18 +21,18 @@ MultiTimer timer5;
 
 void exampleTimer1Callback(MultiTimer *timer, void *userData)
 {
-    printf("[T:%010d] Timer:%p callback-> %s.\r\n", MultiTimerGetValue(), timer, (char *)userData);
+    printf("[T:%d] Timer1 callback-> %s.\r\n", MultiTimerGetValue(), (char *)userData);
 }
 
 void exampleTimer2Callback(MultiTimer *timer, void *userData)
 {
-    printf("[T:%010d] Timer:%p callback-> %s.\r\n", MultiTimerGetValue(), timer, (char *)userData);
+    printf("[T:%d] Timer2 callback-> %s.\r\n", MultiTimerGetValue(), (char *)userData);
     MultiTimerStart(timer, 5000, exampleTimer2Callback, userData);
 }
 
 void exampleTimer3Callback(MultiTimer *timer, void *userData)
 {
-    printf("[T:%010d] Timer:%p callback-> %s.\r\n", MultiTimerGetValue(), timer, (char *)userData);
+    printf("[T:%d] Timer3 callback-> %s.\r\n", MultiTimerGetValue(), (char *)userData);
     MultiTimerStart(timer, 4567, exampleTimer3Callback, userData);
 }
 
@@ -46,6 +46,7 @@ void delay_ms_Demo_BreathLight_BaseOnMultiTime(void)
 {
     static bool dir = 1;
     static char temp = 0;
+    char i;
     if (dir)
         ++temp;
     else
@@ -54,7 +55,7 @@ void delay_ms_Demo_BreathLight_BaseOnMultiTime(void)
         dir = 0;
     else if (temp == 0)
         dir = 1;
-    for (int i = 0; i < 14 - temp; ++i) //加这个循环可以让呼吸等的现象更明显
+    for (i = 0; i < 14 - temp; ++i) //加这个循环可以让呼吸等的现象更明显
     {
         delay_ms(temp);
         LED_RED_On();
