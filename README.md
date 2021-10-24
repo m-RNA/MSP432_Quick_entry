@@ -19,11 +19,11 @@
 
  1. 本项目完全免费，不要被骗money💴了呀朋友
   2. 本代码基于Apache-2.0开源，开源您的代码时，有引用或者修改本代码的地方，请标明作者请出处。尊重作者，尊重开源~  
-  3.  仓库地址
+  3.  仓库地址  
 
-	- GitHub链接：https://github.com/m-RNA/MSP432_Quick_entry
+- GitHub链接：https://github.com/m-RNA/MSP432_Quick_entry  
+- Gitee链接：https://gitee.com/chenjjian/MSP432_Quick_entry
 
-	- Gitee链接：https://gitee.com/chenjjian/MSP432_Quick_entry
 ## 视频章节
 ### 1 开发环境  
 ​        一般电赛人对Keil比较熟，故讲Keil的配置，还补充了VScode与Keil联动。当然也可以直接用CCS，如果会配置的话.  
@@ -71,6 +71,7 @@
 
 - 8-2 定时器A 输出PWM  
   - [RNA_TimA_PWM_Servo]   驱动舵机  
+  - [RNA_TimA_PWM_Multi_Servo]  4路PWM驱动多个舵机
   - [RNA_TimA_PWM_Square_Wave]   输出50Hz方波  
   
 - 8-3 定时器A 捕获  
@@ -78,7 +79,7 @@
 
 ### 9 定时器32
 - 定时器32
-  - [RNA_Tim32_Int] 定时器32中断
+  - [RNA_Tim32_Int] 定时器32中断 （可代替TimA的中断）
 ### 9.5 定时器扩展
 
 - 软件无限扩展定时器 [[移植：项目地址]](https://github.com/0x1abin/MultiTimer  "@GitHub： MultiTimer")
