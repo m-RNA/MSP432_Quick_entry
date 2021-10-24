@@ -82,7 +82,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>fromelf --bin --output .\Build\uart_loopback_24mhz_brclk.bin .\Build\uart_loopback_24mhz_brclk.axf</UserProg1Name>
+            <UserProg1Name>fromelf --bin --output .\Build\my_project_ROM.bin .\Build\my_project_ROM.axf</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -189,7 +189,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>__MSP432P401R__</Define>
               <Undefine></Undefine>
-              <IncludePath>../../../../../../source;../../../../../../source/third_party/CMSIS/Include/;..\sys;D:\Keil_v5\ARM\Pack\TexasInstruments\MSP432P4xx_DFP\3.2.6\Device\Include;..\hardware;..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02;..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\third_party\CMSIS\Include</IncludePath>
+              <IncludePath>..\..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02;..\..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\third_party\CMSIS\Include;..\..\sys\inc;..\..\hardware\inc;..\..\package\MultiTimer</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -386,7 +386,7 @@
             <File>
               <FileName>system_msp432p401r.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../system_msp432p401r.c</FilePath>
+              <FilePath>..\..\system_msp432p401r.c</FilePath>
             </File>
             <File>
               <FileName>startup_msp432p401r_uvision.s</FileName>
@@ -396,7 +396,7 @@
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\main.c</FilePath>
+              <FilePath>..\..\main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -406,7 +406,7 @@
             <File>
               <FileName>msp432p4xx_driverlib.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\ti\devices\msp432p4xx\driverlib\keil\msp432p4xx_driverlib.lib</FilePath>
+              <FilePath>..\..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\ti\devices\msp432p4xx\driverlib\keil\msp432p4xx_driverlib.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -414,34 +414,34 @@
           <GroupName>SYS</GroupName>
           <Files>
             <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\sys\usart.c</FilePath>
+            </File>
+            <File>
               <FileName>sysinit.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\sys\sysinit.c</FilePath>
+              <FilePath>..\..\sys\sysinit.c</FilePath>
             </File>
             <File>
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\RNA_TimA_Int\sys\delay.c</FilePath>
+              <FilePath>..\..\sys\delay.c</FilePath>
             </File>
             <File>
               <FileName>baudrate_calculate.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\sys\baudrate_calculate.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\sys\usart.c</FilePath>
+              <FilePath>..\..\sys\baudrate_calculate.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>HARDWARE</GroupName>
+          <GroupName>Hardware</GroupName>
           <Files>
             <File>
               <FileName>timA.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\hardware\timA.c</FilePath>
+              <FilePath>..\..\hardware\timA.c</FilePath>
             </File>
           </Files>
         </Group>
