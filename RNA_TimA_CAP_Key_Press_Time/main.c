@@ -55,10 +55,10 @@ int main(void)
         if (TIMA2_CAP_STA & 0X80) //成功捕获到了一次上升沿
         {
             temp = TIMA2_CAP_STA & 0X3F;
-            temp *= 65536;                              //溢出时间总和
-            temp += TIMA2_CAP_VAL;                      //得到总的高电平时间
-            printf("HIGH:%f s\r\n", temp / 1000000.0f); //打印总的高点平时间
-            TIMA2_CAP_STA = 0;                          //开启下一次捕获
+            temp *= 65536;                 //溢出时间总和
+            temp += TIMA2_CAP_VAL;         //得到总的高电平时间
+            printf("HIGH:%dus\r\n", temp); //打印总的高点平时间
+            TIMA2_CAP_STA = 0;             //开启下一次捕获
         }
     }
 }
