@@ -35,12 +35,12 @@ void timer1_callback(void *arg)
 
 void timer2_callback(void *arg)
 {
-    printf("timer2 timeout! arg: %p\r\n", arg);
+    printf("timer2 timeout!\r\n");
 }
 
 void timer3_callback(void *arg)
 {
-    printf("timer3 timeout! arg: %p\r\n", arg);
+    printf("timer3 timeout!\r\n");
 }
 
 int main(void)
