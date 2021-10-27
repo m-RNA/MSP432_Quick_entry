@@ -14,8 +14,8 @@
 /*
  * 定时器PWM周期：
  *
- * T_timer_a = CLKDIV * (CCR0 + 1) / f_clk 
- *           = 48 * （19999 + 1） / 48000000 
+ * T_timer_a = CLKDIV * (CCR0 + 1) / f_clk
+ *           = 48 * （19999 + 1） / 48000000
  *           = 0.02s = 50Hz
  */
 
@@ -30,17 +30,25 @@ int main(void)
 {
     bool dir = 1;
     uint16_t i = CCRN_MIN;
+    uint16_t CCR1;
+    uint16_t CCR2;
+    uint16_t CCR3;
+    uint16_t CCR4;
 
-    SysInit();    //第3讲 时钟配置
-    delay_init(); //第4讲 滴答延时
-
+    SysInit();  				  //第3讲 时钟配置
+    delay_init();				  //第4讲 滴答延时
     TimA1_PWM_Init(CCR0, CLKDIV); //第8讲 定时器A PWM
+	
     while (1)
     {
         if (dir)
+        {
             ++i;
+        }
         else
+        {
             --i;
+        }
 
         if (i == CCRN_MAX)
         {
@@ -52,10 +60,17 @@ int main(void)
             dir = 1;
             delay_ms(50);
         }
+
+        CCR1 = i;
+        CCR2 = i / 2;
+        CCR3 = i / 3;
+        CCR4 = i / 4;
+
         /******************      扫描4路舵机      ******************/
-        MAP_Timer_A_setCompareValue(TIMER_A1_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_1, i);
-        MAP_Timer_A_setCompareValue(TIMER_A1_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_2, i);
-        MAP_Timer_A_setCompareValue(TIMER_A1_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_3, i);
-        MAP_Timer_A_setCompareValue(TIMER_A1_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_4, i);
+        MAP_Timer_A_setCompareValue(TIMER_A1_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_1, CCR1); //通过更改传入的CCR1来改变通道1占空比
+        MAP_Timer_A_setCompareValue(TIMER_A1_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_2, CCR2); //通过更改传入的CCR2来改变通道2占空比
+        MAP_Timer_A_setCompareValue(TIMER_A1_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_3, CCR3); //通过更改传入的CCR3来改变通道3占空比
+        MAP_Timer_A_setCompareValue(TIMER_A1_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_4, CCR4); //通过更改传入的CCR4来改变通道4占空比
         delay_ms(50);
     }
+}

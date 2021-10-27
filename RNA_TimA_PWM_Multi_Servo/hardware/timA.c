@@ -119,29 +119,34 @@ void TimA1_PWM_Init(uint16_t ccr0, uint16_t psc)
     MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P7, GPIO_PIN5, GPIO_PRIMARY_MODULE_FUNCTION); //通道3
     MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P7, GPIO_PIN4, GPIO_PRIMARY_MODULE_FUNCTION); //通道4
 
-    Timer_A_PWMConfig TimA1_PWMConfig;
+    const Timer_A_PWMConfig TimA1_PWMConfig = {
+        TIMER_A_CLOCKSOURCE_SMCLK,         //时钟源
+        0,                                 //时钟分频 范围1-64
+        0,                                 //自动重装载值（ARR）
+        TIMER_A_CAPTURECOMPARE_REGISTER_1, //通道1 （注意引脚定义）
+        TIMER_A_OUTPUTMODE_TOGGLE_SET,     //输出模式
+        0                                  //这里是改变占空比的地方 默认100%
+    };
+    Timer_A_PWMConfig *User_TimA1_PWMConfig = (Timer_A_PWMConfig*)&TimA1_PWMConfig;
     /*定时器PWM初始化*/
-    TimA1_PWMConfig.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;             //时钟源
-    TimA1_PWMConfig.clockSourceDivider = psc;                            //时钟分频 范围1-64
-    TimA1_PWMConfig.timerPeriod = ccr0;                                  //自动重装载值（ARR）
-    TimA1_PWMConfig.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_1; //通道1 （注意引脚定义）
-    TimA1_PWMConfig.compareOutputMode = TIMER_A_OUTPUTMODE_TOGGLE_SET;   //输出模式
-    TimA1_PWMConfig.dutyCycle = ccr0;                                    //这里是改变占空比的地方 默认100%
+    User_TimA1_PWMConfig->clockSourceDivider = psc;
+    User_TimA1_PWMConfig->timerPeriod = ccr0;
+    User_TimA1_PWMConfig->dutyCycle = ccr0;
 
     //第1路 PWM
     MAP_Timer_A_generatePWM(TIMER_A1_BASE, &TimA1_PWMConfig); /* 初始化比较寄存器以产生 PWM1 */
 
     //第2路 PWM
-    TimA1_PWMConfig.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_2; //通道2 （注意引脚定义）
-    MAP_Timer_A_generatePWM(TIMER_A1_BASE, &TimA1_PWMConfig);            /* 初始化比较寄存器以产生 PWM2 */
+    User_TimA1_PWMConfig->compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_2; //通道2 （注意引脚定义）
+    MAP_Timer_A_generatePWM(TIMER_A1_BASE, &TimA1_PWMConfig);                  /* 初始化比较寄存器以产生 PWM2 */
 
     //第3路 PWM
-    TimA1_PWMConfig.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_3; //通道3 （注意引脚定义）
-    MAP_Timer_A_generatePWM(TIMER_A1_BASE, &TimA1_PWMConfig);            /* 初始化比较寄存器以产生 PWM3 */
+    User_TimA1_PWMConfig->compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_3; //通道3 （注意引脚定义）
+    MAP_Timer_A_generatePWM(TIMER_A1_BASE, &TimA1_PWMConfig);                  /* 初始化比较寄存器以产生 PWM3 */
 
     //第4路 PWM
-    TimA1_PWMConfig.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_4; //通道4 （注意引脚定义）
-    MAP_Timer_A_generatePWM(TIMER_A1_BASE, &TimA1_PWMConfig);            /* 初始化比较寄存器以产生 PWM4 */
+    User_TimA1_PWMConfig->compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_4; //通道4 （注意引脚定义）
+    MAP_Timer_A_generatePWM(TIMER_A1_BASE, &TimA1_PWMConfig);                  /* 初始化比较寄存器以产生 PWM4 */
 }
 /*********************************************************************************************************/
 
