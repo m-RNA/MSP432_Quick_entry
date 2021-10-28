@@ -21,8 +21,11 @@
  * 
  * **************************************************
  * 
+ * ? v3.2  2021/10/28
+ * 简化对CCS支持的printf代码
+ *
  * ? v3.1  2021/10/18
- * 添加对CCS的支持
+ * 添加对CCS的printf支持
  *
  * ? v3.0  2021/10/15
  * 此版本支持使用 标准C库
@@ -53,147 +56,27 @@
 
 #ifdef __TI_COMPILER_VERSION__
 //CCS平台
-//打印字符
-void putc(char ch)
+uint8_t  USART0_TX_BUF[USART0_MAX_SEND_LEN];             //发送缓冲,最大USART3_MAX_SEND_LEN字节
+int printf(const char *str, ...)
 {
-  UART_transmitData(EUSCI_A0_BASE, ch);
-}
-//打印字符串
-void puts(char *s)
-{
-  while (*s)
-    putc(*s++);
-}
-//快速幂 + 迭代
-//时间复杂度：O(logn)，即为对 nn 进行二进制拆分的时间复杂度
-//空间复杂度：O(1)
-unsigned long quickMul(unsigned long x, unsigned long N)
-{
-  unsigned long ans = 1;
-  // 贡献的初始值为 x
-  unsigned long x_contribute = x;
-  // 在对 N 进行二进制拆分的同时计算答案
-  while (N > 0)
-  {
-    if (N % 2 == 1)
+    uint16_t i,j;
+    va_list ap;
+    va_start(ap,str);
+    vsprintf((char*)USART0_TX_BUF,str,ap);
+    va_end(ap);
+    i=strlen((const char*)USART0_TX_BUF);       //此次发送数据的长度
+    for(j=0;j<i;j++)                            //循环发送数据
     {
-      // 如果 N 二进制表示的最低位为 1，那么需要计入贡献
-      ans *= x_contribute;
+      //while(USART_GetFlagStatus(USART3,USART_FLAG_TC)==RESET); //循环发送,直到发送完毕
+        UART_transmitData(EUSCI_A0_BASE, USART0_TX_BUF[j]);
     }
-    // 将贡献不断地平方
-    x_contribute *= x_contribute;
-    // 舍弃 N 二进制表示的最低位，这样我们每次只要判断最低位即可
-    N /= 2;
-  }
-  return ans;
-}
-static unsigned long m_pow(int x, int n)
-{
-  unsigned long N = n;
-  return quickMul(x, N);
-}
-// 作者：LeetCode-Solution
-// 链接：https://leetcode-cn.com/problems/powx-n/solution/powx-n-by-leetcode-solution/
-// 来源：力扣（LeetCode）
-// 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-
-void printf(char *str, ...)
-{
-  va_list ap; //定义一个可变 参数的（字符指针）
-  int val, r_val;
-  char count, ch;
-  char *s = NULL;
-  int res = 0; //返回值
-
-  va_start(ap, str);   //初始化ap
-  while ('\0' != *str) //str为字符串,它的最后一个字符肯定是'\0'（字符串的结束符）
-  {
-    switch (*str)
-    {
-    case '%': //发送参数
-      str++;
-      switch (*str)
-      {
-      case 'u':
-      case 'd': //10进制输出
-        val = va_arg(ap, int);
-        if (*str == 'd' && val < 0)
-        {
-          val = -val;
-          putc('-');
-        }
-        r_val = val;
-        count = 0;
-        while (r_val)
-        {
-          count++; //整数的长度
-          r_val /= 10;
-        }
-        res += count; //返回值长度增加?
-        r_val = val;
-        while (count)
-        {
-          ch = r_val / m_pow(10, count - 1);
-          r_val %= m_pow(10, count - 1);
-          putc(ch + '0'); //数字到字符的转换
-          count--;
-        }
-        break;
-      case 'X': //16进制输出
-      case 'x':
-        val = va_arg(ap, int);
-        r_val = val;
-        count = 0;
-        while (r_val)
-        {
-          count++; //整数的长度
-          r_val /= 16;
-        }
-        res += count; //返回值长度增加?
-        r_val = val;
-        while (count)
-        {
-          ch = r_val / m_pow(16, count - 1);
-          r_val %= m_pow(16, count - 1);
-          if (ch <= 9)
-            putc(ch + '0'); //数字到字符的转换
-          else
-            putc(ch - 10 + 'A');
-          count--;
-        }
-        break;
-      case 's': //发送字符串
-        s = va_arg(ap, char *);
-        puts(s);          //字符串,返回值为字符指针
-        res += strlen(s); //返回值长度增加 ?
-        break;
-      case 'c':
-        putc((char)va_arg(ap, int)); //大家猜为什么不写char，而要写int
-        res += 1;
-        break;
-      default:;
-      }
-      break;
-    case '\n':
-      putc('\n');
-      res += 1;
-      break;
-    case '\r':
-      putc('\r');
-      res += 1;
-      break;
-    default: //显示原来的第一个参数的字符串(不是..里的参数o)
-      putc(*str);
-      res += 1;
-    }
-    str++;
-  }
+    return 0;
 }
 /*****************   函数说明   *****************
  *
- * 函数：void printf(char *str, ...)
- * 源码来自: https://github.com/hello-myj/stm32_oled
- * 稍作改动适配CCS工程，在此也表感谢原作者。
+ * 函数：int printf(const char *str, ...);
+ * 源码来自@正点原子
+ * 稍作改动适配CCS工程，在此也表感谢正点原子。
  *
  *****************   说明结束   *****************/
 

@@ -21,8 +21,11 @@
  * 
  * **************************************************
  * 
+ * ? v3.2  2021/10/28
+ * 简化对CCS支持的printf代码
+ *
  * ? v3.1  2021/10/18
- * 添加对CCS的支持
+ * 添加对CCS的printf支持
  *
  * ? v3.0  2021/10/15
  * 此版本支持使用 标准C库
@@ -51,15 +54,14 @@
 #ifndef __USART_H
 #define __USART_H
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
+#include "stdio.h" //1.61328125kb
 
 #ifdef __TI_COMPILER_VERSION__
 //CCS平台
 #include "stdarg.h"
 #include "string.h"
-void printf(char *str, ...);
-#else
-//Keil平台
-#include "stdio.h" //1.61328125kb
+#define USART0_MAX_SEND_LEN     600                 //最大发送缓存字节数
+int printf(const char *str, ...);
 #endif
 
 void uart_init(uint32_t baudRate);

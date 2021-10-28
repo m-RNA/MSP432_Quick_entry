@@ -23,6 +23,8 @@ int main(void)
 
     /*停止填充初始化代码*/
 
+    printf("Hello,MSP432!\r\n");
+
     MAP_Interrupt_enableMaster(); // 开启总中断
     while (1)
     {

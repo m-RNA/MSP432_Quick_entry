@@ -21,25 +21,25 @@ MultiTimer timer5;
 
 void exampleTimer1Callback(MultiTimer *timer, void *userData)
 {
-    printf("[T:%d] Timer1 callback-> %s.\r\n", MultiTimerGetValue(), (char *)userData);
+    printf("[T:%010d] Timer:%p callback-> %s\r\n", MultiTimerGetValue(), timer, (char *)userData);
 }
 
 void exampleTimer2Callback(MultiTimer *timer, void *userData)
 {
-    printf("[T:%d] Timer2 callback-> %s.\r\n", MultiTimerGetValue(), (char *)userData);
+    printf("[T:%010d] Timer:%p callback-> %s\r\n", MultiTimerGetValue(), timer, (char *)userData);
     MultiTimerStart(timer, 5000, exampleTimer2Callback, userData);
 }
 
 void exampleTimer3Callback(MultiTimer *timer, void *userData)
 {
-    printf("[T:%d] Timer3 callback-> %s.\r\n", MultiTimerGetValue(), (char *)userData);
+    printf("[T:%010d] Timer:%p callback-> %s\r\n", MultiTimerGetValue(), timer, (char *)userData);
     MultiTimerStart(timer, 4567, exampleTimer3Callback, userData);
 }
 
 void exampleTimer4Callback(MultiTimer *timer, void *userData)
 {
     LED_G_Tog();
-    MultiTimerStart(&timer5, 1500, exampleTimer4Callback, NULL);
+    MultiTimerStart(timer, 500, exampleTimer4Callback, userData);
 }
 
 void delay_ms_Demo_BreathLight_BaseOnMultiTime(void)
@@ -67,7 +67,7 @@ void delay_ms_Demo_BreathLight_BaseOnMultiTime(void)
 int main(void)
 {
     SysInit();         // 第3讲 时钟配置
-    uart_init(115200); // 第7讲 串口配置
+    uart_init(230400); // 第7讲 串口配置
     LED_Init();        // 第2讲 GPIO输出
     MultiTimerInit();  // 第10讲 软件定时器
 
