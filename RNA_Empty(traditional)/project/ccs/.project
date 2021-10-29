@@ -26,11 +26,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>MultiTimer</name>
-			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/package/MultiTimer</locationURI>
-		</link>
-		<link>
 			<name>hardware</name>
 			<type>2</type>
 			<locationURI>PARENT-2-PROJECT_LOC/hardware</locationURI>

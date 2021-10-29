@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>__MSP432P401R__,__TARGET_FPU_VFP,__FPU_PRESENT,ARM_MATH_CM4</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\hardware\inc;..\..\package\MultiTimer;..\..\sys\inc;..\..\msp432p4xx_lib;..\..\msp432p4xx_lib\CMSIS\Include</IncludePath>
+              <IncludePath>..\..\hardware\inc;..\..\sys\inc;..\..\msp432p4xx_lib;..\..\msp432p4xx_lib\CMSIS\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -452,16 +452,6 @@
               <FileName>timA.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\hardware\timA.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>PACKAGE</GroupName>
-          <Files>
-            <File>
-              <FileName>multi_timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\package\MultiTimer\multi_timer.c</FilePath>
             </File>
           </Files>
         </Group>
