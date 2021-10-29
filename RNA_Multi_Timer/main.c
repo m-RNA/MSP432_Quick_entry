@@ -68,8 +68,8 @@ int main(void)
 {
     SysInit();         // 第3讲 时钟配置
     uart_init(230400); // 第7讲 串口配置
-    LED_Init();        // 第2讲 GPIO输出
     MultiTimerInit();  // 第10讲 软件定时器
+    LED_Init();        // 第2讲 GPIO输出
 
     MultiTimerStart(&timer1, 1000, exampleTimer1Callback, "1000ms ONCE timer");                      //单次中断
     MultiTimerStart(&timer2, 5000, exampleTimer2Callback, "5000ms CYCLE timer");                     //循环中断
@@ -80,6 +80,8 @@ int main(void)
     while (1)
     {
         MultiTimerYield();
-        delay_ms_Demo_BreathLight_BaseOnMultiTime();
+
+        /*可以先观察没有这条函数时，串口的的数值；之后在添加试试*/
+        //delay_ms_Demo_BreathLight_BaseOnMultiTime();
     }
 }
