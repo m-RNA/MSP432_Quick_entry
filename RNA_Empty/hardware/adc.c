@@ -34,7 +34,7 @@ void ADC_Config(void)
 	
     /* Initializing ADC (MCLK/1/1) */
     MAP_ADC14_enableModule();                                                                 //使能ADC14模块
-    MAP_ADC14_initModule(ADC_CLOCKSOURCE_MCLK, ADC_PREDIVIDER_1, ADC_DIVIDER_8, ADC_NOROUTE); //初始化ADC 时钟 分频  通道 6MHz
+    MAP_ADC14_initModule(ADC_CLOCKSOURCE_MCLK, ADC_PREDIVIDER_4, ADC_DIVIDER_5, ADC_NOROUTE); //初始化ADC 时钟 分频  通道 2.4MHz
 
 #if M == 1
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P5, GPIO_PIN5, GPIO_TERTIARY_MODULE_FUNCTION); //模拟输入
