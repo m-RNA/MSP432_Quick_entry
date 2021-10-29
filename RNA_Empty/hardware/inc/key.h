@@ -8,7 +8,7 @@
 
 #ifndef __KEY_H
 #define __KEY_H
-#include "sysinit.h"
+#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
 #define KEY1 MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN1) //读取按键1
 #define KEY2 MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN4) //读取按键2
