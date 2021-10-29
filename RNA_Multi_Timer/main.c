@@ -71,6 +71,8 @@ int main(void)
     MultiTimerInit();  // 第10讲 软件定时器
     LED_Init();        // 第2讲 GPIO输出
 
+    printf("Hello,MSP432!\r\n");
+
     MultiTimerStart(&timer1, 1000, exampleTimer1Callback, "1000ms ONCE timer");                      //单次中断
     MultiTimerStart(&timer2, 5000, exampleTimer2Callback, "5000ms CYCLE timer");                     //循环中断
     MultiTimerStart(&timer3, 3456, exampleTimer3Callback, "3456ms delay start, 4567ms CYCLE timer"); //不同步中断

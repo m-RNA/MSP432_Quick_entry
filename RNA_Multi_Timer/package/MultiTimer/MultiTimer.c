@@ -133,28 +133,20 @@ int MultiTimerYield(void)
 }
 /************************  Delay  *********************************/
 
-MultiTimer delayTimer;
-static uint32_t _delayTimer_ms = 0;
 static uint8_t fac_us = 48;
 
 static void delay_init(void)
 {
     fac_us = CS_getMCLK() / 1000000; //系统时钟
-    delay_ms(0);
 }
 
-void DelayTimer1Callback(MultiTimer *timer, void *userData)
+void delay_ms(uint32_t nms)
 {
-    volatile uint32_t temp = _multi_timer_ticks + _delayTimer_ms;
-    while (_multi_timer_ticks < temp)
-        MultiTimerYield();
-}
-
-void delay_ms(uint32_t ms)
-{
-    _delayTimer_ms = ms;
-    MultiTimerStart(&delayTimer, 0, DelayTimer1Callback, NULL);
-    //MultiTimerYield(); // 这里是加好呢，还是不加好呢。。。。。
+    while (nms)
+    {
+        delay_us(1000);
+        --nms;
+    }
 }
 
 void delay_us(uint32_t nus)
