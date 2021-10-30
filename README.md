@@ -83,7 +83,7 @@
 ### 9.5 定时器扩展
 
 - 软件无限扩展定时器 [[移植：项目地址]](https://github.com/0x1abin/MultiTimer  "@GitHub： MultiTimer")
-    - [RNA_Multi_Timer]  移植最新版（基于滴答定时器，支持delay_ms）
+    - [RNA_Multi_Timer]  移植最新版（基于滴答定时器，并支持delay_ms、delay_us）
     - [RNA_Multi_Timer_Old]  原作者2020年视频使用版本
 
 ### 10 OLED (硬件IIC/软件IIC)
