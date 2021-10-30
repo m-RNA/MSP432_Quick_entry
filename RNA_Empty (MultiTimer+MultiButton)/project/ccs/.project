@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>RNA_Empty</name>
+	<name>RNA_Empty (MultiTimer+MultiButton)</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -26,11 +26,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>MultiTimer</name>
-			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/package/MultiTimer</locationURI>
-		</link>
-		<link>
 			<name>hardware</name>
 			<type>2</type>
 			<locationURI>PARENT-2-PROJECT_LOC/hardware</locationURI>
@@ -39,6 +34,11 @@
 			<name>main.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/main.c</locationURI>
+		</link>
+		<link>
+			<name>package</name>
+			<type>2</type>
+			<locationURI>PARENT-2-PROJECT_LOC/package</locationURI>
 		</link>
 		<link>
 			<name>sys</name>

@@ -135,7 +135,7 @@ int MultiTimerYield(void)
 
 static uint8_t fac_us = 48;
 
-static void delay_init(void)
+void delay_init(void)
 {
     fac_us = CS_getMCLK() / 1000000; //系统时钟
 }

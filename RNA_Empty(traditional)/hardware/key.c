@@ -9,7 +9,7 @@
 #include "key.h"
 
 //函数功能：延时
-void key_delay(uint16_t t);
+static void key_delay(uint16_t t);
 
 //按键初始化函数
 //mode:0,不开启中断;1,开启中断
@@ -46,8 +46,6 @@ void PORT1_IRQHandler(void)
         {
             /*开始填充用户代码*/
 
-            MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P1, GPIO_PIN0);
-
             /*结束填充用户代码*/
         }
     }
@@ -56,8 +54,6 @@ void PORT1_IRQHandler(void)
         if (KEY2 == 0)
         {
             /*开始填充用户代码*/
-
-            MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
 
             /*结束填充用户代码*/
         }
@@ -91,7 +87,7 @@ uint8_t KEY_Scan(bool mode)
 }
 
 //函数功能：延时
-static void key_delay(uint16_t t)
+void key_delay(uint16_t t)
 {
     volatile uint16_t x;
     while (t--)

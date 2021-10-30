@@ -48,6 +48,7 @@
 									<listOptionValue builtIn="false" value="..\..\..\sys\inc"/>
 									<listOptionValue builtIn="false" value="..\..\..\package\MultiTimer"/>
 									<listOptionValue builtIn="false" value="..\..\..\hardware\inc"/>
+									<listOptionValue builtIn="false" value="..\..\..\package\MultiButton"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.ti.ccstudio.buildDefinitions.MSP432_20.2.compilerID.DEFINE.1369378282" name="Pre-define NAME (--define, -D)" superClass="com.ti.ccstudio.buildDefinitions.MSP432_20.2.compilerID.DEFINE" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="${COM_TI_SIMPLELINK_MSP432_SDK_SYMBOLS}"/>

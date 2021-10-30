@@ -19,7 +19,7 @@
 #include "key4x4.h"
 
 //函数功能：延时
-void key_delay(uint16_t t);
+static void key_delay(uint16_t t);
 
 void KEY4x4_Init(void)
 {
@@ -64,7 +64,7 @@ uint8_t KEY4x4_Scan(bool mode)
 }
 
 //函数功能：延时
-static void key_delay(uint16_t t)
+void key_delay(uint16_t t)
 {
     volatile uint16_t x;
     while (t--)
