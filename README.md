@@ -39,6 +39,8 @@
 - 2-2 GPIO输入  
   - [RNA_KEY]         按键  
   - [RNA_KEY4x4]   矩阵键盘  
+  - [RNA_KEY(MultiButton_Poll)]  按键 （MultiButton版） [[移植：项目地址]](https://github.com/0x1abin/MultiButton  "@GitHub： MultiButton")
+  - [RNA_KEY(MultiButton_Callback)] 按键（MultiButton版）
 - 2-3 GPIO复用  
     - [RNA_???]     复用输出内部时钟（未上传）
 
