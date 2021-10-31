@@ -1,6 +1,7 @@
 /****************************************************/
 //MSP432P401R
 //2-2* GPIO输入(MultiButton版)
+//项目地址 https://github.com/0x1abin/MultiButton
 //Bilibili：m-RNA
 //E-mail:m-RNA@qq.com
 //创建日期:2021/10/29
@@ -11,6 +12,9 @@
 #include "MultiTimer.h"
 #include "key.h"
 #include "led.h"
+
+// 将代码烧录到板子后，单击、双击、长按按键
+// 观察串口打印回的值
 
 int main(void)
 {
