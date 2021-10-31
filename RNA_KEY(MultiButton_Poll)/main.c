@@ -1,11 +1,9 @@
 /****************************************************/
-// MSP432P401R
-// 配置Keil独立空工程 (已将ti固件库打包至工程)
-// Keil工程已配置开启FPU
-// 加入软件包 MultiTimer、MultiButton
-// Bilibili：m-RNA
-// E-mail:m-RNA@qq.com
-// 创建日期:2021/10/28
+//MSP432P401R
+//2-2* GPIO输入(MultiButton版)
+//Bilibili：m-RNA
+//E-mail:m-RNA@qq.com
+//创建日期:2021/10/29
 /****************************************************/
 
 #include "sysinit.h"
