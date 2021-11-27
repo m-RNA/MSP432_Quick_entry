@@ -14,6 +14,8 @@
 #include "key.h"
 #include "led.h"
 
+// 前往key.c注册按键事件
+
 int main(void)
 {
     SysInit();         // 第3讲 时钟配置
