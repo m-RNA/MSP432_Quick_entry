@@ -23,6 +23,7 @@
 #ifndef _MULTI_TIMER_H_
 #define _MULTI_TIMER_H_
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
+#include "delay.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -90,20 +91,6 @@ extern "C"
  * @return Returns the current value of the MultiTimer counter
  */
   uint32_t MultiTimerGetValue(void);
-
-  /**
-  * @brief  Delay ms Function.
-  * @param  Delay ms.
-  * @retval None.
-  */
-  void delay_ms(uint32_t ms);
-
-  /**
-  * @brief  Delay us Function.
-  * @param  Delay us.
-  * @retval None.
-  */
-  void delay_us(uint32_t nus);
 
 #ifdef __cplusplus
 }

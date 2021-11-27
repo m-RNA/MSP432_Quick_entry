@@ -31,16 +31,13 @@ uint32_t MultiTimerGetValue(void)
     return _multi_timer_ticks;
 }
 
-void delay_init(void);
 /* Timer handle list head. */
 static MultiTimer *timerList = NULL;
 
 void MultiTimerInit(void)
 {
-    MAP_SysTick_enableModule();
-    MAP_SysTick_setPeriod(MAP_CS_getMCLK() / 1000);
-    MAP_SysTick_enableInterrupt();
     delay_init();
+    MAP_SysTick_enableInterrupt();
 }
 
 void SysTick_Handler(void)
@@ -135,9 +132,11 @@ int MultiTimerYield(void)
 
 static uint8_t fac_us = 48;
 
-static void delay_init(void)
+void delay_init(void)
 {
     fac_us = CS_getMCLK() / 1000000; //系统时钟
+    MAP_SysTick_enableModule();
+    MAP_SysTick_setPeriod(MAP_CS_getMCLK() / 1000);
 }
 
 void delay_ms(uint32_t nms)
