@@ -1,53 +1,53 @@
 /****************************************************/
 // MSP432P401R
-// ��������
-// Bilibili��m-RNA
+// 串口配置
+// Bilibili：m-RNA
 // E-mail:m-RNA@qq.com
 /****************************************************/
 
-/******************   �汾����˵��   *****************
+/******************   版本更新说明   *****************
  * 
- * CCS֧��printf
- * Keil֧�ֱ�׼C���΢��
- * ��Keil�������ڿ��Բ���΢����
+ * CCS支持printf
+ * Keil支持标准C库跟微库
+ * 用Keil开发终于可以不开微库啦
  * 
- * ? ��Ҫע�⣺
- * ��ʹ�ñ�׼C��ʱ�����޷�ʹ��scanf��
- * �����Ҫʹ��scanfʱ����ʹ��΢�� MicroLIB
- * �ٵ�Ƶʱ��Ƶ���£��߲�����ʹ�ô���ʱ������,
- * ����35768Hz��19200������,
- * ��ʹ�ô����������ʱ���Գ��Խ��Ͳ����ʡ�
- * ��baudrate_calculate��������ȥ�ļ��ڲ鿴��
+ * ? 需要注意：
+ * ①使用标准C库时，将无法使用scanf。
+ * 如果需要使用scanf时，请使用微库 MicroLIB
+ * ①低频时钟频率下，高波特率使得传输时误差过大,
+ * 比如35768Hz下19200波特率,
+ * 会使得传输出错，这时可以尝试降低波特率。
+ * ②baudrate_calculate的问题请去文件内查看。
  * 
  * **************************************************
  * 
  * ? v3.2  2021/10/28
- * �򻯶�CCS֧�ֵ�printf����
+ * 简化对CCS支持的printf代码
  *
  * ? v3.1  2021/10/18
- * ���Ӷ�CCS��printf֧��
+ * 添加对CCS的printf支持
  *
  * ? v3.0  2021/10/15
- * �˰汾֧��ʹ�� ��׼C��
- * �ļ���ʽ����Ϊ������ԭ��ͬ����
- * usart.c �� usart.h��������ֲ
- * ��֧��Keilƽ̨����
+ * 此版本支持使用 标准C库
+ * 文件正式改名为与正点原子同名的
+ * usart.c 和 usart.h，方便移植
+ * 仅支持Keil平台开发
  *  
  * ? v2.1  2021/8/27
- * ����֧�ֹ̼���v3_21_00_05
- * ��֧�� MicroLIB ΢�⡢Keilƽ̨����
+ * 添加支持固件库v3_21_00_05
+ * 仅支持 MicroLIB 微库、Keil平台开发
  * 
  * ? v2.0  2021/8/25
- * uart_init�����˲����ʴ����������ֱ�����ò����ʡ�
- * ����UART�Ĵ��뵥�����Ϊ��Ϊ
- * baudrate_calculate��c�ļ���h�ļ�
- * ��֧�� MicroLIB ΢�⡢Keilƽ̨����
+ * uart_init增添了波特率传入参数，可直接配置波特率。
+ * 计算UART的代码单独打包为名为
+ * baudrate_calculate的c文件和h文件
+ * 仅支持 MicroLIB 微库、Keil平台开发
  * 
  * ? v1.0 2021/7/17
- * ��֧�ֹ̼���v3_40_01_02
- * ������SMCLK 48MHz ������ 115200�ĳ�ʼ�����룬
- * �Խӱ�׼��������⣬ʹ����ʹ��printf��scanf����
- * ��֧�� MicroLIB ΢�⡢Keilƽ̨����
+ * 仅支持固件库v3_40_01_02
+ * 配置了SMCLK 48MHz 波特率 115200的初始化代码，
+ * 对接标准输入输出库，使其能使用printf、scanf函数
+ * 仅支持 MicroLIB 微库、Keil平台开发
  * 
  ****************************************************/
 
@@ -55,8 +55,8 @@
 #include "baudrate_calculate.h"
 
 #ifdef __TI_COMPILER_VERSION__
-//CCSƽ̨
-uint8_t  USART0_TX_BUF[USART0_MAX_SEND_LEN];             //���ͻ���,���USART3_MAX_SEND_LEN�ֽ�
+//CCS平台
+uint8_t  USART0_TX_BUF[USART0_MAX_SEND_LEN];             //发送缓冲,最大USART3_MAX_SEND_LEN字节
 int printf(const char *str, ...)
 {
     uint16_t i,j;
@@ -64,36 +64,36 @@ int printf(const char *str, ...)
     va_start(ap,str);
     vsprintf((char*)USART0_TX_BUF,str,ap);
     va_end(ap);
-    i=strlen((const char*)USART0_TX_BUF);       //�˴η������ݵĳ���
-    for(j=0;j<i;j++)                            //ѭ����������
+    i=strlen((const char*)USART0_TX_BUF);       //此次发送数据的长度
+    for(j=0;j<i;j++)                            //循环发送数据
     {
-      //while(USART_GetFlagStatus(USART3,USART_FLAG_TC)==RESET); //ѭ������,ֱ���������
+      //while(USART_GetFlagStatus(USART3,USART_FLAG_TC)==RESET); //循环发送,直到发送完毕
         UART_transmitData(EUSCI_A0_BASE, USART0_TX_BUF[j]);
     }
     return 0;
 }
-/*****************   ����˵��   *****************
+/*****************   函数说明   *****************
  *
- * ������int printf(const char *str, ...);
- * Դ������@����ԭ��
- * �����Ķ�����CCS���̣��ڴ�Ҳ����л����ԭ�ӡ�
+ * 函数：int printf(const char *str, ...);
+ * 源码来自@正点原子
+ * 稍作改动适配CCS工程，在此也表感谢正点原子。
  *
- *****************   ˵������   *****************/
+ *****************   说明结束   *****************/
 
 #else
-//Keil֧�ֱ�׼C���΢��
-//Ԥ����
-//if 1 ʹ�ñ�׼C�� ���������ʹ��΢��
-//if 0 ʹ��΢�� ��ȥ��ѡħ������� Use MicroLIB
+//Keil支持标准C库跟微库
+//预编译
+//if 1 使用标准C库 如果报错就使用微库
+//if 0 使用微库 得去勾选魔术棒里的 Use MicroLIB
 #if 1
 #pragma import(__use_no_semihosting)
-//��׼����Ҫ��֧�ֺ���
+//标准库需要的支持函数
 struct __FILE
 {
   int handle;
 };
 FILE __stdout;
-//����_sys_exit()�Ա���ʹ�ð�����ģʽ
+//定义_sys_exit()以避免使用半主机模式
 void _sys_exit(int x)
 {
   x = x;
@@ -112,23 +112,23 @@ int fputc(int ch, FILE *f)
   UART_transmitData(EUSCI_A0_BASE, ch & 0xFF);
   return ch;
 }
-/*****************   ����˵��   *****************
+/*****************   函数说明   *****************
  *
- * ���������Խӱ�׼���������ĺ���:
+ * 以上两条对接标准输入输出库的函数:
  * int fputc(int ch, FILE *f);
  * int fgetc(FILE *f);
- * Դ��ΪBiliBiliƽ̨UP�� ��CloudBoyStudio�� ��д
- * ����RNA����������
- * �ڴ�Ҳ����л
+ * 源码为BiliBili平台UP主 “CloudBoyStudio” 编写
+ * 本人RNA，不是作者
+ * 在此也表感谢
  *
- *****************   ˵������   *****************/
+ *****************   说明结束   *****************/
 #endif
 
 void uart_init(uint32_t baudRate)
 {
 #ifdef EUSCI_A_UART_7_BIT_LEN
-  //�̼���v3_40_01_02
-  //Ĭ��SMCLK 48MHz ������ 115200
+  //固件库v3_40_01_02
+  //默认SMCLK 48MHz 比特率 115200
   const eUSCI_UART_ConfigV1 uartConfig =
       {
           EUSCI_A_UART_CLOCKSOURCE_SMCLK,                // SMCLK Clock Source
@@ -142,10 +142,10 @@ void uart_init(uint32_t baudRate)
           EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION, // Oversampling
           EUSCI_A_UART_8_BIT_LEN                         // 8 bit data length
       };
-  eusci_calcBaudDividers((eUSCI_UART_ConfigV1 *)&uartConfig, baudRate); //���ò�����
+  eusci_calcBaudDividers((eUSCI_UART_ConfigV1 *)&uartConfig, baudRate); //配置波特率
 #else
-  //�̼���v3_21_00_05
-  //Ĭ��SMCLK 48MHz ������ 115200
+  //固件库v3_21_00_05
+  //默认SMCLK 48MHz 比特率 115200
   const eUSCI_UART_Config uartConfig =
       {
           EUSCI_A_UART_CLOCKSOURCE_SMCLK,                // SMCLK Clock Source
@@ -158,7 +158,7 @@ void uart_init(uint32_t baudRate)
           EUSCI_A_UART_MODE,                             // UART mode
           EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION, // Oversampling
       };
-  eusci_calcBaudDividers((eUSCI_UART_Config *)&uartConfig, baudRate); //���ò�����
+  eusci_calcBaudDividers((eUSCI_UART_Config *)&uartConfig, baudRate); //配置波特率
 #endif
 
   MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P1, GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);

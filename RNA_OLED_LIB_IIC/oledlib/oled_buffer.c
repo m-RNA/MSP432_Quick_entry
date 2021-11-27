@@ -3,7 +3,7 @@
 #include "oled_color.h"
 #include "string.h"
 
-//¶¨Òå»º³å£¬
+//Â¶Â¨Ã’Ã¥Â»ÂºÂ³Ã¥Â£Â¬
 unsigned char ScreenBuffer[SCREEN_PAGE_NUM][SCREEN_COLUMN]={0};
 unsigned char TempBuffer[SCREEN_PAGE_NUM][SCREEN_COLUMN]={0};
 static _Bool _SelectedBuffer=SCREEN_BUFFER;
@@ -47,7 +47,7 @@ void WriteByteBuffer(int page,int x,unsigned char byte)
 
 void SetPointBuffer(int x,int y,int value)
 {
-	if(x>SCREEN_COLUMN-1 ||y>SCREEN_ROW-1)   //³¬³ö·¶Î§
+	if(x>SCREEN_COLUMN-1 ||y>SCREEN_ROW-1)   //Â³Â¬Â³Ã¶Â·Â¶ÃŽÂ§
 		return;
 	if(_SelectedBuffer)
 	{
@@ -69,7 +69,7 @@ void SetPointBuffer(int x,int y,int value)
 
 unsigned char GetPointBuffer(int x,int y)
 {
-	if(x>SCREEN_COLUMN-1 ||y>SCREEN_ROW-1)   //³¬³ö·¶Î§
+	if(x>SCREEN_COLUMN-1 ||y>SCREEN_ROW-1)   //Â³Â¬Â³Ã¶Â·Â¶ÃŽÂ§
 		return 0;
 	if(_SelectedBuffer)
 		return (ScreenBuffer[y/SCREEN_PAGE_NUM][x]>>(y%SCREEN_PAGE_NUM))&0x01;
@@ -127,7 +127,7 @@ void TempBufferFunc(int func)
 
 //void WritePointToTempBuffer(int x,int y,int value)
 //{
-//	if(x>SCREEN_COLUMN-1 ||y>SCREEN_ROW-1)   //³¬³ö·¶Î§
+//	if(x>SCREEN_COLUMN-1 ||y>SCREEN_ROW-1)   //Â³Â¬Â³Ã¶Â·Â¶ÃŽÂ§
 //		return;
 //	if(value)
 //		TempBuffer[y/SCREEN_PAGE_NUM][x] |= 1<<(y%SCREEN_PAGE_NUM);

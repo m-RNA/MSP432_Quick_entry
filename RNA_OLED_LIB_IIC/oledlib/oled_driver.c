@@ -2,7 +2,7 @@
 #include "delay.h"
 
 #if (TRANSFER_METHOD == HW_IIC)
-//I2C_Configuration£¬³õÊ¼»¯Ó²¼şIICÒı½Å
+//I2C_Configurationï¼Œåˆå§‹åŒ–ç¡¬ä»¶IICå¼•è„š
 void I2C_Configuration(void)
 {
 	MAP_GPIO_setAsPeripheralModuleFunctionInputPin(
@@ -28,18 +28,18 @@ void I2C_Configuration(void)
 }
 
 /*
-static uint32_t _OLED_IIC_sending = 0;	  // Ê£ÓàÒª·¢ËÍµÄÊı¾İÁ¿
-static uint8_t *_OLED_IIC_sendingPtr = 0; // Êı¾İÖ¸Õë
-static uint8_t buff;					  // Ö¸Áî/Êı¾İ»º´æ
+static uint32_t _OLED_IIC_sending = 0;	  // å‰©ä½™è¦å‘é€çš„æ•°æ®é‡
+static uint8_t *_OLED_IIC_sendingPtr = 0; // æ•°æ®æŒ‡é’ˆ
+static uint8_t buff;					  // æŒ‡ä»¤/æ•°æ®ç¼“å­˜
 */
 
-void WriteCmd(unsigned char cmd) //Ğ´ÃüÁî
+void WriteCmd(unsigned char cmd) //å†™å‘½ä»¤
 {
 	MAP_I2C_masterSendMultiByteStart(EUSCI_BX, 0x00);
 	MAP_I2C_masterSendMultiByteFinish(EUSCI_BX, cmd);
 }
 
-void WriteDat(unsigned char dat) //Ğ´Êı¾İ
+void WriteDat(unsigned char dat) //å†™æ•°æ®
 {
 	MAP_I2C_masterSendMultiByteStart(EUSCI_BX, 0x40);
 	MAP_I2C_masterSendMultiByteFinish(EUSCI_BX, dat);
@@ -56,7 +56,7 @@ void OLED_FILL(unsigned char BMP[])
 		WriteCmd(0x00);		//low column start address
 		WriteCmd(0x10);		//high column start address
 
-		// Æô¶¯¶à×Ö½ÚÊı¾İ·¢ËÍ
+		// å¯åŠ¨å¤šå­—èŠ‚æ•°æ®å‘é€
 		MAP_I2C_masterSendMultiByteStart(EUSCI_BX, 0x40);
 		for (n = 0; n < 127; ++n)
 		{
@@ -67,60 +67,60 @@ void OLED_FILL(unsigned char BMP[])
 }
 
 /**
- * @brief   IICÖĞ¶Ï´¦Àíº¯Êı
+ * @brief   IICä¸­æ–­å¤„ç†å‡½æ•°
  */
 /*
 void EUSCIB0_IRQHandler(void)
 {
-	// ÖĞ¶Ï×´Ì¬
+	// ä¸­æ–­çŠ¶æ€
 	uint_fast16_t status;
 	status = MAP_I2C_getEnabledInterruptStatus(EUSCI_BX);
 
-	// Ã»½ÓÊÕµ½Ó¦´ğ£¨ACK£©ĞÅºÅ
+	// æ²¡æ¥æ”¶åˆ°åº”ç­”ï¼ˆACKï¼‰ä¿¡å·
 	if (status & EUSCI_B_I2C_NAK_INTERRUPT)
 	{
-		// Çå³ıÖĞ¶Ï
+		// æ¸…é™¤ä¸­æ–­
 		MAP_I2C_clearInterruptFlag(EUSCI_BX, EUSCI_B_I2C_NAK_INTERRUPT);
 
 		//MAP_I2C_masterSendMultiByteStart(EUSCI_BX, OLED_ADDRESS);
 	}
 
-	// ½ÓÊÕÖĞ¶Ï
+	// æ¥æ”¶ä¸­æ–­
 	if (status & EUSCI_B_I2C_RECEIVE_INTERRUPT0)
 	{
-		// Çå³ıÖĞ¶Ï
+		// æ¸…é™¤ä¸­æ–­
 		MAP_I2C_clearInterruptFlag(EUSCI_BX, EUSCI_B_I2C_RECEIVE_INTERRUPT0);
-		// Ê§ÄÜÖĞ¶Ï
+		// å¤±èƒ½ä¸­æ–­
 		MAP_I2C_disableInterrupt(EUSCI_BX, EUSCI_B_I2C_RECEIVE_INTERRUPT0);
 	}
 
-	// ·¢ËÍÍê³ÉÖĞ¶Ï
+	// å‘é€å®Œæˆä¸­æ–­
 	if (status & EUSCI_B_I2C_TRANSMIT_INTERRUPT0)
 	{
-		// Çå³ıÖĞ¶Ï
+		// æ¸…é™¤ä¸­æ–­
 		MAP_I2C_clearInterruptFlag(EUSCI_BX, EUSCI_B_I2C_TRANSMIT_INTERRUPT0);
 
-		// ---·¢ËÍÍê³ÉÖĞ¶Ï´¦Àí--- 
-		if (_OLED_IIC_sending == 0) // ·¢ÍêÁË
+		// ---å‘é€å®Œæˆä¸­æ–­å¤„ç†--- 
+		if (_OLED_IIC_sending == 0) // å‘å®Œäº†
 		{
-			MAP_I2C_masterSendMultiByteStop(EUSCI_BX); // ·¢ËÍIIC½áÊøĞÅºÅ
-			_OLED_IIC_sendingPtr = 0;						// Ö¸Õë´¦Àí
+			MAP_I2C_masterSendMultiByteStop(EUSCI_BX); // å‘é€IICç»“æŸä¿¡å·
+			_OLED_IIC_sendingPtr = 0;						// æŒ‡é’ˆå¤„ç†
 		}
-		else if (_OLED_IIC_sending == 1) // »¹ÓĞÒ»¸ö¾Í·¢ÍêÁË
+		else if (_OLED_IIC_sending == 1) // è¿˜æœ‰ä¸€ä¸ªå°±å‘å®Œäº†
 		{
-			MAP_I2C_masterSendMultiByteFinish(EUSCI_BX, *_OLED_IIC_sendingPtr); // ·¢ËÍÍêÏÂÒ»¸öĞÅºÅ×Ô¶¯¸úÉÏ½áÊøĞÅºÅ
-			_OLED_IIC_sendingPtr = 0;												 // Ö¸Õë´¦Àí
+			MAP_I2C_masterSendMultiByteFinish(EUSCI_BX, *_OLED_IIC_sendingPtr); // å‘é€å®Œä¸‹ä¸€ä¸ªä¿¡å·è‡ªåŠ¨è·Ÿä¸Šç»“æŸä¿¡å·
+			_OLED_IIC_sendingPtr = 0;												 // æŒ‡é’ˆå¤„ç†
 			_OLED_IIC_sending = 0;
 		}
-		else // »¹ÓĞºÜ¶àÊı¾İ´ı·¢
+		else // è¿˜æœ‰å¾ˆå¤šæ•°æ®å¾…å‘
 		{
-			MAP_I2C_masterSendMultiByteNext(EUSCI_BX, *_OLED_IIC_sendingPtr); // ·ÅÒ»¸öÊı¾İµ½·¢ËÍ¼Ä´æÆ÷
-			_OLED_IIC_sendingPtr++;												   // Ö¸Õëµü´ú
-			_OLED_IIC_sending--;												   // ¼ÆÊıÆ÷×Ô¼õ
+			MAP_I2C_masterSendMultiByteNext(EUSCI_BX, *_OLED_IIC_sendingPtr); // æ”¾ä¸€ä¸ªæ•°æ®åˆ°å‘é€å¯„å­˜å™¨
+			_OLED_IIC_sendingPtr++;												   // æŒ‡é’ˆè¿­ä»£
+			_OLED_IIC_sending--;												   // è®¡æ•°å™¨è‡ªå‡
 		}
 	}
 
-	// ·¢ËÍ½áÊøÖĞ¶Ï
+	// å‘é€ç»“æŸä¸­æ–­
 	if (status & EUSCI_B_I2C_STOP_INTERRUPT)
 	{
 		MAP_I2C_clearInterruptFlag(EUSCI_BX, EUSCI_B_I2C_STOP_INTERRUPT);
@@ -139,7 +139,7 @@ void I2C_SW_Configuration(void)
 	delay_ms(200);
 }
 
-//ÆğÊ¼ĞÅºÅ
+//èµ·å§‹ä¿¡å·
 void I2C_Start(void)
 {
 	OLED_SDA_Set();
@@ -148,7 +148,7 @@ void I2C_Start(void)
 	OLED_SCL_Clr();
 }
 
-//½áÊøĞÅºÅ
+//ç»“æŸä¿¡å·
 void I2C_Stop(void)
 {
 	OLED_SDA_Clr();
@@ -156,22 +156,22 @@ void I2C_Stop(void)
 	OLED_SDA_Set();
 }
 
-//µÈ´ıĞÅºÅÏìÓ¦
-void I2C_WaitAck(void) //²âÊı¾İĞÅºÅµÄµçÆ½
+//ç­‰å¾…ä¿¡å·å“åº”
+void I2C_WaitAck(void) //æµ‹æ•°æ®ä¿¡å·çš„ç”µå¹³
 {
 	OLED_SDA_Set();
 	OLED_SCL_Set();
 	OLED_SCL_Clr();
 }
 
-//Ğ´ÈëÒ»¸ö×Ö½Ú
+//å†™å…¥ä¸€ä¸ªå­—èŠ‚
 void Send_Byte(uint8_t dat)
 {
 	uint8_t i;
 	for (i = 0; i < 8; i++)
 	{
-		OLED_SCL_Clr(); //½«Ê±ÖÓĞÅºÅÉèÖÃÎªµÍµçÆ½
-		if (dat & 0x80) //½«datµÄ8Î»´Ó×î¸ßÎ»ÒÀ´ÎĞ´Èë
+		OLED_SCL_Clr(); //å°†æ—¶é’Ÿä¿¡å·è®¾ç½®ä¸ºä½ç”µå¹³
+		if (dat & 0x80) //å°†datçš„8ä½ä»æœ€é«˜ä½ä¾æ¬¡å†™å…¥
 		{
 			OLED_SDA_Set();
 		}
@@ -185,23 +185,23 @@ void Send_Byte(uint8_t dat)
 	}
 }
 /**
-  * @brief  I2C_WriteByte£¬ÏòOLED¼Ä´æÆ÷µØÖ·Ğ´Ò»¸öbyteµÄÊı¾İ
-  * @param  addr£º¼Ä´æÆ÷µØÖ·
-	*					data£ºÒªĞ´ÈëµÄÊı¾İ
-  * @retval ÎŞ
+  * @brief  I2C_WriteByteï¼Œå‘OLEDå¯„å­˜å™¨åœ°å€å†™ä¸€ä¸ªbyteçš„æ•°æ®
+  * @param  addrï¼šå¯„å­˜å™¨åœ°å€
+	*					dataï¼šè¦å†™å…¥çš„æ•°æ®
+  * @retval æ— 
   */
 void I2C_WriteByte(uint8_t addr, uint8_t data)
 {
 	I2C_Start();
 	Send_Byte(0x78);
 	I2C_WaitAck();
-	Send_Byte(addr); //¼Ä´æÆ÷µØÖ·
+	Send_Byte(addr); //å¯„å­˜å™¨åœ°å€
 	I2C_WaitAck();
 	Send_Byte(data);
 	I2C_WaitAck();
 }
 
-void WriteCmd(unsigned char cmd) //Ğ´ÃüÁî
+void WriteCmd(unsigned char cmd) //å†™å‘½ä»¤
 {
 	I2C_Start();
 	Send_Byte(0x78);
@@ -213,7 +213,7 @@ void WriteCmd(unsigned char cmd) //Ğ´ÃüÁî
 	I2C_Stop();
 }
 
-void WriteDat(unsigned char dat) //Ğ´Êı¾İ
+void WriteDat(unsigned char dat) //å†™æ•°æ®
 {
 	I2C_Start();
 	Send_Byte(0x78);
@@ -257,16 +257,16 @@ void OLED_FILL(unsigned char BMP[])
 
 	// for (n = 0; n < 128 * 8; n++)
 	// {
-	// 	WriteDat(*p++); //·¢ËÍÊı¾İ
+	// 	WriteDat(*p++); //å‘é€æ•°æ®
 	// }
 }
 #elif (TRANSFER_METHOD == HW_SPI)
 
-#define OLED_RESET_LOW() GPIO_ResetBits(SPI_RES_GPIOX, SPI_RES_PIN) //µÍµçÆ½¸´Î»
+#define OLED_RESET_LOW() GPIO_ResetBits(SPI_RES_GPIOX, SPI_RES_PIN) //ä½ç”µå¹³å¤ä½
 #define OLED_RESET_HIGH() GPIO_SetBits(SPI_RES_GPIOX, SPI_RES_PIN)
 
-#define OLED_CMD_MODE() GPIO_ResetBits(SPI_DC_GPIOX, SPI_DC_PIN) //ÃüÁîÄ£Ê½
-#define OLED_DATA_MODE() GPIO_SetBits(SPI_DC_GPIOX, SPI_DC_PIN)	 //Êı¾İÄ£Ê½
+#define OLED_CMD_MODE() GPIO_ResetBits(SPI_DC_GPIOX, SPI_DC_PIN) //å‘½ä»¤æ¨¡å¼
+#define OLED_DATA_MODE() GPIO_SetBits(SPI_DC_GPIOX, SPI_DC_PIN)	 //æ•°æ®æ¨¡å¼
 
 #define OLED_CS_HIGH() GPIO_SetBits(SPI_CS_GPIOX, SPI_CS_Pin_X)
 #define OLED_CS_LOW() GPIO_ResetBits(SPI_CS_GPIOX, SPI_CS_Pin_X)
@@ -328,12 +328,12 @@ void SPI_WriterByte(unsigned char dat)
 
 	while (SPI_I2S_GetFlagStatus(SPIX, SPI_I2S_FLAG_TXE) == RESET)
 	{
-	};							 //¼ì²éÖ¸¶¨µÄSPI±êÖ¾Î»ÉèÖÃÓë·ñ:·¢ËÍ»º´æ¿Õ±êÖ¾Î»
-	SPI_I2S_SendData(SPIX, dat); //Í¨¹ıÍâÉèSPIx·¢ËÍÒ»¸öÊı¾İ
+	};							 //æ£€æŸ¥æŒ‡å®šçš„SPIæ ‡å¿—ä½è®¾ç½®ä¸å¦:å‘é€ç¼“å­˜ç©ºæ ‡å¿—ä½
+	SPI_I2S_SendData(SPIX, dat); //é€šè¿‡å¤–è®¾SPIxå‘é€ä¸€ä¸ªæ•°æ®
 	while (SPI_I2S_GetFlagStatus(SPIX, SPI_I2S_FLAG_RXNE) == RESET)
 	{
-	};						   //¼ì²éÖ¸¶¨µÄSPI±êÖ¾Î»ÉèÖÃÓë·ñ:½ÓÊÜ»º´æ·Ç¿Õ±êÖ¾Î»
-	SPI_I2S_ReceiveData(SPIX); //·µ»ØÍ¨¹ıSPIx×î½ü½ÓÊÕµÄÊı¾İ
+	};						   //æ£€æŸ¥æŒ‡å®šçš„SPIæ ‡å¿—ä½è®¾ç½®ä¸å¦:æ¥å—ç¼“å­˜éç©ºæ ‡å¿—ä½
+	SPI_I2S_ReceiveData(SPIX); //è¿”å›é€šè¿‡SPIxæœ€è¿‘æ¥æ”¶çš„æ•°æ®
 }
 
 void WriteCmd(unsigned char cmd)
@@ -386,7 +386,7 @@ void OLED_Init(void)
 	WriteCmd(0x10); //---set high column address
 	WriteCmd(0x40); //--set start line address
 	WriteCmd(0x81); //--set contrast control register
-	WriteCmd(0xff); //ÁÁ¶Èµ÷½Ú 0x00~0xff
+	WriteCmd(0xff); //äº®åº¦è°ƒèŠ‚ 0x00~0xff
 	WriteCmd(0xa1); //--set segment re-map 0 to 127
 	WriteCmd(0xa6); //--set normal display
 	WriteCmd(0xa8); //--set multiplex ratio(1 to 64)
@@ -408,7 +408,7 @@ void OLED_Init(void)
 	OLED_CLS();
 }
 
-void OLED_CLS(void) //ÇåÆÁ
+void OLED_CLS(void) //æ¸…å±
 {
 	unsigned char m, n;
 	for (m = 0; m < 8; m++)
@@ -425,14 +425,14 @@ void OLED_CLS(void) //ÇåÆÁ
 
 void OLED_ON(void)
 {
-	WriteCmd(0X8D); //ÉèÖÃµçºÉ±Ã
-	WriteCmd(0X14); //¿ªÆôµçºÉ±Ã
-	WriteCmd(0XAF); //OLED»½ĞÑ
+	WriteCmd(0X8D); //è®¾ç½®ç”µè·æ³µ
+	WriteCmd(0X14); //å¼€å¯ç”µè·æ³µ
+	WriteCmd(0XAF); //OLEDå”¤é†’
 }
 
 void OLED_OFF(void)
 {
-	WriteCmd(0X8D); //ÉèÖÃµçºÉ±Ã
-	WriteCmd(0X10); //¹Ø±ÕµçºÉ±Ã
-	WriteCmd(0XAE); //OLEDĞİÃß
+	WriteCmd(0X8D); //è®¾ç½®ç”µè·æ³µ
+	WriteCmd(0X10); //å…³é—­ç”µè·æ³µ
+	WriteCmd(0XAE); //OLEDä¼‘çœ 
 }

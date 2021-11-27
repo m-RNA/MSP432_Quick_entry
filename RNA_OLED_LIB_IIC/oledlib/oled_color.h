@@ -1,6 +1,6 @@
 #ifndef OLED_COLOR_H
 #define OLED_COLOR_H
-//»æÖÆÑÕÉ«£¬¼òµ¥»æÖÆor¸´ÔÓ»æÖÆ
+//ç»˜åˆ¶é¢œè‰²ï¼Œç®€å•ç»˜åˆ¶orå¤æ‚ç»˜åˆ¶
 #define  COLOR_CHOOSE_DRAW   (SIMPLE_DRAW)   
 
 
@@ -11,9 +11,9 @@ typedef enum
 	//............
 }Type_color;
 
-//»ñÈ¡µ±Ç°ÉèÖÃµÄÏñËØµãÉ«
+//è·å–å½“å‰è®¾ç½®çš„åƒç´ ç‚¹è‰²
 Type_color GetDrawColor(void);
-//ÉèÖÃ½«Òª»æÖÆµÄÏñËØµãÉ«
+//è®¾ç½®å°†è¦ç»˜åˆ¶çš„åƒç´ ç‚¹è‰²
 void SetDrawColor(Type_color value);
 
 Type_color GetFillColor(void);

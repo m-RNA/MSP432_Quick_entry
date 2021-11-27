@@ -1,23 +1,23 @@
 /******************************************************************************
 //MSP432P401R
-//10 OLEDÍ¼ÐÎ¿â£¨Ó²¼þIIC/Ä£ÄâIIC£©
-//Bilibili£ºm-RNA
+//10 OLEDå›¾å½¢åº“ï¼ˆç¡¬ä»¶IIC/æ¨¡æ‹ŸIICï¼‰
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/9/17
+//åˆ›å»ºæ—¥æœŸ:2021/9/17
 *******************************************************************************/
 
-/*********  ÉùÃ÷  **********
+/*********  å£°æ˜Ž  **********
  *
- * 0.96´çOLED
- * UP½«OLEDÍ¼ÐÎ¿âÇý¶¯
- * ÒÆÖ²µ½ÁËMSP432ÉÏÀ´ÁË
- * ÏîÄ¿µØÖ·£ºhttps://github.com/hello-myj/stm32_oled
+ * 0.96å¯¸OLED
+ * UPå°†OLEDå›¾å½¢åº“é©±åŠ¨
+ * ç§»æ¤åˆ°äº†MSP432ä¸Šæ¥äº†
+ * é¡¹ç›®åœ°å€ï¼šhttps://github.com/hello-myj/stm32_oled
  
- * Ö§³ÖÄ£ÄâIIC¡¢Ó²¼þIIC
- * Òý½Å½Ó·¨:
+ * æ”¯æŒæ¨¡æ‹ŸIICã€ç¡¬ä»¶IIC
+ * å¼•è„šæŽ¥æ³•:
  * P1.7 SCL
  * P1.6 SDA
- * ¿ÉÒÔÈ¥Í·ÎÄ¼þ¸ü¸ÄÒý½Å
+ * å¯ä»¥åŽ»å¤´æ–‡ä»¶æ›´æ”¹å¼•è„š
  *
  ****************************/
 
@@ -32,10 +32,10 @@ int main(void)
     delay_init();
     InitGraph();
     delay_ms(200);
-    ClearScreen(); //ÇåÆÁ
+    ClearScreen(); //æ¸…å±
     while (1)
     {
         demo();
-        ZJY_Demo(); //OLED_TESTÀïµÄÀý×Ó
+        ZJY_Demo(); //OLED_TESTé‡Œçš„ä¾‹å­
     }
 }

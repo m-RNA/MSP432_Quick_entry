@@ -13,13 +13,13 @@
 #define IIC_4 13
 
 /*****************************************************************/
-//≈‰÷√«˝∂Ø
-//1.HW_IIC  ”≤º˛IIC
-//2.SW_IIC  »Ìº˛IIC
-//3.HW_SPI	”≤º˛SPI
-//4.SW_SPI	»Ìº˛IIC
+//ÈÖçÁΩÆÈ©±Âä®
+//1.HW_IIC  Á°¨‰ª∂IIC
+//2.SW_IIC  ËΩØ‰ª∂IIC
+//3.HW_SPI	Á°¨‰ª∂SPI
+//4.SW_SPI	ËΩØ‰ª∂IIC
 
-//œ÷‘⁄÷ª÷ß≥÷ ”≤º˛IIC ∫Õ »Ìº˛IIC
+//Áé∞Âú®Âè™ÊîØÊåÅ Á°¨‰ª∂IIC Âíå ËΩØ‰ª∂IIC
 #define TRANSFER_METHOD HW_IIC
 
 /*****************************************************************/
@@ -37,27 +37,27 @@
 #endif
 
 #if (TRANSFER_METHOD == HW_IIC)
-#define OLED_ADDRESS 0x3C //Õ®π˝µ˜’˚0RµÁ◊Ë,∆¡ø…“‘0x78∫Õ0x7A¡Ω∏ˆµÿ÷∑ -- ƒ¨»œ0x78  0x3C = 0x78 >> 1
+#define OLED_ADDRESS 0x3C //ÈÄöËøáË∞ÉÊï¥0RÁîµÈòª,Â±èÂèØ‰ª•0x78Âíå0x7A‰∏§‰∏™Âú∞ÂùÄ -- ÈªòËÆ§0x78  0x3C = 0x78 >> 1
 
-#if (USE_HW_IIC == IIC_0) //“——È÷§
+#if (USE_HW_IIC == IIC_0) //Â∑≤È™åËØÅ
 #define IIC_GPIOX GPIO_PORT_P1
 #define IIC_SCL_Pin GPIO_PIN7
 #define IIC_SDA_Pin GPIO_PIN6
 #define EUSCI_BX EUSCI_B0_BASE
 
-#elif (USE_HW_IIC == IIC_1) //“——È÷§
+#elif (USE_HW_IIC == IIC_1) //Â∑≤È™åËØÅ
 #define IIC_GPIOX GPIO_PORT_P6
 #define IIC_SCL_Pin GPIO_PIN5
 #define IIC_SDA_Pin GPIO_PIN4
 #define EUSCI_BX EUSCI_B1_BASE
 
-#elif (USE_HW_IIC == IIC_2) //“——È÷§
+#elif (USE_HW_IIC == IIC_2) //Â∑≤È™åËØÅ
 #define IIC_GPIOX GPIO_PORT_P3
 #define IIC_SCL_Pin GPIO_PIN7
 #define IIC_SDA_Pin GPIO_PIN6
 #define EUSCI_BX EUSCI_B2_BASE
 
-#elif (USE_HW_IIC == IIC_3) //“——È÷§
+#elif (USE_HW_IIC == IIC_3) //Â∑≤È™åËØÅ
 #define IIC_GPIOX GPIO_PORT_P10
 #define IIC_SCL_Pin GPIO_PIN3
 #define IIC_SDA_Pin GPIO_PIN2
@@ -65,9 +65,9 @@
 #endif
 
 #elif TRANSFER_METHOD == SW_IIC
-#define Set_Bit(val, bitn) (val |= (/*1 <<*/ (bitn))) //÷√1
-#define Clr_Bit(val, bitn) (val &= ~(/*1<<*/ (bitn))) //÷√0
-#define Get_Bit(val, bitn) (val & (1 << (bitn)))      //ªÒ»°µÁ∆Ω
+#define Set_Bit(val, bitn) (val |= (/*1 <<*/ (bitn))) //ÁΩÆ1
+#define Clr_Bit(val, bitn) (val &= ~(/*1<<*/ (bitn))) //ÁΩÆ0
+#define Get_Bit(val, bitn) (val & (1 << (bitn)))      //Ëé∑ÂèñÁîµÂπ≥
 
 //OLED SSD1306 I2C SCL P1.7
 #define OLED_SSD1306_SCL_PIN_NUM (BIT7)
@@ -82,10 +82,10 @@
 #define OLED_SDA_Clr() (Clr_Bit(P1OUT, OLED_SSD1306_SDA_PIN_NUM))
 
 #elif (TRANSFER_METHOD == HW_SPI)
-//‘›Œ¥÷ß≥÷
+//ÊöÇÊú™ÊîØÊåÅ
 #endif
 
-//OLEDøÿ÷∆”√∫Ø ˝
+//OLEDÊéßÂà∂Áî®ÂáΩÊï∞
 void OLED_ColorTurn(uint8_t i);
 void OLED_DisplayTurn(uint8_t i);
 void OLED_WR_Byte(uint8_t dat, uint8_t cmd);

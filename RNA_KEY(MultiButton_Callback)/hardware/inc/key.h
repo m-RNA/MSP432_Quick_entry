@@ -1,18 +1,18 @@
 /****************************************************/
 //MSP432P401R
-//°åÔØ°´¼üÇı¶¯(MultiButton°æ)
-//Bilibili£ºm-RNA
+//æ¿è½½æŒ‰é”®é©±åŠ¨(MultiButtonç‰ˆ)
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/10/29
+//åˆ›å»ºæ—¥æœŸ:2021/10/29
 /****************************************************/
 
 #ifndef __KEY_H
 #define __KEY_H
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
-#define KEY1 MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN1) //¶ÁÈ¡°´¼ü1
-#define KEY2 MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN4) //¶ÁÈ¡°´¼ü2
+#define KEY1 MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN1) //è¯»å–æŒ‰é”®1
+#define KEY2 MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN4) //è¯»å–æŒ‰é”®2
 
-void KEY_Init(void);    //IO³õÊ¼»¯
+void KEY_Init(void);    //IOåˆå§‹åŒ–
 
 #endif

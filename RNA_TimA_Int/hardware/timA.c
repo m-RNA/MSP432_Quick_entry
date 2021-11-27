@@ -1,108 +1,108 @@
 /****************************************************/
 // MSP432P401R
-// ¶¨Ê±Æ÷A
-// Bilibili£ºm-RNA
+// å®šæ—¶å™¨A
+// Bilibiliï¼šm-RNA
 // E-mail:m-RNA@qq.com
-// ´´½¨ÈÕÆÚ:2021/8/26
+// åˆ›å»ºæ—¥æœŸ:2021/8/26
 /****************************************************/
 
 #include "timA.h"
 
 /**************************************         TIMA2          *******************************************/
 
-#define CAP_TIMA_SELECTION TIMER_A2_BASE                         //ÔÚÕâÀï¸Ä¶¨Ê±Æ÷
-#define CAP_REGISTER_SELECTION TIMER_A_CAPTURECOMPARE_REGISTER_1 //ÔÚÕâÀï¸Ä¶¨Ê±Æ÷Í¨µÀ
-#define CAP_CCR_NUM 1                                            //ÔÚÕâÀï¸Ä¶¨Ê±Æ÷Í¨µÀ
-#define CAP_PORT_PIN GPIO_PORT_P5, GPIO_PIN6                     //ÔÚÕâÀï¸Ä¸´ÓÃÒı½Å
+#define CAP_TIMA_SELECTION TIMER_A2_BASE                         //åœ¨è¿™é‡Œæ”¹å®šæ—¶å™¨
+#define CAP_REGISTER_SELECTION TIMER_A_CAPTURECOMPARE_REGISTER_1 //åœ¨è¿™é‡Œæ”¹å®šæ—¶å™¨é€šé“
+#define CAP_CCR_NUM 1                                            //åœ¨è¿™é‡Œæ”¹å®šæ—¶å™¨é€šé“
+#define CAP_PORT_PIN GPIO_PORT_P5, GPIO_PIN6                     //åœ¨è¿™é‡Œæ”¹å¤ç”¨å¼•è„š
 
 void TimA2_Cap_Init(void)
 {
-    // 1.¸´ÓÃÊä³ö
+    // 1.å¤ç”¨è¾“å‡º
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(CAP_PORT_PIN, GPIO_PRIMARY_MODULE_FUNCTION);
 
-    /* ¶¨Ê±Æ÷ÅäÖÃ²ÎÊı*/
+    /* å®šæ—¶å™¨é…ç½®å‚æ•°*/
     Timer_A_ContinuousModeConfig continuousModeConfig = {
         TIMER_A_CLOCKSOURCE_SMCLK,      // SMCLK Clock Source
         TIMER_A_CLOCKSOURCE_DIVIDER_48, // SMCLK/48 = 1MHz
-        TIMER_A_TAIE_INTERRUPT_ENABLE,  // ¿ªÆô¶¨Ê±Æ÷Òç³öÖĞ¶Ï
+        TIMER_A_TAIE_INTERRUPT_ENABLE,  // å¼€å¯å®šæ—¶å™¨æº¢å‡ºä¸­æ–­
         TIMER_A_DO_CLEAR                // Clear Counter
     };
-    // 3.½«¶¨Ê±Æ÷³õÊ¼»¯ÎªÁ¬Ğø¼ÆÊıÄ£Ê½
+    // 3.å°†å®šæ—¶å™¨åˆå§‹åŒ–ä¸ºè¿ç»­è®¡æ•°æ¨¡å¼
     MAP_Timer_A_configureContinuousMode(CAP_TIMA_SELECTION, &continuousModeConfig);
 
-    // 4.ÅäÖÃ²¶×½Ä£Ê½½á¹¹Ìå */
+    // 4.é…ç½®æ•æ‰æ¨¡å¼ç»“æ„ä½“ */
     const Timer_A_CaptureModeConfig captureModeConfig_TA2 = {
-        CAP_REGISTER_SELECTION,                      //ÔÚÕâÀï¸ÄÒı½Å
-        TIMER_A_CAPTUREMODE_RISING_AND_FALLING_EDGE, //ÉÏÉıÏÂ½µÑØ²¶»ñ
-        TIMER_A_CAPTURE_INPUTSELECT_CCIxA,           //CCIxA:Íâ²¿Òı½ÅÊäÈë  £¨CCIxB:ÓëÄÚ²¿ACLKÁ¬½Ó(ÊÖ²á)
-        TIMER_A_CAPTURE_SYNCHRONOUS,                 //Í¬²½²¶»ñ
-        TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE,     //¿ªÆôCCRN²¶»ñÖĞ¶Ï
-        TIMER_A_OUTPUTMODE_OUTBITVALUE               //Êä³öÎ»Öµ
+        CAP_REGISTER_SELECTION,                      //åœ¨è¿™é‡Œæ”¹å¼•è„š
+        TIMER_A_CAPTUREMODE_RISING_AND_FALLING_EDGE, //ä¸Šå‡ä¸‹é™æ²¿æ•è·
+        TIMER_A_CAPTURE_INPUTSELECT_CCIxA,           //CCIxA:å¤–éƒ¨å¼•è„šè¾“å…¥  ï¼ˆCCIxB:ä¸å†…éƒ¨ACLKè¿æ¥(æ‰‹å†Œ)
+        TIMER_A_CAPTURE_SYNCHRONOUS,                 //åŒæ­¥æ•è·
+        TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE,     //å¼€å¯CCRNæ•è·ä¸­æ–­
+        TIMER_A_OUTPUTMODE_OUTBITVALUE               //è¾“å‡ºä½å€¼
     };
-    // 5.³õÊ¼»¯¶¨Ê±Æ÷µÄ²¶»ñÄ£Ê½
+    // 5.åˆå§‹åŒ–å®šæ—¶å™¨çš„æ•è·æ¨¡å¼
     MAP_Timer_A_initCapture(CAP_TIMA_SELECTION, &captureModeConfig_TA2);
 
-    // 6.Ñ¡ÔñÁ¬ĞøÄ£Ê½¼ÆÊı¿ªÊ¼¼ÆÊı
+    // 6.é€‰æ‹©è¿ç»­æ¨¡å¼è®¡æ•°å¼€å§‹è®¡æ•°
     MAP_Timer_A_startCounter(CAP_TIMA_SELECTION, TIMER_A_CONTINUOUS_MODE);
 
-    // 7.Çå³ıÖĞ¶Ï±êÖ¾Î»
-    MAP_Timer_A_clearInterruptFlag(CAP_TIMA_SELECTION);                                   //Çå³ı¶¨Ê±Æ÷Òç³öÖĞ¶Ï±êÖ¾Î»
-    MAP_Timer_A_clearCaptureCompareInterrupt(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION); //Çå³ı CCR1 ¸üĞÂÖĞ¶Ï±êÖ¾Î»
+    // 7.æ¸…é™¤ä¸­æ–­æ ‡å¿—ä½
+    MAP_Timer_A_clearInterruptFlag(CAP_TIMA_SELECTION);                                   //æ¸…é™¤å®šæ—¶å™¨æº¢å‡ºä¸­æ–­æ ‡å¿—ä½
+    MAP_Timer_A_clearCaptureCompareInterrupt(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION); //æ¸…é™¤ CCR1 æ›´æ–°ä¸­æ–­æ ‡å¿—ä½
 
-    // 8.¿ªÆô¶¨Ê±Æ÷¶Ë¿ÚÖĞ¶Ï
-    MAP_Interrupt_enableInterrupt(INT_TA2_N); //¿ªÆô¶¨Ê±Æ÷A2¶Ë¿ÚÖĞ¶Ï
+    // 8.å¼€å¯å®šæ—¶å™¨ç«¯å£ä¸­æ–­
+    MAP_Interrupt_enableInterrupt(INT_TA2_N); //å¼€å¯å®šæ—¶å™¨A2ç«¯å£ä¸­æ–­
 }
-// 10.±àĞ´TIMA ISR ¡ı¡ı¡ı¡ı
+// 10.ç¼–å†™TIMA ISR â†“â†“â†“â†“
 
-// TIMA2_CAP_STA ²¶»ñ×´Ì¬
-// [7]:²¶»ñ¸ßµçÆ½Íê³É×´Ì¬
-// [6]:0±íÊ¾Î´²¶»ñµ½ÉÏÉıÑØ£¬1±íÊ¾²¶»ñ¹ıÉÏÉıÑØ
-// [5:0]:Òç³ö´ÎÊı
+// TIMA2_CAP_STA æ•è·çŠ¶æ€
+// [7]:æ•è·é«˜ç”µå¹³å®ŒæˆçŠ¶æ€
+// [6]:0è¡¨ç¤ºæœªæ•è·åˆ°ä¸Šå‡æ²¿ï¼Œ1è¡¨ç¤ºæ•è·è¿‡ä¸Šå‡æ²¿
+// [5:0]:æº¢å‡ºæ¬¡æ•°
 uint8_t TIMA2_CAP_STA = 0;
 uint16_t TIMA2_CAP_VAL = 0;
 
 void TA2_N_IRQHandler(void)
 {
-    if ((TIMA2_CAP_STA & 0X80) == 0) //»¹Î´³É¹¦²¶»ñ
+    if ((TIMA2_CAP_STA & 0X80) == 0) //è¿˜æœªæˆåŠŸæ•è·
     {
-        if (MAP_Timer_A_getEnabledInterruptStatus(CAP_TIMA_SELECTION)) //Òç³öÖĞ¶Ï
+        if (MAP_Timer_A_getEnabledInterruptStatus(CAP_TIMA_SELECTION)) //æº¢å‡ºä¸­æ–­
         {
-            MAP_Timer_A_clearInterruptFlag(CAP_TIMA_SELECTION); //Çå³ı¶¨Ê±Æ÷Òç³öÖĞ¶Ï±êÖ¾Î»
+            MAP_Timer_A_clearInterruptFlag(CAP_TIMA_SELECTION); //æ¸…é™¤å®šæ—¶å™¨æº¢å‡ºä¸­æ–­æ ‡å¿—ä½
 
-            /* ¡ï Èí¼ş¸´Î»COV ¡ï */
-            /* ÕâÀïUPÍü¼Ç½²ÁË£¬Èç¹ûÔÚÎ´Çå³ıÖĞ¶ÏÎ»ÖµÊ±£¬À´ÁËÒ»´ÎÖĞ¶Ï£¬COV»áÖÃÎ»£¬ĞèÒªÈí¼ş¸´Î»£¬ÕâÀïÃ»ÓĞ¹Ù·½¿âº¯Êı¡£¾ßÌå¿ÉÒÔ²Î¿¼¼¼ÊõÊÖ²á(slau356h.pdf) P790 */
+            /* â˜… è½¯ä»¶å¤ä½COV â˜… */
+            /* è¿™é‡ŒUPå¿˜è®°è®²äº†ï¼Œå¦‚æœåœ¨æœªæ¸…é™¤ä¸­æ–­ä½å€¼æ—¶ï¼Œæ¥äº†ä¸€æ¬¡ä¸­æ–­ï¼ŒCOVä¼šç½®ä½ï¼Œéœ€è¦è½¯ä»¶å¤ä½ï¼Œè¿™é‡Œæ²¡æœ‰å®˜æ–¹åº“å‡½æ•°ã€‚å…·ä½“å¯ä»¥å‚è€ƒæŠ€æœ¯æ‰‹å†Œ(slau356h.pdf) P790 */
             BITBAND_PERI(TIMER_A_CMSIS(CAP_TIMA_SELECTION)->CCTL[CAP_CCR_NUM], TIMER_A_CCTLN_COV_OFS) = 0;
 
-            if (TIMA2_CAP_STA & 0X40) //ÒÑ¾­²¶»ñµ½¸ßµçÆ½ÁË 40H = 0x01000000
+            if (TIMA2_CAP_STA & 0X40) //å·²ç»æ•è·åˆ°é«˜ç”µå¹³äº† 40H = 0x01000000
             {
-                if ((TIMA2_CAP_STA & 0X3F) == 0X3F) //¸ßµçÆ½Ì«³¤ÁË
+                if ((TIMA2_CAP_STA & 0X3F) == 0X3F) //é«˜ç”µå¹³å¤ªé•¿äº†
                 {
-                    TIMA2_CAP_STA |= 0X80; //Ç¿ÖÆ±ê¼Ç³É¹¦²¶»ñÍê¸ßµçÆ½ 80H = 0x10000000
+                    TIMA2_CAP_STA |= 0X80; //å¼ºåˆ¶æ ‡è®°æˆåŠŸæ•è·å®Œé«˜ç”µå¹³ 80H = 0x10000000
                     TIMA2_CAP_VAL = 0XFFFF;
                 }
                 else
-                    TIMA2_CAP_STA++; //Òç³ö´ÎÊı¼Ó1
+                    TIMA2_CAP_STA++; //æº¢å‡ºæ¬¡æ•°åŠ 1
             }
         }
 
-        if (MAP_Timer_A_getCaptureCompareEnabledInterruptStatus(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION)) //²¶»ñÖĞ¶Ï
+        if (MAP_Timer_A_getCaptureCompareEnabledInterruptStatus(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION)) //æ•è·ä¸­æ–­
         {
-            MAP_Timer_A_clearCaptureCompareInterrupt(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION); //Çå³ı CCR1 ¸üĞÂÖĞ¶Ï±êÖ¾Î»
+            MAP_Timer_A_clearCaptureCompareInterrupt(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION); //æ¸…é™¤ CCR1 æ›´æ–°ä¸­æ–­æ ‡å¿—ä½
 
-            //ÅĞ¶ÏÊÇ·ñ²¶»ñµ½ÏÂ½µÑØ
+            //åˆ¤æ–­æ˜¯å¦æ•è·åˆ°ä¸‹é™æ²¿
             if (TIMA2_CAP_STA & 0X40 && (MAP_Timer_A_getSynchronizedCaptureCompareInput(CAP_TIMA_SELECTION,
                                                                                         CAP_REGISTER_SELECTION,
                                                                                         TIMER_A_READ_CAPTURE_COMPARE_INPUT) == TIMER_A_CAPTURECOMPARE_INPUT_LOW))
             {
-                TIMA2_CAP_STA |= 0X80; //±ê¼Ç³É¹¦²¶»ñÍê¸ßµçÆ½
+                TIMA2_CAP_STA |= 0X80; //æ ‡è®°æˆåŠŸæ•è·å®Œé«˜ç”µå¹³
                 TIMA2_CAP_VAL = Timer_A_getCaptureCompareCount(CAP_TIMA_SELECTION, CAP_REGISTER_SELECTION);
             }
-            else //»¹Î´¿ªÊ¼,µÚÒ»´Î²¶»ñÉÏÉıÑØ
+            else //è¿˜æœªå¼€å§‹,ç¬¬ä¸€æ¬¡æ•è·ä¸Šå‡æ²¿
             {
                 TIMA2_CAP_STA = 0;
                 TIMA2_CAP_VAL = 0;
-                MAP_Timer_A_clearTimer(CAP_TIMA_SELECTION); //Çå¿Õ¶¨Ê±Æ÷ ÖØĞÂ´Ó0¼ÆÊı
-                TIMA2_CAP_STA |= 0X40;                      //±ê¼Ç²¶»ñµ½ÁËÉÏÉıÑØ
+                MAP_Timer_A_clearTimer(CAP_TIMA_SELECTION); //æ¸…ç©ºå®šæ—¶å™¨ é‡æ–°ä»0è®¡æ•°
+                TIMA2_CAP_STA |= 0X40;                      //æ ‡è®°æ•è·åˆ°äº†ä¸Šå‡æ²¿
             }
         }
     }
@@ -113,19 +113,19 @@ void TA2_N_IRQHandler(void)
 
 void TimA1_PWM_Init(uint16_t ccr0, uint16_t psc)
 {
-    /*³õÊ¼»¯Òı½Å*/
+    /*åˆå§‹åŒ–å¼•è„š*/
     MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P7, GPIO_PIN7, GPIO_PRIMARY_MODULE_FUNCTION);
 
     Timer_A_PWMConfig TimA1_PWMConfig;
-    /*¶¨Ê±Æ÷PWM³õÊ¼»¯*/
-    TimA1_PWMConfig.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;             //Ê±ÖÓÔ´
-    TimA1_PWMConfig.clockSourceDivider = psc;                            //Ê±ÖÓ·ÖÆµ ·¶Î§1-64
-    TimA1_PWMConfig.timerPeriod = ccr0;                                  //×Ô¶¯ÖØ×°ÔØÖµ£¨ARR£©
-    TimA1_PWMConfig.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_1; //Í¨µÀÒ» £¨Òı½Å¶¨Òå£©
-    TimA1_PWMConfig.compareOutputMode = TIMER_A_OUTPUTMODE_TOGGLE_SET;   //Êä³öÄ£Ê½
-    TimA1_PWMConfig.dutyCycle = ccr0;                                    //ÕâÀïÊÇ¸Ä±äÕ¼¿Õ±ÈµÄµØ·½ Ä¬ÈÏ100%
+    /*å®šæ—¶å™¨PWMåˆå§‹åŒ–*/
+    TimA1_PWMConfig.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;             //æ—¶é’Ÿæº
+    TimA1_PWMConfig.clockSourceDivider = psc;                            //æ—¶é’Ÿåˆ†é¢‘ èŒƒå›´1-64
+    TimA1_PWMConfig.timerPeriod = ccr0;                                  //è‡ªåŠ¨é‡è£…è½½å€¼ï¼ˆARRï¼‰
+    TimA1_PWMConfig.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_1; //é€šé“ä¸€ ï¼ˆå¼•è„šå®šä¹‰ï¼‰
+    TimA1_PWMConfig.compareOutputMode = TIMER_A_OUTPUTMODE_TOGGLE_SET;   //è¾“å‡ºæ¨¡å¼
+    TimA1_PWMConfig.dutyCycle = ccr0;                                    //è¿™é‡Œæ˜¯æ”¹å˜å ç©ºæ¯”çš„åœ°æ–¹ é»˜è®¤100%
 
-    MAP_Timer_A_generatePWM(TIMER_A1_BASE, &TimA1_PWMConfig); /* ³õÊ¼»¯±È½Ï¼Ä´æÆ÷ÒÔ²úÉú PWM1 */
+    MAP_Timer_A_generatePWM(TIMER_A1_BASE, &TimA1_PWMConfig); /* åˆå§‹åŒ–æ¯”è¾ƒå¯„å­˜å™¨ä»¥äº§ç”Ÿ PWM1 */
 }
 /*********************************************************************************************************/
 
@@ -133,37 +133,37 @@ void TimA1_PWM_Init(uint16_t ccr0, uint16_t psc)
 
 void TimA0_Int_Init(uint16_t ccr0, uint16_t psc)
 {
-    // 1.Ôö¼ÆÊıÄ£Ê½³õÊ¼»¯
+    // 1.å¢è®¡æ•°æ¨¡å¼åˆå§‹åŒ–
     Timer_A_UpModeConfig upConfig;
-    upConfig.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;                                      //Ê±ÖÓÔ´
-    upConfig.clockSourceDivider = psc;                                                     //Ê±ÖÓ·ÖÆµ ·¶Î§1-64
-    upConfig.timerPeriod = ccr0;                                                           //×Ô¶¯ÖØ×°ÔØÖµ£¨ARR£©
-    upConfig.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;                   //½ûÓÃ timÒç³öÖĞ¶Ï
-    upConfig.captureCompareInterruptEnable_CCR0_CCIE = TIMER_A_CCIE_CCR0_INTERRUPT_ENABLE; //ÆôÓÃ ccr0¸üĞÂÖĞ¶Ï
+    upConfig.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;                                      //æ—¶é’Ÿæº
+    upConfig.clockSourceDivider = psc;                                                     //æ—¶é’Ÿåˆ†é¢‘ èŒƒå›´1-64
+    upConfig.timerPeriod = ccr0;                                                           //è‡ªåŠ¨é‡è£…è½½å€¼ï¼ˆARRï¼‰
+    upConfig.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;                   //ç¦ç”¨ timæº¢å‡ºä¸­æ–­
+    upConfig.captureCompareInterruptEnable_CCR0_CCIE = TIMER_A_CCIE_CCR0_INTERRUPT_ENABLE; //å¯ç”¨ ccr0æ›´æ–°ä¸­æ–­
     upConfig.timerClear = TIMER_A_DO_CLEAR;                                                // Clear value
 
-    // 2.³õÊ¼»¯¶¨Ê±Æ÷A
+    // 2.åˆå§‹åŒ–å®šæ—¶å™¨A
     MAP_Timer_A_configureUpMode(TIMER_A0_BASE, &upConfig);
 
-    // 3.Ñ¡ÔñÄ£Ê½¿ªÊ¼¼ÆÊı
+    // 3.é€‰æ‹©æ¨¡å¼å¼€å§‹è®¡æ•°
     MAP_Timer_A_startCounter(TIMER_A0_BASE, TIMER_A_UP_MODE);
 
-    // 4.Çå³ı±È½ÏÖĞ¶Ï±êÖ¾Î»
+    // 4.æ¸…é™¤æ¯”è¾ƒä¸­æ–­æ ‡å¿—ä½
     MAP_Timer_A_clearCaptureCompareInterrupt(TIMER_A0_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_0);
 
-    // 5.¿ªÆô´®¿Ú¶Ë¿ÚÖĞ¶Ï
+    // 5.å¼€å¯ä¸²å£ç«¯å£ä¸­æ–­
     MAP_Interrupt_enableInterrupt(INT_TA0_0);
 }
 
-// 6.±àĞ´TIMA ISR
+// 6.ç¼–å†™TIMA ISR
 void TA0_0_IRQHandler(void)
 {
     MAP_Timer_A_clearCaptureCompareInterrupt(TIMER_A0_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_0);
 
-    /*¿ªÊ¼Ìî³äÓÃ»§´úÂë*/
+    /*å¼€å§‹å¡«å……ç”¨æˆ·ä»£ç */
 
     MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN0);
 
-    /*½áÊøÌî³äÓÃ»§´úÂë*/
+    /*ç»“æŸå¡«å……ç”¨æˆ·ä»£ç */
 }
 /*********************************************************************************************************/

@@ -1,50 +1,50 @@
 /****************************************************/
 //MSP432P401R
-//ADC²É¼¯
-//Bilibili£ºm-RNA
+//ADCé‡‡é›†
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/9/13
+//åˆ›å»ºæ—¥æœŸ:2021/9/13
 /****************************************************/
 
 /*********************
  *
- * ×î´ó²É¼¯µçÑ¹ 3.3V
+ * æœ€å¤§é‡‡é›†ç”µå‹ 3.3V
  *
- * ADC²É¼¯Òı½Å£º
- * µ¥Â· Îª P5.5
- * Ë«Â· Îª P5.5 P5.4
- * ÈıÂ· Îª P5.5 P5.4 P5.3
+ * ADCé‡‡é›†å¼•è„šï¼š
+ * å•è·¯ ä¸º P5.5
+ * åŒè·¯ ä¸º P5.5 P5.4
+ * ä¸‰è·¯ ä¸º P5.5 P5.4 P5.3
  *
  ************************/
  
 #include "adc.h"
 #include "usart.h"
  
-//×ÜÊ±¼ä  M*N*21us
-#define N 200 //²ÉÑù´ÎÊı
-#define M 2   //²ÉÑùÍ¨µÀ¸öÊı
+//æ€»æ—¶é—´  M*N*21us
+#define N 200 //é‡‡æ ·æ¬¡æ•°
+#define M 2   //é‡‡æ ·é€šé“ä¸ªæ•°
 
 static uint16_t resultsBuffer[M];
 
 void ADC_Config(void)
 {
-	/* ÆôÓÃ¸¡µãÔËËãµÄFPU */
+	/* å¯ç”¨æµ®ç‚¹è¿ç®—çš„FPU */
     MAP_FPU_enableModule();
     MAP_FPU_enableLazyStacking();
 	
     /* Initializing ADC (MCLK/1/1) */
-    MAP_ADC14_enableModule();                                                                 //Ê¹ÄÜADC14Ä£¿é
-    MAP_ADC14_initModule(ADC_CLOCKSOURCE_MCLK, ADC_PREDIVIDER_4, ADC_DIVIDER_5, ADC_NOROUTE); //³õÊ¼»¯ADC Ê±ÖÓ ·ÖÆµ  Í¨µÀ 2.4MHz 
+    MAP_ADC14_enableModule();                                                                 //ä½¿èƒ½ADC14æ¨¡å—
+    MAP_ADC14_initModule(ADC_CLOCKSOURCE_MCLK, ADC_PREDIVIDER_4, ADC_DIVIDER_5, ADC_NOROUTE); //åˆå§‹åŒ–ADC æ—¶é’Ÿ åˆ†é¢‘  é€šé“ 2.4MHz 
 
 #if M == 1
-    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P5, GPIO_PIN5, GPIO_TERTIARY_MODULE_FUNCTION); //Ä£ÄâÊäÈë
-    MAP_ADC14_configureSingleSampleMode(ADC_MEM0, true);                                                    //µ¥Í¨µÀÅäÖÃ ¶à´Î×ª»¯true
-    MAP_ADC14_configureConversionMemory(ADC_MEM0, ADC_VREFPOS_AVCC_VREFNEG_VSS, ADC_INPUT_A0, false);       //Ê¹ÓÃÄÚ²¿µçÔ´µçÑ¹²Î¿¼ ·Ç²î·ÖÊäÈëfalse
-    MAP_ADC14_enableInterrupt(ADC_INT0);                                                                    //ADCÍ¨µÀ0µÄÖĞ¶Ï
+    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P5, GPIO_PIN5, GPIO_TERTIARY_MODULE_FUNCTION); //æ¨¡æ‹Ÿè¾“å…¥
+    MAP_ADC14_configureSingleSampleMode(ADC_MEM0, true);                                                    //å•é€šé“é…ç½® å¤šæ¬¡è½¬åŒ–true
+    MAP_ADC14_configureConversionMemory(ADC_MEM0, ADC_VREFPOS_AVCC_VREFNEG_VSS, ADC_INPUT_A0, false);       //ä½¿ç”¨å†…éƒ¨ç”µæºç”µå‹å‚è€ƒ éå·®åˆ†è¾“å…¥false
+    MAP_ADC14_enableInterrupt(ADC_INT0);                                                                    //ADCé€šé“0çš„ä¸­æ–­
 
 #elif M == 2
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P5, GPIO_PIN5 | GPIO_PIN4, GPIO_TERTIARY_MODULE_FUNCTION);
-    MAP_ADC14_configureMultiSequenceMode(ADC_MEM0, ADC_MEM1, true); //¶àÍ¨µÀÅäÖÃ ¶à´Î×ª»¯true
+    MAP_ADC14_configureMultiSequenceMode(ADC_MEM0, ADC_MEM1, true); //å¤šé€šé“é…ç½® å¤šæ¬¡è½¬åŒ–true
     MAP_ADC14_configureConversionMemory(ADC_MEM0, ADC_VREFPOS_INTBUF_VREFNEG_VSS, ADC_INPUT_A0, false);
     MAP_ADC14_configureConversionMemory(ADC_MEM1, ADC_VREFPOS_INTBUF_VREFNEG_VSS, ADC_INPUT_A1, false);
     MAP_ADC14_enableInterrupt(ADC_INT1);
@@ -59,17 +59,17 @@ void ADC_Config(void)
 
 #endif
     /* Enabling Interrupts */
-    MAP_Interrupt_enableInterrupt(INT_ADC14); //ADCÄ£¿éµÄÖĞ¶Ï
+    MAP_Interrupt_enableInterrupt(INT_ADC14); //ADCæ¨¡å—çš„ä¸­æ–­
     MAP_Interrupt_enableMaster();
 
     /* Setting up the sample timer to automatically step through the sequence
      * convert.
      */
-    MAP_ADC14_enableSampleTimer(ADC_AUTOMATIC_ITERATION); //×Ô¶¯´¥·¢
+    MAP_ADC14_enableSampleTimer(ADC_AUTOMATIC_ITERATION); //è‡ªåŠ¨è§¦å‘
 
     /* Triggering the start of the sample */
-    MAP_ADC14_enableConversion();        //Ê¹ÄÜ¿ªÊ¼×ª»»(´¥·¢ºó ×Ô¶¯ADCÉÏµç)
-    MAP_ADC14_toggleConversionTrigger(); //¿ªÆôµÚÒ»´ÎÈí¼ş´¥·¢
+    MAP_ADC14_enableConversion();        //ä½¿èƒ½å¼€å§‹è½¬æ¢(è§¦å‘å è‡ªåŠ¨ADCä¸Šç”µ)
+    MAP_ADC14_toggleConversionTrigger(); //å¼€å¯ç¬¬ä¸€æ¬¡è½¯ä»¶è§¦å‘
 }
 
 void ADC14_IRQHandler(void)

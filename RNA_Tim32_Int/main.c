@@ -1,9 +1,9 @@
 /****************************************************/
 // MSP432P401R
-// 9 ¶¨Ê±Æ÷32 ÖĞ¶Ï
-// Bilibili£ºm-RNA
+// 9 å®šæ—¶å™¨32 ä¸­æ–­
+// Bilibiliï¼šm-RNA
 // E-mail:m-RNA@qq.com
-// ´´½¨ÈÕÆÚ:2021/9/8
+// åˆ›å»ºæ—¥æœŸ:2021/9/8
 /****************************************************/
 
 #include "sysinit.h"
@@ -12,26 +12,26 @@
 #include "tim32.h"
 
 /*
- * ¶¨Ê±Æ÷ÖĞ¶ÏÖÜÆÚ£º
+ * å®šæ—¶å™¨ä¸­æ–­å‘¨æœŸï¼š
  *
  * T_timer_32 = CLKDIV * (ARR + 1) / f_clk 
  *            = 1 * 48000000 / 48000000 
  *            = 1s = 1Hz
  */
 
-#define CLKDIV TIMER32_PRESCALER_1 // Ê±ÖÓÔ´·ÖÆµ
-#define ARR 47999999               // ×Ô¶¯ÖØ×°ÔØÖµ
+#define CLKDIV TIMER32_PRESCALER_1 // æ—¶é’Ÿæºåˆ†é¢‘
+#define ARR 47999999               // è‡ªåŠ¨é‡è£…è½½å€¼
 
 int main(void)
 {
-    SysInit();                     // µÚ3½² Ê±ÖÓÅäÖÃ
-    uart_init(115200);             // µÚ7½² ´®¿ÚÅäÖÃ
+    SysInit();                     // ç¬¬3è®² æ—¶é’Ÿé…ç½®
+    uart_init(115200);             // ç¬¬7è®² ä¸²å£é…ç½®
 	
-    Tim32_0_Int_Init(ARR, CLKDIV); // µÚ9½² TIM32ÖĞ¶Ï
+    Tim32_0_Int_Init(ARR, CLKDIV); // ç¬¬9è®² TIM32ä¸­æ–­
 	
-	printf("ÔÒÍßÂ³¶à\r\n\r\n");
+	printf("ç ¸ç“¦é²å¤š\r\n\r\n");
 
-    MAP_Interrupt_enableMaster(); // ¿ªÆô×ÜÖĞ¶Ï
+    MAP_Interrupt_enableMaster(); // å¼€å¯æ€»ä¸­æ–­
 
     while (1)
     {

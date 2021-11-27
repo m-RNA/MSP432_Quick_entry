@@ -1,9 +1,9 @@
 /****************************************************/
 // MSP432P401R
-// ¶¨Ê±Æ÷32
-// Bilibili£ºm-RNA
+// å®šæ—¶å™¨32
+// Bilibiliï¼šm-RNA
 // E-mail:m-RNA@qq.com
-// ´´½¨ÈÕÆÚ:2021/9/8
+// åˆ›å»ºæ—¥æœŸ:2021/9/8
 /****************************************************/
 
 #include "tim32.h"
@@ -13,7 +13,7 @@ void Tim32_0_Int_Init(uint32_t aar, uint8_t psc)
     MAP_Timer32_initModule(TIMER32_0_BASE, psc, TIMER32_32BIT, TIMER32_PERIODIC_MODE);
     MAP_Timer32_setCount(TIMER32_0_BASE, aar);
     MAP_Timer32_enableInterrupt(TIMER32_0_BASE);
-    MAP_Timer32_startTimer(TIMER32_0_BASE, false); //Á¬Ğø¼ÆÊıÄ£Ê½ false
+    MAP_Timer32_startTimer(TIMER32_0_BASE, false); //è¿ç»­è®¡æ•°æ¨¡å¼ false
     MAP_Interrupt_enableInterrupt(INT_T32_INT1);
 }
 
@@ -22,9 +22,9 @@ void T32_INT1_IRQHandler(void)
 {
     MAP_Timer32_clearInterruptFlag(TIMER32_0_BASE);
 
-    /*¿ªÊ¼Ìî³äÓÃ»§´úÂë*/
+    /*å¼€å§‹å¡«å……ç”¨æˆ·ä»£ç */
 
-    /*½áÊøÌî³äÓÃ»§´úÂë*/
+    /*ç»“æŸå¡«å……ç”¨æˆ·ä»£ç */
 }
 
 void Tim32_1_Int_Init(uint32_t aar, uint8_t psc)
@@ -32,7 +32,7 @@ void Tim32_1_Int_Init(uint32_t aar, uint8_t psc)
     MAP_Timer32_initModule(TIMER32_1_BASE, psc, TIMER32_32BIT, TIMER32_PERIODIC_MODE);
     MAP_Timer32_setCount(TIMER32_1_BASE, aar);
     MAP_Timer32_enableInterrupt(TIMER32_1_BASE);
-    MAP_Timer32_startTimer(TIMER32_1_BASE, false); //Á¬Ğø¼ÆÊıÄ£Ê½ false
+    MAP_Timer32_startTimer(TIMER32_1_BASE, false); //è¿ç»­è®¡æ•°æ¨¡å¼ false
     MAP_Interrupt_enableInterrupt(INT_T32_INT2);
 }
 
@@ -41,7 +41,7 @@ void T32_INT2_IRQHandler(void)
 {
     MAP_Timer32_clearInterruptFlag(TIMER32_1_BASE);
 
-    /*¿ªÊ¼Ìî³äÓÃ»§´úÂë*/
+    /*å¼€å§‹å¡«å……ç”¨æˆ·ä»£ç */
 
-    /*½áÊøÌî³äÓÃ»§´úÂë*/
+    /*ç»“æŸå¡«å……ç”¨æˆ·ä»£ç */
 }

@@ -1,27 +1,27 @@
 /****************************************************/
 // MSP432P401R
-// 8-3 ¶¨Ê±Æ÷²¶»ñ
-// Bilibili£ºm-RNA
+// 8-3 å®šæ—¶å™¨æ•èŽ·
+// Bilibiliï¼šm-RNA
 // E-mail:m-RNA@qq.com
-// ´´½¨ÈÕÆÚ:2021/9/6
+// åˆ›å»ºæ—¥æœŸ:2021/9/6
 /****************************************************/
 
-/**************   ÊµÑéËµÃ÷   **************
+/**************   å®žéªŒè¯´æ˜Ž   **************
  * 
- * ÉùÃ÷£º
- * »ùÓÚÕýµãÔ­×Ó@ALIENTEK STM32
- * ÊµÑé10 ÊäÈë²¶»ñÊµÑé ½øÐÐÒÆÖ²
- * ÔÚ´Ë±íÊ¾¸ÐÐ» ´úÂë½ö¹©Ñ§Ï°Ê¹ÓÃ
+ * å£°æ˜Žï¼š
+ * åŸºäºŽæ­£ç‚¹åŽŸå­@ALIENTEK STM32
+ * å®žéªŒ10 è¾“å…¥æ•èŽ·å®žéªŒ è¿›è¡Œç§»æ¤
+ * åœ¨æ­¤è¡¨ç¤ºæ„Ÿè°¢ ä»£ç ä»…ä¾›å­¦ä¹ ä½¿ç”¨
  * 
- * ²Ù×÷£º
- * ¡ï ÓÃ¶Å°îÏß½« P5.6 ºÍ P1.0 Á¬½ÓÆðÀ´¡£
- * ¡ï ÓÃÁ½¸ö°´¼üÀ´¿ØÖÆ¸ßµçÆ½³ÖÐøÊ±¼ä
+ * æ“ä½œï¼š
+ * â˜… ç”¨æœé‚¦çº¿å°† P5.6 å’Œ P1.0 è¿žæŽ¥èµ·æ¥ã€‚
+ * â˜… ç”¨ä¸¤ä¸ªæŒ‰é”®æ¥æŽ§åˆ¶é«˜ç”µå¹³æŒç»­æ—¶é—´
  * 
- * ÐèÒª×¢Òâ£º
- * ÕâÀï²É¼¯¸ßµçÆ½µÄ×î³¤Ê±³¤Îª4.19s
- * ³¬³öÊ±»áÇ¿ÖÆ±ê¼Ç³É¹¦²¶»ñÍê¸ßµçÆ½¡£
+ * éœ€è¦æ³¨æ„ï¼š
+ * è¿™é‡Œé‡‡é›†é«˜ç”µå¹³çš„æœ€é•¿æ—¶é•¿ä¸º4.19s
+ * è¶…å‡ºæ—¶ä¼šå¼ºåˆ¶æ ‡è®°æˆåŠŸæ•èŽ·å®Œé«˜ç”µå¹³ã€‚
  *
- **************   ËµÃ÷½áÊø   **************/
+ **************   è¯´æ˜Žç»“æŸ   **************/
 
 #include "sysinit.h"
 #include "usart.h"
@@ -35,12 +35,12 @@ int main(void)
     uint8_t key;
     uint32_t temp;
 
-    SysInit();         //µÚ3½² Ê±ÖÓÅäÖÃ
-    uart_init(115200); //µÚ7½² ´®¿ÚÅäÖÃ
-    LED_Init();        //µÚ2½² GPIOÊä³ö
-    KEY_Init(0);       //µÚ2½² GPIOÊäÈë
-    delay_init();      //µÚ4½² µÎ´ðÑÓÊ±
-    TimA2_Cap_Init();  //µÚ8½² ¶¨Ê±Æ÷A ²¶»ñ
+    SysInit();         //ç¬¬3è®² æ—¶é’Ÿé…ç½®
+    uart_init(115200); //ç¬¬7è®² ä¸²å£é…ç½®
+    LED_Init();        //ç¬¬2è®² GPIOè¾“å‡º
+    KEY_Init(0);       //ç¬¬2è®² GPIOè¾“å…¥
+    delay_init();      //ç¬¬4è®² æ»´ç­”å»¶æ—¶
+    TimA2_Cap_Init();  //ç¬¬8è®² å®šæ—¶å™¨A æ•èŽ·
 
     printf("\r\n\r\nHello,MSP432!\r\n");
     MAP_Interrupt_enableMaster();
@@ -52,13 +52,13 @@ int main(void)
         else if (key == KEY2_PRES)
             LED_RED_Off();
 
-        if (TIMA2_CAP_STA & 0X80) //³É¹¦²¶»ñµ½ÁËÒ»´ÎÉÏÉýÑØ
+        if (TIMA2_CAP_STA & 0X80) //æˆåŠŸæ•èŽ·åˆ°äº†ä¸€æ¬¡ä¸Šå‡æ²¿
         {
             temp = TIMA2_CAP_STA & 0X3F;
-            temp *= 65536;                 //Òç³öÊ±¼ä×ÜºÍ
-            temp += TIMA2_CAP_VAL;         //µÃµ½×ÜµÄ¸ßµçÆ½Ê±¼ä
-            printf("HIGH:%dus\r\n", temp); //´òÓ¡×ÜµÄ¸ßµãÆ½Ê±¼ä
-            TIMA2_CAP_STA = 0;             //¿ªÆôÏÂÒ»´Î²¶»ñ
+            temp *= 65536;                 //æº¢å‡ºæ—¶é—´æ€»å’Œ
+            temp += TIMA2_CAP_VAL;         //å¾—åˆ°æ€»çš„é«˜ç”µå¹³æ—¶é—´
+            printf("HIGH:%dus\r\n", temp); //æ‰“å°æ€»çš„é«˜ç‚¹å¹³æ—¶é—´
+            TIMA2_CAP_STA = 0;             //å¼€å¯ä¸‹ä¸€æ¬¡æ•èŽ·
         }
     }
 }

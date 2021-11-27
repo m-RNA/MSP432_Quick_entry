@@ -1,10 +1,10 @@
 /****************************************************/
 //MSP432P401R
-//2-2* GPIOÊäÈë(MultiButton°æ)
-//ÏîÄ¿µØÖ· https://github.com/0x1abin/MultiButton
-//Bilibili£ºm-RNA
+//2-2* GPIOè¾“å…¥(MultiButtonç‰ˆ)
+//é¡¹ç›®åœ°å€ https://github.com/0x1abin/MultiButton
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/10/29
+//åˆ›å»ºæ—¥æœŸ:2021/10/29
 /****************************************************/
 
 #include "sysinit.h"
@@ -13,31 +13,31 @@
 #include "key.h"
 #include "led.h"
 
-// ½«´úÂëÉÕÂ¼µ½°å×Óºó£¬µ¥»÷¡¢Ë«»÷¡¢³¤°´°´¼ü
-// ¹Û²ì´®¿Ú´òÓ¡»ØµÄÖµ
+// å°†ä»£ç çƒ§å½•åˆ°æ¿å­åï¼Œå•å‡»ã€åŒå‡»ã€é•¿æŒ‰æŒ‰é”®
+// è§‚å¯Ÿä¸²å£æ‰“å°å›çš„å€¼
 
 int main(void)
 {
 	static uint8_t btn1_OnBoard_event_val;
 	static uint8_t btn2_OnBoard_event_val;
 
-	SysInit();		   // µÚ3½² Ê±ÖÓÅäÖÃ
-	uart_init(115200); // µÚ7½² ´®¿ÚÅäÖÃ
-	MultiTimerInit();  // µÚ4*½² Èí¼ş¶¨Ê±Æ÷+µÎ´ğÑÓÊ±
-	KEY_Init();		   // µÚ2½² GPIOÊäÈë(MultiButton)
-	LED_Init();		   // µÚ2½² GPIOÊä³ö
+	SysInit();		   // ç¬¬3è®² æ—¶é’Ÿé…ç½®
+	uart_init(115200); // ç¬¬7è®² ä¸²å£é…ç½®
+	MultiTimerInit();  // ç¬¬4*è®² è½¯ä»¶å®šæ—¶å™¨+æ»´ç­”å»¶æ—¶
+	KEY_Init();		   // ç¬¬2è®² GPIOè¾“å…¥(MultiButton)
+	LED_Init();		   // ç¬¬2è®² GPIOè¾“å‡º
 
-	/*¿ªÊ¼Ìî³ä³õÊ¼»¯´úÂë*/
+	/*å¼€å§‹å¡«å……åˆå§‹åŒ–ä»£ç */
 
-	/*Í£Ö¹Ìî³ä³õÊ¼»¯´úÂë*/
+	/*åœæ­¢å¡«å……åˆå§‹åŒ–ä»£ç */
 
 	printf("Hello,MSP432!\r\n");
-	MAP_Interrupt_enableMaster(); // ¿ªÆô×ÜÖĞ¶Ï
+	MAP_Interrupt_enableMaster(); // å¼€å¯æ€»ä¸­æ–­
 	while (1)
 	{
-		MultiTimerYield(); //±ØĞëÔÚÖ÷Ñ­»·µ÷ÓÃ¶¨Ê±Æ÷ºóÌ¨´¦Àíº¯Êı
+		MultiTimerYield(); //å¿…é¡»åœ¨ä¸»å¾ªç¯è°ƒç”¨å®šæ—¶å™¨åå°å¤„ç†å‡½æ•°
 
-		/*¿ªÊ¼Ìî³äÓÃ»§´úÂë*/
+		/*å¼€å§‹å¡«å……ç”¨æˆ·ä»£ç */
 
 		btn1_OnBoard_event_val = get_button_event(&btn1_OnBoard);
 		btn2_OnBoard_event_val = get_button_event(&btn2_OnBoard);
@@ -95,6 +95,6 @@ int main(void)
 		btn1_OnBoard_event_val = NONE_PRESS;
 		btn2_OnBoard_event_val = NONE_PRESS;
 		delay_ms(10);
-		/*Í£Ö¹Ìî³äÓÃ»§´úÂë*/
+		/*åœæ­¢å¡«å……ç”¨æˆ·ä»£ç */
 	}
 }

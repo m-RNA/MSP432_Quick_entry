@@ -1,9 +1,9 @@
 /******************************************************************************
 //MSP432P401R
-//6 ÖĞ¶ÏÓÅÏÈ¼¶¹ÜÀí
-//Bilibili£ºm-RNA
+//6 ä¸­æ–­ä¼˜å…ˆçº§ç®¡ç†
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/8/22
+//åˆ›å»ºæ—¥æœŸ:2021/8/22
 *******************************************************************************/
 
 /* DriverLib Includes */
@@ -22,31 +22,31 @@ int main(void)
 	MAP_WDT_A_holdTimer();
 	LED_Init();
 
-	//1.ÅäÖÃGPIOÊäÈë
+	//1.é…ç½®GPIOè¾“å…¥
 	GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1); //P1.1
 	GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P2, GPIO_PIN4); //P2.4
 
-	//2.Çå³ıÖĞ¶Ï±êÖ¾Î»
+	//2.æ¸…é™¤ä¸­æ–­æ ‡å¿—ä½
 	GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN1);
 	GPIO_clearInterruptFlag(GPIO_PORT_P2, GPIO_PIN4);
 
-	//3.ÅäÖÃ´¥·¢·½Ê½
+	//3.é…ç½®è§¦å‘æ–¹å¼
 	GPIO_interruptEdgeSelect(GPIO_PORT_P1, GPIO_PIN1, GPIO_HIGH_TO_LOW_TRANSITION);
 	GPIO_interruptEdgeSelect(GPIO_PORT_P2, GPIO_PIN4, GPIO_HIGH_TO_LOW_TRANSITION);
 
-	//4.5 ÅäÖÃ×éÓÅÏÈ¼¶
+	//4.5 é…ç½®ç»„ä¼˜å…ˆçº§
 	Interrupt_setPriority(INT_PORT1, 1 << 5);
 	Interrupt_setPriority(INT_PORT2, 2 << 5);
 
-	//4.¿ªÆôÍâ²¿ÖĞ¶Ï
+	//4.å¼€å¯å¤–éƒ¨ä¸­æ–­
 	GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN1);
 	GPIO_enableInterrupt(GPIO_PORT_P2, GPIO_PIN4);
 
-	//5.¿ªÆô¶Ë¿ÚÖĞ¶Ï
+	//5.å¼€å¯ç«¯å£ä¸­æ–­
 	Interrupt_enableInterrupt(INT_PORT1);
 	Interrupt_enableInterrupt(INT_PORT2);
 
-	//6.¿ªÆô×ÜÖĞ¶Ï
+	//6.å¼€å¯æ€»ä¸­æ–­
 	Interrupt_enableMaster();
 
 	while (1)
@@ -54,7 +54,7 @@ int main(void)
 	}
 }
 
-//7.±àĞ´GPIO ISR
+//7.ç¼–å†™GPIO ISR
 void PORT1_IRQHandler(void)
 {
 	uint16_t status;
@@ -63,11 +63,11 @@ void PORT1_IRQHandler(void)
 	GPIO_clearInterruptFlag(GPIO_PORT_P1, status);
 	for (i = 0; i < 5000; i++);
 	
-	if (status & GPIO_PIN1) //¶ÔÓ¦P1.1
+	if (status & GPIO_PIN1) //å¯¹åº”P1.1
 	{
 		if (KEY1 == 0)
 		{
-			LED_RED_On(); //µãÁÁºìµÆ
+			LED_RED_On(); //ç‚¹äº®çº¢ç¯
 			while (1);
 		}
 	}
@@ -81,11 +81,11 @@ void PORT2_IRQHandler(void)
 	GPIO_clearInterruptFlag(GPIO_PORT_P2, status);
 	for (i = 0; i < 5000; i++);
 	
-	if (status & GPIO_PIN4) //¶ÔÓ¦P2.4
+	if (status & GPIO_PIN4) //å¯¹åº”P2.4
 	{
 		if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN4) == 0)
 		{
-			LED_B_On(); //µãÁÁÀ¶µÆ
+			LED_B_On(); //ç‚¹äº®è“ç¯
 			while (1);
 		}
 	}

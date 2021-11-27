@@ -61,7 +61,7 @@ void DrawLine(int x1,int y1,int x2,int y2)
 	int lError_X = 0, lError_Y = 0, lDelta_X, lDelta_Y, lDistance; 
 	int lIncrease_X, lIncrease_Y; 	
 	
-	lDelta_X = x2 - x1; //¼ÆËã×ø±êÔöÁ¿ 
+	lDelta_X = x2 - x1; //è®¡ç®—åæ ‡å¢é‡ 
 	lDelta_Y = y2 - y1; 
 	
 	usX_Current = x1; 
@@ -69,10 +69,10 @@ void DrawLine(int x1,int y1,int x2,int y2)
 	
 	
 	if ( lDelta_X > 0 ) 
-		lIncrease_X = 1; //ÉèÖÃµ¥²½·½Ïò 
+		lIncrease_X = 1; //è®¾ç½®å•æ­¥æ–¹å‘ 
 	
 	else if ( lDelta_X == 0 ) 
-		lIncrease_X = 0;//´¹Ö±Ïß 
+		lIncrease_X = 0;//å‚ç›´çº¿ 
 	
 	else 
   { 
@@ -85,7 +85,7 @@ void DrawLine(int x1,int y1,int x2,int y2)
 		lIncrease_Y = 1; 
 	
 	else if ( lDelta_Y == 0 )
-		lIncrease_Y = 0;//Ë®Æ½Ïß 
+		lIncrease_Y = 0;//æ°´å¹³çº¿ 
 	
 	else 
   {
@@ -95,14 +95,14 @@ void DrawLine(int x1,int y1,int x2,int y2)
 
 	
 	if (  lDelta_X > lDelta_Y )
-		lDistance = lDelta_X; //Ñ¡È¡»ù±¾ÔöÁ¿×ø±êÖá 
+		lDistance = lDelta_X; //é€‰å–åŸºæœ¬å¢é‡åæ ‡è½´ 
 	
 	else 
 		lDistance = lDelta_Y; 
 	
-	for ( us = 0; us <= lDistance + 1; us ++ )//»­ÏßÊä³ö 
+	for ( us = 0; us <= lDistance + 1; us ++ )//ç”»çº¿è¾“å‡º 
 	{  	
-		SetPointBuffer(usX_Current,usY_Current,GetDrawColor());//»­µã 
+		SetPointBuffer(usX_Current,usY_Current,GetDrawColor());//ç”»ç‚¹ 
 		lError_X += lDelta_X ; 
 		lError_Y += lDelta_Y ; 
 		
@@ -186,10 +186,10 @@ void DrawCircle ( int usX_Center, int usY_Center, int usRadius)
 	short sCurrentX, sCurrentY;
 	short sError;
 	sCurrentX = 0; sCurrentY = usRadius;	  
-	sError = 3 - ( usRadius << 1 );     //ÅĞ¶ÏÏÂ¸öµãÎ»ÖÃµÄ±êÖ¾
+	sError = 3 - ( usRadius << 1 );     //åˆ¤æ–­ä¸‹ä¸ªç‚¹ä½ç½®çš„æ ‡å¿—
 	while ( sCurrentX <= sCurrentY )
 	{      
-			SetPointBuffer ( usX_Center + sCurrentX, usY_Center + sCurrentY	,GetDrawColor());             //1£¬ÑĞ¾¿¶ÔÏó
+			SetPointBuffer ( usX_Center + sCurrentX, usY_Center + sCurrentY	,GetDrawColor());             //1ï¼Œç ”ç©¶å¯¹è±¡
 			SetPointBuffer ( usX_Center - sCurrentX, usY_Center + sCurrentY ,GetDrawColor());             //2      
 			SetPointBuffer ( usX_Center - sCurrentY, usY_Center + sCurrentX ,GetDrawColor());             //3
 			SetPointBuffer ( usX_Center - sCurrentY, usY_Center - sCurrentX ,GetDrawColor());             //4
@@ -222,13 +222,13 @@ void DrawFillCircle( int usX_Center, int usY_Center, int usRadius)
 	DrawCircle(usX_Center,usY_Center,usRadius);
 	usRadius=usRadius-1;
 	sCurrentX = 0; sCurrentY = usRadius;	  
-	sError = 3 - ( usRadius << 1 );     //ÅĞ¶ÏÏÂ¸öµãÎ»ÖÃµÄ±êÖ¾
+	sError = 3 - ( usRadius << 1 );     //åˆ¤æ–­ä¸‹ä¸ªç‚¹ä½ç½®çš„æ ‡å¿—
 	while ( sCurrentX <= sCurrentY )
 	{
 			short sCountY;   
 			for ( sCountY = sCurrentX; sCountY <= sCurrentY; sCountY ++ ) 
 			{
-				SetPointBuffer ( usX_Center + sCurrentX, usY_Center + sCountY ,GetFillColor());             //1£¬ÑĞ¾¿¶ÔÏó
+				SetPointBuffer ( usX_Center + sCurrentX, usY_Center + sCountY ,GetFillColor());             //1ï¼Œç ”ç©¶å¯¹è±¡
 				SetPointBuffer ( usX_Center - sCurrentX, usY_Center + sCountY  ,GetFillColor());             //2      
 				SetPointBuffer ( usX_Center - sCountY,   usY_Center + sCurrentX ,GetFillColor());             //3
 				SetPointBuffer ( usX_Center - sCountY,   usY_Center - sCurrentX ,GetFillColor());             //4
@@ -328,7 +328,7 @@ void DrawFillCircleHelper(int x0, int y0, unsigned char r, unsigned char cornern
     }
   }
 }
-//Ğè¸Ä½ø
+//éœ€æ”¹è¿›
 void DrawArc(int x,int y,unsigned char r,int angle_start,int angle_end)
 {
 	float i=0;
@@ -380,7 +380,7 @@ void DrawfillRoundRect(int x, int y, unsigned char w, unsigned char h, unsigned 
   DrawFillCircleHelper(x+r, y+r, r, 2, h-2*r-1);
 }
 
-#if 0//ÒÔÏÂ×¢ÊÍµÄÕâ¶Î´úÂëÊÇ»­ÍÖÔ²µÄËã·¨£¬µ«ÔËËã¹ı´ó£¬²»ÊÊºÏÊ¹ÓÃ£¬ÒÑ¾­ĞŞ¸ÄÎªBresenham Ëã·¨
+#if 0//ä»¥ä¸‹æ³¨é‡Šçš„è¿™æ®µä»£ç æ˜¯ç”»æ¤­åœ†çš„ç®—æ³•ï¼Œä½†è¿ç®—è¿‡å¤§ï¼Œä¸é€‚åˆä½¿ç”¨ï¼Œå·²ç»ä¿®æ”¹ä¸ºBresenham ç®—æ³•
 void DrawEllipse(int x0,int y0,int a,int b)
 {
 	int x,y;double r=0.0,end=3.14159*2;
@@ -911,7 +911,7 @@ void DrawNum(unsigned char x,unsigned char y,unsigned int num,unsigned char len)
 extern int FpsCount;
 void DrawFps()
 {
-	//»ñÈ¡µÄÊ±¼äÎª1s£¬¾Í´òÓ¡FPS£¬·ñÔò¾ÍÊÇÒ»Ö±++
+	//è·å–çš„æ—¶é—´ä¸º1sï¼Œå°±æ‰“å°FPSï¼Œå¦åˆ™å°±æ˜¯ä¸€ç›´++
 
 }
 

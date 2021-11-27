@@ -1,9 +1,9 @@
 /******************************************************************************
 //MSP432P401R
-//5 Íâ²¿ÖĞ¶Ï
-//Bilibili£ºm-RNA
+//5 å¤–éƒ¨ä¸­æ–­
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/8/11
+//åˆ›å»ºæ—¥æœŸ:2021/8/11
 *******************************************************************************/
 
 /* DriverLib Includes */
@@ -21,10 +21,10 @@ int main(void)
     /* Stop Watchdog  */
     MAP_WDT_A_holdTimer();
 
-    LED_Init(); //µÚ2½² GPIOÊä³ö
-    KEY_Init(1);//µÚ5½² Íâ²¿ÖĞ¶Ï
+    LED_Init(); //ç¬¬2è®² GPIOè¾“å‡º
+    KEY_Init(1);//ç¬¬5è®² å¤–éƒ¨ä¸­æ–­
 
-    MAP_Interrupt_enableMaster(); //¿ªÆô×ÜÖĞ¶Ï
+    MAP_Interrupt_enableMaster(); //å¼€å¯æ€»ä¸­æ–­
 
     while (1)
     {

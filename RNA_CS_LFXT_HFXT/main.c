@@ -1,9 +1,9 @@
 /******************************************************************************
 //MSP432P401R
-//3-2 ÅäÖÃÍâ²¿¾§Õñ
-//Bilibili£ºm-RNA
+//3-2 é…ç½®å¤–éƒ¨æ™¶æŒ¯
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/8/15
+//åˆ›å»ºæ—¥æœŸ:2021/8/15
 *******************************************************************************/
 
 #include "sysinit.h"
@@ -11,7 +11,7 @@
 
 int main(void)
 {
-	WDTCTL = WDTPW | WDTHOLD; // Í£ÓÃ¿´ÃÅ¹·
+	WDTCTL = WDTPW | WDTHOLD; // åœç”¨çœ‹é—¨ç‹—
 
 	GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_PJ, GPIO_PIN0, GPIO_PRIMARY_MODULE_FUNCTION);
 	GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_PJ, GPIO_PIN1, GPIO_PRIMARY_MODULE_FUNCTION);
@@ -30,10 +30,10 @@ int main(void)
 
 	CS_initClockSignal(CS_MCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1);
 	CS_initClockSignal(CS_SMCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1);
-	//ÅäÖÃÁËSMCLK¾Í²»ÐèÒªÅäÖÃHSMCLKÁË ´ÓÊ±ÖÓÊ÷¿ÉÒÔ¿´³öËüÁ½µÄ·ÖÆµÆ÷Ê±Í¬Ò»¸ö
+	//é…ç½®äº†SMCLKå°±ä¸éœ€è¦é…ç½®HSMCLKäº† ä»Žæ—¶é’Ÿæ ‘å¯ä»¥çœ‹å‡ºå®ƒä¸¤çš„åˆ†é¢‘å™¨æ—¶åŒä¸€ä¸ª
 	//CS_initClockSignal(CS_HSMCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1);
 
-	uart_init(115200); //µÚ7½² ´®¿ÚÊµÑé
+	uart_init(115200); //ç¬¬7è®² ä¸²å£å®žéªŒ
 
 	printf("MSP432\r\n");
 	printf("2021/8/15\r\n");

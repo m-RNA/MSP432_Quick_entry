@@ -1,28 +1,28 @@
-oled¿âËµÃ÷£º
-	¸Ã¿âÖ»ÊÇÒ»¸ö»æÍ¼Í¼ÐÎ¿â£¬ÊÊÓÃÓÚMSP432ÏµÁÐµÄ12864oledÆÁ£¬Çý¶¯Ð¾Æ¬Îªssd1306£¬ÈôÐè±»ÆäËûÆ½Ì¨Ê¹ÓÃ£¬Çë×ÔÐÐÒÆÖ²
-	ÒÆÖ²À´×Ô£ºhttps://github.com/hello-myj/stm32_oled
-Á¬½ÓÒý½Å£º
-	MSP432µÄÈí¼þ¼þI2C£º
+oledåº“è¯´æ˜Žï¼š
+	è¯¥åº“åªæ˜¯ä¸€ä¸ªç»˜å›¾å›¾å½¢åº“ï¼Œé€‚ç”¨äºŽMSP432ç³»åˆ—çš„12864oledå±ï¼Œé©±åŠ¨èŠ¯ç‰‡ä¸ºssd1306ï¼Œè‹¥éœ€è¢«å…¶ä»–å¹³å°ä½¿ç”¨ï¼Œè¯·è‡ªè¡Œç§»æ¤
+	ç§»æ¤æ¥è‡ªï¼šhttps://github.com/hello-myj/stm32_oled
+è¿žæŽ¥å¼•è„šï¼š
+	MSP432çš„è½¯ä»¶ä»¶I2Cï¼š
 		IIC: P1.7 -- SCL; P1.6 -- SDA
-	MSP432µÄÓ²¼þI2C£º
+	MSP432çš„ç¡¬ä»¶I2Cï¼š
 		IIC_1: PB6 -- SCL; PB7 -- SDA
-		IIC_2: PB10-- SCL; PB11 --SDA£¨»¹Î´ÑéÖ¤£©
-	MSP432µÄÓ²¼þSPI£º
-		ÔÝÎ´Ìí¼Ó£¬ÈôÐèÇëÔÚoled_driver.h×ÔÐÐÅäÖÃ
-	ÔÝÎ´Ìí¼ÓÈí¼þÄ£Äâ£¬ºóÐø»áÌí¼Ó
+		IIC_2: PB10-- SCL; PB11 --SDAï¼ˆè¿˜æœªéªŒè¯ï¼‰
+	MSP432çš„ç¡¬ä»¶SPIï¼š
+		æš‚æœªæ·»åŠ ï¼Œè‹¥éœ€è¯·åœ¨oled_driver.hè‡ªè¡Œé…ç½®
+	æš‚æœªæ·»åŠ è½¯ä»¶æ¨¡æ‹Ÿï¼ŒåŽç»­ä¼šæ·»åŠ 
 	
-Í¼ÐÎ¿âÎÄ¼þËµÃ÷£º
-	draw_api.h:ËùÐèµÄ¸÷Ààapi»æÍ¼·½·¨
-	oled_config.h:ÅäÖÃoÎÄ¼þ£¬ÓÃÓÚÅäÖÃledÆÁ
-	oled_config.c:ÅäÖÃÎÄ¼þËùÐèµÄ½Ó¿Ú
-	oled_driver.c£ºoledÆÁÇý¶¯
-	oled_draw.c:¸÷Àà»æÍ¼·½·¨
-	oled_basic.c:µ×²ãºÍËã·¨Ö§³Å
-	oled_color.c:ÑÕÉ«¿ØÖÆ
-	oled_buffer.c:ÆÁÄ»»º³åÇøºÍÁÙÊ±»º³åÇø
-	oled_font.c:×ÖÌå
-	oled_bmp.c:bmpÈ¡Ä£Í¼ÐÎ´æ·ÅÎ»ÖÃ£¬
-	oled_debug.c¿Éµ÷ÓÃOledPrintf·½·¨£¬Ð§¹ûÓëprintfÒ»ÖÂ¡£
+å›¾å½¢åº“æ–‡ä»¶è¯´æ˜Žï¼š
+	draw_api.h:æ‰€éœ€çš„å„ç±»apiç»˜å›¾æ–¹æ³•
+	oled_config.h:é…ç½®oæ–‡ä»¶ï¼Œç”¨äºŽé…ç½®ledå±
+	oled_config.c:é…ç½®æ–‡ä»¶æ‰€éœ€çš„æŽ¥å£
+	oled_driver.cï¼šoledå±é©±åŠ¨
+	oled_draw.c:å„ç±»ç»˜å›¾æ–¹æ³•
+	oled_basic.c:åº•å±‚å’Œç®—æ³•æ”¯æ’‘
+	oled_color.c:é¢œè‰²æŽ§åˆ¶
+	oled_buffer.c:å±å¹•ç¼“å†²åŒºå’Œä¸´æ—¶ç¼“å†²åŒº
+	oled_font.c:å­—ä½“
+	oled_bmp.c:bmpå–æ¨¡å›¾å½¢å­˜æ”¾ä½ç½®ï¼Œ
+	oled_debug.cå¯è°ƒç”¨OledPrintfæ–¹æ³•ï¼Œæ•ˆæžœä¸Žprintfä¸€è‡´ã€‚
 
-ÆäËû£º
-	³ÖÐø¸üÐÂ
+å…¶ä»–ï¼š
+	æŒç»­æ›´æ–°

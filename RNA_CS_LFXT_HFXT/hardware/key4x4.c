@@ -1,14 +1,14 @@
 /****************************************************/
 //MSP432
-//Íâ½Ó¾ØÕó¼üÅÌÇı¶¯
-//Bilibili£ºm-RNA
+//å¤–æ¥çŸ©é˜µé”®ç›˜é©±åŠ¨
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/8/11
+//åˆ›å»ºæ—¥æœŸ:2021/8/11
 /****************************************************/
 
-/************          ½Ó·¨ÈçÏÂ          ************/
+/************          æ¥æ³•å¦‚ä¸‹          ************/
 /*                                                    
- *         Rows and columns  ĞĞºÍÁĞ
+ *         Rows and columns  è¡Œå’Œåˆ—
  *
  * R4   R3   R2   R1     C1   C2   C3   C4
  * P4.0 P4.1 P4.2 P4.3   P4.4 P4.5 P4.6 P4.7
@@ -18,42 +18,42 @@
 
 #include "key4x4.h"
 
-//º¯Êı¹¦ÄÜ£ºÑÓÊ±
+//å‡½æ•°åŠŸèƒ½ï¼šå»¶æ—¶
 void key_delay(uint16_t t);
 
 void KEY4x4_Init(void)
 {
-    P4DIR &= ~(BIT0 | BIT1 | BIT2 | BIT3); // P4.0~3 ÉèÎªÊäÈë
-    P4REN |= BIT0 | BIT1 | BIT2 | BIT3;    // P4.0~3 Ê¹ÄÜÉÏÀ­/ÏÂÀ­µç×è
-    P4OUT |= BIT0 | BIT1 | BIT2 | BIT3;    // P4.0~3 ÉÏÀ­
-    P4DIR |= BIT4 | BIT5 | BIT6 | BIT7;    // P4.4~7 ÉèÎªÊä³ö
+    P4DIR &= ~(BIT0 | BIT1 | BIT2 | BIT3); // P4.0~3 è®¾ä¸ºè¾“å…¥
+    P4REN |= BIT0 | BIT1 | BIT2 | BIT3;    // P4.0~3 ä½¿èƒ½ä¸Šæ‹‰/ä¸‹æ‹‰ç”µé˜»
+    P4OUT |= BIT0 | BIT1 | BIT2 | BIT3;    // P4.0~3 ä¸Šæ‹‰
+    P4DIR |= BIT4 | BIT5 | BIT6 | BIT7;    // P4.4~7 è®¾ä¸ºè¾“å‡º
 }
 
-//°´¼ü´¦Àíº¯Êı
-//·µ»Ø°´¼üÖµ
-//mode:0,²»Ö§³ÖÁ¬Ğø°´; 1,Ö§³ÖÁ¬Ğø°´
+//æŒ‰é”®å¤„ç†å‡½æ•°
+//è¿”å›æŒ‰é”®å€¼
+//mode:0,ä¸æ”¯æŒè¿ç»­æŒ‰; 1,æ”¯æŒè¿ç»­æŒ‰
 uint8_t KEY4x4_Scan(bool mode)
 {
     uint8_t i;
-    static bool key_up = true; //°´¼ü°´ËÉ¿ª±êÖ¾
+    static bool key_up = true; //æŒ‰é”®æŒ‰æ¾å¼€æ ‡å¿—
     if (mode)
-        key_up = true; //Ö§³ÖÁ¬°´
+        key_up = true; //æ”¯æŒè¿æŒ‰
     if ((~(P4IN | 0xf0)) && key_up)
     {
-        key_delay(25); //È¥¶¶¶¯
+        key_delay(25); //å»æŠ–åŠ¨
         for (i = 0; i < 4; i++)
         {
             key_up = false;
-            P4OUT = ~(1 << (i + 4));      //+4ÊÇÓ¦Îª ºöÂÔµÍËÄÎ»
-            switch (~P4IN & 0x0F) //µÚi+1ĞĞ
+            P4OUT = ~(1 << (i + 4));      //+4æ˜¯åº”ä¸º å¿½ç•¥ä½å››ä½
+            switch (~P4IN & 0x0F) //ç¬¬i+1è¡Œ
             {
-            case 0x08: //µÚËÄÁĞ
+            case 0x08: //ç¬¬å››åˆ—
                 return i + 1;
-            case 0x04: //µÚÈıÁĞ
+            case 0x04: //ç¬¬ä¸‰åˆ—
                 return i + 5;
-            case 0x02: //µÚ¶şÁĞ
+            case 0x02: //ç¬¬äºŒåˆ—
                 return i + 9;
-            case 0x01: //µÚÒ»ÁĞ
+            case 0x01: //ç¬¬ä¸€åˆ—
                 return i + 13;
             }
         }
@@ -63,7 +63,7 @@ uint8_t KEY4x4_Scan(bool mode)
     return 0;
 }
 
-//º¯Êı¹¦ÄÜ£ºÑÓÊ±
+//å‡½æ•°åŠŸèƒ½ï¼šå»¶æ—¶
 static void key_delay(uint16_t t)
 {
     volatile uint16_t x;

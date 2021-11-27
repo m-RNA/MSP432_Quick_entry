@@ -1,22 +1,22 @@
 /****************************************************/
 //MSP432P401R
-//°åÔØ°´¼üÇı¶¯
-//Bilibili£ºm-RNA
+//æ¿è½½æŒ‰é”®é©±åŠ¨
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/8/11
+//åˆ›å»ºæ—¥æœŸ:2021/8/11
 /****************************************************/
 
 #ifndef __KEY_H
 #define __KEY_H
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
-#define KEY1 MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN1) //¶ÁÈ¡°´¼ü1
-#define KEY2 MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN4) //¶ÁÈ¡°´¼ü2
+#define KEY1 MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN1) //è¯»å–æŒ‰é”®1
+#define KEY2 MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN4) //è¯»å–æŒ‰é”®2
 
-#define KEY1_PRES 1 //KEY1°´ÏÂ
-#define KEY2_PRES 2 //KEY2°´ÏÂ
+#define KEY1_PRES 1 //KEY1æŒ‰ä¸‹
+#define KEY2_PRES 2 //KEY2æŒ‰ä¸‹
 
-void KEY_Init(bool mode);    //IO³õÊ¼»¯
-uint8_t KEY_Scan(bool mode); //°´¼üÉ¨Ãèº¯Êı
+void KEY_Init(bool mode);    //IOåˆå§‹åŒ–
+uint8_t KEY_Scan(bool mode); //æŒ‰é”®æ‰«æå‡½æ•°
 
 #endif

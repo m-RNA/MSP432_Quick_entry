@@ -5,27 +5,27 @@
 #include "oled_basic.h"
 
 #if (TRANSFER_METHOD == HW_IIC)
-#define OLED_ADDRESS 0x3C //Õ®π˝µ˜’˚0RµÁ◊Ë,∆¡ø…“‘0x78∫Õ0x7A¡Ω∏ˆµÿ÷∑ -- ƒ¨»œ0x78  0x3C = 0x78 >> 1
+#define OLED_ADDRESS 0x3C //ÈÄöËøáË∞ÉÊï¥0RÁîµÈòª,Â±èÂèØ‰ª•0x78Âíå0x7A‰∏§‰∏™Âú∞ÂùÄ -- ÈªòËÆ§0x78  0x3C = 0x78 >> 1
 
-#if (USE_HW_IIC == IIC_0) // “——È÷§
+#if (USE_HW_IIC == IIC_0) // Â∑≤È™åËØÅ
 #define IIC_GPIOX GPIO_PORT_P1
 #define IIC_SCL_Pin GPIO_PIN7
 #define IIC_SDA_Pin GPIO_PIN6
 #define EUSCI_BX EUSCI_B0_BASE
 
-#elif (USE_HW_IIC == IIC_1) // “——È÷§
+#elif (USE_HW_IIC == IIC_1) // Â∑≤È™åËØÅ
 #define IIC_GPIOX GPIO_PORT_P6
 #define IIC_SCL_Pin GPIO_PIN5
 #define IIC_SDA_Pin GPIO_PIN4
 #define EUSCI_BX EUSCI_B1_BASE
 
-#elif (USE_HW_IIC == IIC_2) // “——È÷§
+#elif (USE_HW_IIC == IIC_2) // Â∑≤È™åËØÅ
 #define IIC_GPIOX GPIO_PORT_P3
 #define IIC_SCL_Pin GPIO_PIN7
 #define IIC_SDA_Pin GPIO_PIN6
 #define EUSCI_BX EUSCI_B2_BASE
 
-#elif (USE_HW_IIC == IIC_3) // “——È÷§
+#elif (USE_HW_IIC == IIC_3) // Â∑≤È™åËØÅ
 #define IIC_GPIOX GPIO_PORT_P10
 #define IIC_SCL_Pin GPIO_PIN3
 #define IIC_SDA_Pin GPIO_PIN2
@@ -34,9 +34,9 @@
 
 #elif (TRANSFER_METHOD == SW_IIC)
 
-#define Set_Bit(val, bitn) (val |= (/*1 <<*/ (bitn))) //÷√1
-#define Clr_Bit(val, bitn) (val &= ~(/*1<<*/ (bitn))) //÷√0
-#define Get_Bit(val, bitn) (val & (1 << (bitn)))      //ªÒ»°µÁ∆Ω
+#define Set_Bit(val, bitn) (val |= (/*1 <<*/ (bitn))) //ÁΩÆ1
+#define Clr_Bit(val, bitn) (val &= ~(/*1<<*/ (bitn))) //ÁΩÆ0
+#define Get_Bit(val, bitn) (val & (1 << (bitn)))      //Ëé∑ÂèñÁîµÂπ≥
 //----------------------------------------------------------------------------------
 //OLED SSD1306 SCL  P1.7
 
@@ -57,21 +57,21 @@
 
 #elif (USE_HW_SPI == SPI_2)
 #define SPIX SPI2
-// πƒ‹SPI2 ±÷”
+//‰ΩøËÉΩSPI2Êó∂Èíü
 #define SPI_RCC_APB1Periph_SPIX RCC_APB1Periph_SPI2
-// πƒ‹gpio ±÷”£¨ π”√µƒGPIO≤ª“ª—˘ ±ø…∂®“Â»Áœ¬£∫
+//‰ΩøËÉΩgpioÊó∂ÈíüÔºå‰ΩøÁî®ÁöÑGPIO‰∏ç‰∏ÄÊ†∑Êó∂ÂèØÂÆö‰πâÂ¶Ç‰∏ãÔºö
 //#define SPI_RCC_APB2Periph_GPIOX	RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOC
 #define SPI_RCC_APB2Periph_GPIOX RCC_APB2Periph_GPIOB
-//CS∆¨—°£®»Ìº˛∆¨—°£©
+//CSÁâáÈÄâÔºàËΩØ‰ª∂ÁâáÈÄâÔºâ
 #define SPI_CS_Pin_X GPIO_Pin_12
 #define SPI_CS_GPIOX GPIOB
-//SPI2  ±÷”°¢mosi°¢miso“˝Ω≈
+//SPI2 Êó∂Èíü„ÄÅmosi„ÄÅmisoÂºïËÑö
 #define SPI_HW_ALL_PINS (GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15)
 #define SPI_HW_ALL_GPIOX GPIOB
-//∏¥Œª“˝Ω≈
+//Â§ç‰ΩçÂºïËÑö
 #define SPI_RES_PIN GPIO_Pin_10
 #define SPI_RES_GPIOX GPIOB
-//øÿ÷∆“˝Ω≈
+//ÊéßÂà∂ÂºïËÑö
 #define SPI_DC_PIN GPIO_Pin_11
 #define SPI_DC_GPIOX GPIOB
 #endif

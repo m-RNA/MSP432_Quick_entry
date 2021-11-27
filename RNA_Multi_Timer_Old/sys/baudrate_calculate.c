@@ -1,35 +1,35 @@
 /****************************************************/
 // MSP432P401R
-// ´®¿Ú²¨ÌØÂÊ¼ÆËã
-// Bilibili£ºm-RNA
+// ä¸²å£æ³¢ç‰¹ç‡è®¡ç®—
+// Bilibiliï¼šm-RNA
 // E-mail:m-RNA@qq.com
 /****************************************************/
 
-/******************************    ËµÃ÷    ******************************
+/******************************    è¯´æ˜    ******************************
  *
- * Ô´ÂëÎªTI¹Ù·½±àĞ´,±¾ÈËÖ»ÊÇ½«JS³ÌĞòÒÆÖ²µ½ÁËCÓïÑÔÆ½Ì¨,½ö×÷ÎªÑ§Ï°Ê¹ÓÃ¡£Ô´Âë³ö´¦Îª£º
+ * æºç ä¸ºTIå®˜æ–¹ç¼–å†™,æœ¬äººåªæ˜¯å°†JSç¨‹åºç§»æ¤åˆ°äº†Cè¯­è¨€å¹³å°,ä»…ä½œä¸ºå­¦ä¹ ä½¿ç”¨ã€‚æºç å‡ºå¤„ä¸ºï¼š
  * http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSP430BaudRateConverter/index.html
  *
- * ? ÒÑÖªÎÊÌâ£º
- * µ÷ÊÔÊ±·¢ÏÖÄ³Ğ©Çé¿öÏÂ£¬CÓïÑÔµÄĞ¡ÊıµÄ´óĞ¡ÓëJSµÄÏà²î½Ï´ó£¬
- * µ¼ÖÂÁËËã³öµÄUCSx(¼´secondModReg)²»Ò»Ñù£¬
- * ÕâÊ±Èç¹û³öÏÖ²»ÄÜ×¼È·´«ÊäÊ±£¬Çë»»Ò»¸ö²¨ÌØÂÊ¡£
+ * ? å·²çŸ¥é—®é¢˜ï¼š
+ * è°ƒè¯•æ—¶å‘ç°æŸäº›æƒ…å†µä¸‹ï¼ŒCè¯­è¨€çš„å°æ•°çš„å¤§å°ä¸JSçš„ç›¸å·®è¾ƒå¤§ï¼Œ
+ * å¯¼è‡´äº†ç®—å‡ºçš„UCSx(å³secondModReg)ä¸ä¸€æ ·ï¼Œ
+ * è¿™æ—¶å¦‚æœå‡ºç°ä¸èƒ½å‡†ç¡®ä¼ è¾“æ—¶ï¼Œè¯·æ¢ä¸€ä¸ªæ³¢ç‰¹ç‡ã€‚
  *
- * ? ĞèÒª×¢Òâ£º
- * ²¨ÌØÂÊ²»ÄÜ´óÓÚÊ±ÖÓÆµÂÊ£¬·ñÔò»áÍË³öº¯Êı
+ * ? éœ€è¦æ³¨æ„ï¼š
+ * æ³¢ç‰¹ç‡ä¸èƒ½å¤§äºæ—¶é’Ÿé¢‘ç‡ï¼Œå¦åˆ™ä¼šé€€å‡ºå‡½æ•°
  *
- * *****************************   °æ±¾ËµÃ÷   ******************************
+ * *****************************   ç‰ˆæœ¬è¯´æ˜   ******************************
  *
  * ? v1.2 2021/8/29
- * ×¢ÊÍµôÁËÉÁË¸µÆµÄ´úÂë
+ * æ³¨é‡Šæ‰äº†é—ªçƒç¯çš„ä»£ç 
  * 
  * ? v1.1  2021/8/27
- * Ìí¼ÓÖ§³Ö¹Ì¼ş¿âv3_21_00_05
+ * æ·»åŠ æ”¯æŒå›ºä»¶åº“v3_21_00_05
  *
  * ? v1.0  2021/8/25
- * ½öÖ§³Ö¹Ì¼ş¿âv3_40_01_02
+ * ä»…æ”¯æŒå›ºä»¶åº“v3_40_01_02
  *
- * *******************************   ½áÊø    *******************************/
+ * *******************************   ç»“æŸ    *******************************/
 
 #include "baudrate_calculate.h"
 
@@ -61,9 +61,9 @@ bool bitPosition(uint16_t value, uint16_t position)
  *  MSP430FR57xx Family User's Guide (SLAU272A).
  */
 #ifdef EUSCI_A_UART_7_BIT_LEN
-void eusci_calcBaudDividers(eUSCI_UART_ConfigV1 *uart_config, uint32_t baudRate) //¹Ì¼ş¿âv3_40_01_02
+void eusci_calcBaudDividers(eUSCI_UART_ConfigV1 *uart_config, uint32_t baudRate) //å›ºä»¶åº“v3_40_01_02
 #else
-void eusci_calcBaudDividers(eUSCI_UART_Config *uart_config, uint32_t baudRate) //¹Ì¼ş¿âv3_21_00_05
+void eusci_calcBaudDividers(eUSCI_UART_Config *uart_config, uint32_t baudRate) //å›ºä»¶åº“v3_21_00_05
 #endif
 {
     float maxAbsErrorInByte;
@@ -75,9 +75,9 @@ void eusci_calcBaudDividers(eUSCI_UART_Config *uart_config, uint32_t baudRate) /
     uint32_t count;
     uint32_t clockRate;
 
-    if (!uart_config || !baudRate) //´«²Î´íÎó ÍË³öº¯Êı
+    if (!uart_config || !baudRate) //ä¼ å‚é”™è¯¯ é€€å‡ºå‡½æ•°
     {
-        //uart_warning_led(); //ÉÁË¸´íÎóÖ¸Ê¾µÆ10´Î
+        //uart_warning_led(); //é—ªçƒé”™è¯¯æŒ‡ç¤ºç¯10æ¬¡
         return;
     }
 
@@ -90,14 +90,14 @@ void eusci_calcBaudDividers(eUSCI_UART_Config *uart_config, uint32_t baudRate) /
         uart_config->selectClockSource = EUSCI_A_UART_CLOCKSOURCE_SMCLK;
         clockRate = MAP_CS_getSMCLK();
     }
-    if (baudRate > clockRate) //ÅĞ¶Ï²¨ÌØÂÊÊÇ·ñ´óÓÚÊ±ÖÓÆµÂÊ ÊÇÔòÍË³öº¯Êı
+    if (baudRate > clockRate) //åˆ¤æ–­æ³¢ç‰¹ç‡æ˜¯å¦å¤§äºæ—¶é’Ÿé¢‘ç‡ æ˜¯åˆ™é€€å‡ºå‡½æ•°
     {
-        //uart_warning_led(); //ÉÁË¸´íÎóÖ¸Ê¾µÆ10´Î
+        //uart_warning_led(); //é—ªçƒé”™è¯¯æŒ‡ç¤ºç¯10æ¬¡
         return;
     }
     //var result = {UCOS16 : 0, UCBRx : 0, UCFx : 0, UCSx : 0, maxAbsError : 0};
 
-    NN = (uint16_t)((float)clockRate / (float)baudRate); //Ó¦¸ÃÊÇ²»ĞèÒªfloor
+    NN = (uint16_t)((float)clockRate / (float)baudRate); //åº”è¯¥æ˜¯ä¸éœ€è¦floor
 
     minAbsError = 100000;
     for (jj = 0; jj <= 255; jj++)
@@ -110,7 +110,7 @@ void eusci_calcBaudDividers(eUSCI_UART_Config *uart_config, uint32_t baudRate) /
             count += NN + bitPosition(jj, 7 - (ii % 8));
 
             //error = (ii + 1) * baudPeriod - count * clockPeriod;
-            error = (ii + 1) / (float)baudRate - count / (float)clockRate; //ÎªÁË¼õÉÙ±äÁ¿£¬¸ÄÎª´Ë´úÂë
+            error = (ii + 1) / (float)baudRate - count / (float)clockRate; //ä¸ºäº†å‡å°‘å˜é‡ï¼Œæ”¹ä¸ºæ­¤ä»£ç 
 
             if (error < 0)
                 error = -error;
@@ -118,7 +118,7 @@ void eusci_calcBaudDividers(eUSCI_UART_Config *uart_config, uint32_t baudRate) /
             if (error > maxAbsErrorInByte)
                 maxAbsErrorInByte = error;
         }
-        if (maxAbsErrorInByte - minAbsError < -7.3e-12f) //ÕâÀï¾ÍÊÇ¡°ÒÑÖªÎÊÌâ¡±
+        if (maxAbsErrorInByte - minAbsError < -7.3e-12f) //è¿™é‡Œå°±æ˜¯â€œå·²çŸ¥é—®é¢˜â€
         {
             minAbsError = maxAbsErrorInByte;
             uart_config->secondModReg = jj;
@@ -134,13 +134,13 @@ void eusci_calcBaudDividers(eUSCI_UART_Config *uart_config, uint32_t baudRate) /
     else
     {
         uart_config->overSampling = 1;
-        uart_config->clockPrescalar = (uint16_t)((float)NN / 16.0f); //Ó¦¸ÃÊÇ²»ĞèÒªfloor
+        uart_config->clockPrescalar = (uint16_t)((float)NN / 16.0f); //åº”è¯¥æ˜¯ä¸éœ€è¦floor
         uart_config->firstModReg = NN - (uart_config->clockPrescalar * 16);
     }
     //return minAbsError * baudRate * 100;
 }
 
-////ÉÁË¸´íÎóÖ¸Ê¾µÆ10´Î
+////é—ªçƒé”™è¯¯æŒ‡ç¤ºç¯10æ¬¡
 //void uart_warning_led(void)
 //{
 //    uint8_t ii;

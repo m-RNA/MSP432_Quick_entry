@@ -1,19 +1,19 @@
 /******************************************************************************
 // MSP432P401R
-// 7 ´®¿ÚÅäÖÃ
-// Bilibili£ºm-RNA
+// 7 ä¸²å£é…ç½®
+// Bilibiliï¼šm-RNA
 // E-mail:m-RNA@qq.com
-// ´´½¨ÈÕÆÚ:2021/8/25
+// åˆ›å»ºæ—¥æœŸ:2021/8/25
 *******************************************************************************/
 
 /*
- * 2021/10/15 ¸üĞÂ
+ * 2021/10/15 æ›´æ–°
  * 
- * ´Ë°æ±¾Ö§³Ö ±ê×¼C¿â
- * ÖÕÓÚ¿ÉÒÔ²»Ê¹ÓÃÎ¢¿âÀ²
+ * æ­¤ç‰ˆæœ¬æ”¯æŒ æ ‡å‡†Cåº“
+ * ç»ˆäºå¯ä»¥ä¸ä½¿ç”¨å¾®åº“å•¦
  *
- * Ê¹ÓÃ±ê×¼C¿âÊ±£¬½«ÎŞ·¨Ê¹ÓÃscanf£»
- * Èç¹ûĞèÒªÊ¹ÓÃscanfÊ±£¬ÇëÊ¹ÓÃÎ¢¿â MicroLIB¡£
+ * ä½¿ç”¨æ ‡å‡†Cåº“æ—¶ï¼Œå°†æ— æ³•ä½¿ç”¨scanfï¼›
+ * å¦‚æœéœ€è¦ä½¿ç”¨scanfæ—¶ï¼Œè¯·ä½¿ç”¨å¾®åº“ MicroLIBã€‚
  * 
  */
 
@@ -26,16 +26,16 @@ int main(void)
     /* Halting WDT  */
     MAP_WDT_A_holdTimer();
 
-    //0.ÅäÖÃÊ±ÖÓ
+    //0.é…ç½®æ—¶é’Ÿ
     SysInit();
 
-    //1.ÅäÖÃGPIO¸´ÓÃ
+    //1.é…ç½®GPIOå¤ç”¨
     GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1, GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
 
-    //2.ÅäÖÃUART½á¹¹Ìå
+    //2.é…ç½®UARTç»“æ„ä½“
 #ifdef EUSCI_A_UART_7_BIT_LEN
-    //¹Ì¼ş¿âv3_40_01_02
-    //Ä¬ÈÏSMCLK 48MHz ±ÈÌØÂÊ 115200
+    //å›ºä»¶åº“v3_40_01_02
+    //é»˜è®¤SMCLK 48MHz æ¯”ç‰¹ç‡ 115200
     const eUSCI_UART_ConfigV1 uartConfig =
         {
             EUSCI_A_UART_CLOCKSOURCE_SMCLK,                // SMCLK Clock Source
@@ -49,10 +49,10 @@ int main(void)
             EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION, // Oversampling
             EUSCI_A_UART_8_BIT_LEN                         // 8 bit data length
         };
-    eusci_calcBaudDividers((eUSCI_UART_ConfigV1 *)&uartConfig, 115200); //ÅäÖÃ²¨ÌØÂÊ
+    eusci_calcBaudDividers((eUSCI_UART_ConfigV1 *)&uartConfig, 115200); //é…ç½®æ³¢ç‰¹ç‡
 #else
-    //¹Ì¼ş¿âv3_21_00_05
-    //Ä¬ÈÏSMCLK 48MHz ±ÈÌØÂÊ 115200
+    //å›ºä»¶åº“v3_21_00_05
+    //é»˜è®¤SMCLK 48MHz æ¯”ç‰¹ç‡ 115200
     const eUSCI_UART_Config uartConfig =
         {
             EUSCI_A_UART_CLOCKSOURCE_SMCLK,                // SMCLK Clock Source
@@ -65,21 +65,21 @@ int main(void)
             EUSCI_A_UART_MODE,                             // UART mode
             EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION, // Oversampling
         };
-    eusci_calcBaudDividers((eUSCI_UART_Config *)&uartConfig, 115200); //ÅäÖÃ²¨ÌØÂÊ
+    eusci_calcBaudDividers((eUSCI_UART_Config *)&uartConfig, 115200); //é…ç½®æ³¢ç‰¹ç‡
 #endif
-    //3.³õÊ¼»¯´®¿Ú
+    //3.åˆå§‹åŒ–ä¸²å£
     UART_initModule(EUSCI_A0_BASE, &uartConfig);
 
-    //4.¿ªÆô´®¿ÚÄ£¿é
+    //4.å¼€å¯ä¸²å£æ¨¡å—
     UART_enableModule(EUSCI_A0_BASE);
 	
-    //5.¿ªÆô´®¿ÚÏà¹ØÖĞ¶Ï
+    //5.å¼€å¯ä¸²å£ç›¸å…³ä¸­æ–­
     UART_enableInterrupt(EUSCI_A0_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT);
 
-    //6.¿ªÆô´®¿Ú¶Ë¿ÚÖĞ¶Ï
+    //6.å¼€å¯ä¸²å£ç«¯å£ä¸­æ–­
     Interrupt_enableInterrupt(INT_EUSCIA0);
 
-    //7.¿ªÆô×ÜÖĞ¶Ï
+    //7.å¼€å¯æ€»ä¸­æ–­
     Interrupt_enableMaster();
 
     while(1)
@@ -87,14 +87,14 @@ int main(void)
     }
 }
 
-//8.±àĞ´UART ISR
+//8.ç¼–å†™UART ISR
 void EUSCIA0_IRQHandler(void)
 {
     uint32_t status = UART_getEnabledInterruptStatus(EUSCI_A0_BASE);
 
-    if(status & EUSCI_A_UART_RECEIVE_INTERRUPT_FLAG) //½ÓÊÕÖĞ¶Ï
+    if(status & EUSCI_A_UART_RECEIVE_INTERRUPT_FLAG) //æ¥æ”¶ä¸­æ–­
     {
-        UART_transmitData(EUSCI_A0_BASE, MAP_UART_receiveData(EUSCI_A0_BASE)); //·¢ËÍÊı¾İ
+        UART_transmitData(EUSCI_A0_BASE, MAP_UART_receiveData(EUSCI_A0_BASE)); //å‘é€æ•°æ®
     }
 
 }

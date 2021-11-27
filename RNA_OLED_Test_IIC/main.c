@@ -1,24 +1,24 @@
 /**************************************
 //MSP432P401R
-//10 OLEDÏÔÊ¾£¨Ä£ÄâIIC/Ó²¼þIIC)
-//Bilibili£ºm-RNA
+//10 OLEDæ˜¾ç¤ºï¼ˆæ¨¡æ‹ŸIIC/ç¡¬ä»¶IIC)
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/9/12
+//åˆ›å»ºæ—¥æœŸ:2021/9/12
 ***************************************/
 
-/*********  ÉùÃ÷  **********
+/*********  å£°æ˜Ž  **********
  *
- * 0.96´çOLED
- * UP½«ÖÐ¾°Ô°µÄMSP430Çý¶¯
- * ÒÆÖ²µ½ÁËMSP432ÉÏÀ´ÁË
- * ²¢ÉÔÎ¢ÐÞ¸ÄÁËÒ»ÏÂ²âÊÔ´úÂë
+ * 0.96å¯¸OLED
+ * UPå°†ä¸­æ™¯å›­çš„MSP430é©±åŠ¨
+ * ç§»æ¤åˆ°äº†MSP432ä¸Šæ¥äº†
+ * å¹¶ç¨å¾®ä¿®æ”¹äº†ä¸€ä¸‹æµ‹è¯•ä»£ç 
  *
- * Ö§³Ö Ä£ÄâIIC/Ó²¼þIIC
+ * æ”¯æŒ æ¨¡æ‹ŸIIC/ç¡¬ä»¶IIC
  *
- * Òý½Å½Ó·¨:
+ * å¼•è„šæŽ¥æ³•:
  * P1.7 SCL
  * P1.6 SDA
- * ¿ÉÒÔÈ¥Í·ÎÄ¼þ¸ü¸ÄÒý½Å
+ * å¯ä»¥åŽ»å¤´æ–‡ä»¶æ›´æ”¹å¼•è„š
 ****************************/
 
 #include "sysinit.h"
@@ -30,40 +30,40 @@ int main(void)
 {
     char t;
 
-    SysInit();    // µÚ3½²  Ê±ÖÓÅäÖÃ
-    delay_init(); // µÚ4½²  µÎ´ðÑÓÊ±
-    OLED_Init();  // µÚ10½² OLEDÏÔÊ¾
+    SysInit();    // ç¬¬3è®²  æ—¶é’Ÿé…ç½®
+    delay_init(); // ç¬¬4è®²  æ»´ç­”å»¶æ—¶
+    OLED_Init();  // ç¬¬10è®² OLEDæ˜¾ç¤º
 
     while (1)
     {
-        //ÏÔÊ¾Í¼Æ¬
+        //æ˜¾ç¤ºå›¾ç‰‡
         OLED_DrawBMP(0, 0, 128, 64, BMP1);
         delay_ms(300);
-        OLED_Clear(); //ÇåÆÁ
+        OLED_Clear(); //æ¸…å±
 
-        //ÏÔÊ¾ºº×Ö
-        OLED_ShowChinese(0, 0, 0, 16);   //ÖÐ
-        OLED_ShowChinese(18, 0, 1, 16);  //¾°
-        OLED_ShowChinese(36, 0, 2, 16);  //Ô°
-        OLED_ShowChinese(54, 0, 3, 16);  //µç
-        OLED_ShowChinese(72, 0, 4, 16);  //×Ó
-        OLED_ShowChinese(90, 0, 5, 16);  //¿Æ
-        OLED_ShowChinese(108, 0, 6, 16); //¼¼
+        //æ˜¾ç¤ºæ±‰å­—
+        OLED_ShowChinese(0, 0, 0, 16);   //ä¸­
+        OLED_ShowChinese(18, 0, 1, 16);  //æ™¯
+        OLED_ShowChinese(36, 0, 2, 16);  //å›­
+        OLED_ShowChinese(54, 0, 3, 16);  //ç”µ
+        OLED_ShowChinese(72, 0, 4, 16);  //å­
+        OLED_ShowChinese(90, 0, 5, 16);  //ç§‘
+        OLED_ShowChinese(108, 0, 6, 16); //æŠ€
 
-        //ÏÔÊ¾×Ö·û´®
+        //æ˜¾ç¤ºå­—ç¬¦ä¸²
         OLED_ShowString(8, 2, (uint8_t *)"ZHONGJINGYUAN", 16);
         OLED_ShowString(20, 4, (uint8_t *)"2014/05/01", 16);
         OLED_ShowString(0, 6, (uint8_t *)"ASCII:", 16);
         OLED_ShowString(63, 6, (uint8_t *)"CODE:", 16);
 
-        //ÏÔÊ¾×Ö·û£¬Êý×Ö
+        //æ˜¾ç¤ºå­—ç¬¦ï¼Œæ•°å­—
 		for (t = ' '; t < '~'; t++)
 		{
-			OLED_ShowChar(48, 6, t, 16);	//ÏÔÊ¾ASCII×Ö·û
-			OLED_ShowNum(103, 6, t, 3, 16); //ÏÔÊ¾ASCII×Ö·ûµÄÂëÖµ
+			OLED_ShowChar(48, 6, t, 16);	//æ˜¾ç¤ºASCIIå­—ç¬¦
+			OLED_ShowNum(103, 6, t, 3, 16); //æ˜¾ç¤ºASCIIå­—ç¬¦çš„ç å€¼
 		}
 		
         delay_ms(300);
-        OLED_Clear(); //ÇåÆÁ
+        OLED_Clear(); //æ¸…å±
     }
 }

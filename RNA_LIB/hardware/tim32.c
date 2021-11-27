@@ -1,9 +1,9 @@
 /****************************************************/
 // MSP432P401R
-// ¶¨Ê±Æ÷32
-// Bilibili£ºm-RNA
+// å®šæ—¶å™¨32
+// Bilibiliï¼šm-RNA
 // E-mail:m-RNA@qq.com
-// ´´½¨ÈÕÆÚ:2021/9/8
+// åˆ›å»ºæ—¥æœŸ:2021/9/8
 /****************************************************/
 
 #include "tim32.h"
@@ -18,7 +18,7 @@ void Tim32_0_Int_Init(uint32_t aar, uint8_t psc)
 
     MAP_Timer32_enableInterrupt(TIMER32_0_BASE);
 
-    MAP_Timer32_startTimer(TIMER32_0_BASE, false); //Á¬Ğø¼ÆÊıÄ£Ê½ false
+    MAP_Timer32_startTimer(TIMER32_0_BASE, false); //è¿ç»­è®¡æ•°æ¨¡å¼ false
 
     MAP_Interrupt_enableInterrupt(INT_T32_INT1);
 }
@@ -28,13 +28,13 @@ void T32_INT1_IRQHandler(void)
 {
     MAP_Timer32_clearInterruptFlag(TIMER32_0_BASE);
 
-    /*¿ªÊ¼Ìî³äÓÃ»§´úÂë*/
+    /*å¼€å§‹å¡«å……ç”¨æˆ·ä»£ç */
     static uint8_t timer_second = 0;
 
-    //Ò»°ãÔÚÆµÂÊ½Ï¸ßµÄÖĞ¶Ï²»³£ÓÃ Õâ¸öprintf±È½Ï·ÑÊ±¼ä ÕâÀïÖ»ÊÇÑİÊ¾
-    printf("%dÃë¹ıÈ¥ÁË\r\n\r\n", ++timer_second);
+    //ä¸€èˆ¬åœ¨é¢‘ç‡è¾ƒé«˜çš„ä¸­æ–­ä¸å¸¸ç”¨ è¿™ä¸ªprintfæ¯”è¾ƒè´¹æ—¶é—´ è¿™é‡Œåªæ˜¯æ¼”ç¤º
+    printf("%dç§’è¿‡å»äº†\r\n\r\n", ++timer_second);
 
-    /*½áÊøÌî³äÓÃ»§´úÂë*/
+    /*ç»“æŸå¡«å……ç”¨æˆ·ä»£ç */
 }
 
 void Tim32_1_Int_Init(uint32_t aar, uint8_t psc)
@@ -45,7 +45,7 @@ void Tim32_1_Int_Init(uint32_t aar, uint8_t psc)
 
     MAP_Timer32_enableInterrupt(TIMER32_1_BASE);
 
-    MAP_Timer32_startTimer(TIMER32_1_BASE, false); //Á¬Ğø¼ÆÊıÄ£Ê½ false
+    MAP_Timer32_startTimer(TIMER32_1_BASE, false); //è¿ç»­è®¡æ•°æ¨¡å¼ false
 
     MAP_Interrupt_enableInterrupt(INT_T32_INT2);
 }
@@ -55,9 +55,9 @@ void T32_INT2_IRQHandler(void)
 {
     MAP_Timer32_clearInterruptFlag(TIMER32_1_BASE);
 
-    /*¿ªÊ¼Ìî³äÓÃ»§´úÂë*/
+    /*å¼€å§‹å¡«å……ç”¨æˆ·ä»£ç */
 
     timer_ticks(); //1ms ticks
 
-    /*½áÊøÌî³äÓÃ»§´úÂë*/
+    /*ç»“æŸå¡«å……ç”¨æˆ·ä»£ç */
 }

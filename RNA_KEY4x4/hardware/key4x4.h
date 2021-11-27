@@ -3,10 +3,10 @@
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 /****************************************************/
 //MSP432P401R
-//外接矩阵键盘驱动
-//Bilibili：m-RNA
+//澶栨帴鐭╅樀閿洏椹卞姩
+//Bilibili锛歮-RNA
 //E-mail:m-RNA@qq.com
-//创建日期:2021/8/11
+//鍒涘缓鏃ユ湡:2021/8/11
 /****************************************************/
 
 void KEY4x4_Init(void);

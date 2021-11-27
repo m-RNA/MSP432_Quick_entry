@@ -37,9 +37,9 @@ typedef struct ROATE
 #define SPI_2	    (21)	
 
 
-//ÉèÖÃ±³¾°Ä£Ê½£¬0ÎªÍ¸Ã÷£¬1ÎªÕı³£¡£
+//è®¾ç½®èƒŒæ™¯æ¨¡å¼ï¼Œ0ä¸ºé€æ˜ï¼Œ1ä¸ºæ­£å¸¸ã€‚
 void SetTextBkMode(unsigned char value);
-//»ñÈ¡µ±Ç°±³¾°Ä£Ê½
+//è·å–å½“å‰èƒŒæ™¯æ¨¡å¼
 unsigned char GetTextBkMode(void);
 void SetPointBuffer(int x,int y,int value);
 unsigned char GetPointBuffer(int x,int y);

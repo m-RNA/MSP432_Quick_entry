@@ -82,7 +82,7 @@ void FillVerticalLine(int x, int y, int height, int value)
 		FillByte(y / 8 + temp, x, _BitTableS[(height - 1 + y) % 8]);
 	}
 }
-//µãx£¬yÈÆx0£¬y0Ğı×ªangle»¡¶È
+//ç‚¹xï¼Œyç»•x0ï¼Œy0æ—‹è½¬angleå¼§åº¦
 
 float mySqrt(float x)
 {
@@ -93,35 +93,35 @@ float mySqrt(float x)
 	x = (x + a / x) * 0.5f;
 	return x;
 }
-//¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
-//°æÈ¨ÉùÃ÷£º±¾ÎÄÎªCSDN²©Ö÷¡¸xtlisk¡¹µÄÔ­´´ÎÄÕÂ£¬×ñÑ­ CC 4.0 BY-SA °æÈ¨Ğ­Òé£¬×ªÔØÇë¸½ÉÏÔ­ÎÄ³ö´¦Á´½Ó¼°±¾ÉùÃ÷¡£
-//Ô­ÎÄÁ´½Ó£ºhttps://blog.csdn.net/xtlisk/article/details/51249371
+//â€•â€•â€•â€•â€•â€•â€•â€•â€•â€•â€•â€•â€•â€•â€•â€•
+//ç‰ˆæƒå£°æ˜ï¼šæœ¬æ–‡ä¸ºCSDNåšä¸»ã€Œxtliskã€çš„åŸåˆ›æ–‡ç« ï¼Œéµå¾ª CC 4.0 BY-SA ç‰ˆæƒåè®®ï¼Œè½¬è½½è¯·é™„ä¸ŠåŸæ–‡å‡ºå¤„é“¾æ¥åŠæœ¬å£°æ˜ã€‚
+//åŸæ–‡é“¾æ¥ï¼šhttps://blog.csdn.net/xtlisk/article/details/51249371
 unsigned int sqrt_16(unsigned long M)
 {
 	unsigned int N, i;
-	unsigned long tmp, ttp; // ½á¹û¡¢Ñ­»·¼ÆÊı
-	if (M == 0)				// ±»¿ª·½Êı£¬¿ª·½½á¹ûÒ²Îª0
+	unsigned long tmp, ttp; // ç»“æœã€å¾ªç¯è®¡æ•°
+	if (M == 0)				// è¢«å¼€æ–¹æ•°ï¼Œå¼€æ–¹ç»“æœä¹Ÿä¸º0
 		return 0;
 	N = 0;
-	tmp = (M >> 30); // »ñÈ¡×î¸ßÎ»£ºB[m-1]
+	tmp = (M >> 30); // è·å–æœ€é«˜ä½ï¼šB[m-1]
 	M <<= 2;
-	if (tmp > 1) // ×î¸ßÎ»Îª1
+	if (tmp > 1) // æœ€é«˜ä½ä¸º1
 	{
-		N++; // ½á¹ûµ±Ç°Î»Îª1£¬·ñÔòÎªÄ¬ÈÏµÄ0
+		N++; // ç»“æœå½“å‰ä½ä¸º1ï¼Œå¦åˆ™ä¸ºé»˜è®¤çš„0
 		tmp -= N;
 	}
-	for (i = 15; i > 0; i--) // ÇóÊ£ÓàµÄ15Î»
+	for (i = 15; i > 0; i--) // æ±‚å‰©ä½™çš„15ä½
 	{
-		N <<= 1; // ×óÒÆÒ»Î»
+		N <<= 1; // å·¦ç§»ä¸€ä½
 
 		tmp <<= 2;
-		tmp += (M >> 30); // ¼ÙÉè
+		tmp += (M >> 30); // å‡è®¾
 
 		ttp = N;
 		ttp = (ttp << 1) + 1;
 
 		M <<= 2;
-		if (tmp >= ttp) // ¼ÙÉè³ÉÁ¢
+		if (tmp >= ttp) // å‡è®¾æˆç«‹
 		{
 			tmp -= ttp;
 			N++;
@@ -130,7 +130,7 @@ unsigned int sqrt_16(unsigned long M)
 	return N;
 }
 
-//ĞèÒªÓÅ»¯atant2 cos sinËã·¨
+//éœ€è¦ä¼˜åŒ–atant2 cos sinç®—æ³•
 static void Rotate(int x0, int y0, int *x, int *y, double angle, int direction)
 {
 

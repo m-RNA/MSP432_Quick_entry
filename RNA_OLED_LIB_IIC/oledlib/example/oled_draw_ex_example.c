@@ -24,25 +24,25 @@ void DrawDrawRectangle2rotate(int left,int top,int width,int height)
 }
 
 
-//ÖÓ,½Ç¶È»¹Ã»ÓĞÍ¬²½»¹ĞèÒªµ÷Õû£¬
+//é’Ÿ,è§’åº¦è¿˜æ²¡æœ‰åŒæ­¥è¿˜éœ€è¦è°ƒæ•´ï¼Œ
 void RoundClock(int hours ,int minute ,int sec)
 {
 	//FrameRateUpdateScreen(60);
 	unsigned char i=0;
 	TypeXY hourspoint,minutepoint,secpoint,tmp1,tmp2;
-	//Ê±Õë
+	//æ—¶é’ˆ
 	SetRotateValue(63,31,hours*30+(minute*30)/60,1);
 	hourspoint=GetRotateXY(63-14,31);
 	DrawLine(63,31,hourspoint.x,hourspoint.y);
-	//·ÖÕë
+	//åˆ†é’ˆ
 	SetRotateValue(63,31,minute*6+(sec*6)/60,1);
 	minutepoint=GetRotateXY(63-21,31);
 	DrawLine(63,31,minutepoint.x,minutepoint.y);	
-	//ÃëÕë
+	//ç§’é’ˆ
 	SetRotateValue(63,31,sec*6,1);
 	secpoint=GetRotateXY(63-28,31);
 	DrawLine(63,31,secpoint.x,secpoint.y);
-	//±íÅÌ
+	//è¡¨ç›˜
 	for(i=0;i<12;i++)
 	{
 		SetRotateValue(63,31,i*30,1);

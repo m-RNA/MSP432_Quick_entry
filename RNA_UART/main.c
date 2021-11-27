@@ -1,20 +1,20 @@
 /******************************************************************************
 // MSP432P401R
-// 7 ´®¿ÚÅäÖÃ
-// Bilibili£ºm-RNA
+// 7 ä¸²å£é…ç½®
+// Bilibiliï¼šm-RNA
 // E-mail:m-RNA@qq.com
-// ´´½¨ÈÕÆÚ:2021/8/25
+// åˆ›å»ºæ—¥æœŸ:2021/8/25
 *******************************************************************************/
 
 /*
- * 2021/10/28 ¸üÐÂ
+ * 2021/10/28 æ›´æ–°
  * 
- * CCSÖ§³Öprintf
- * KeilÖ§³Ö±ê×¼C¿â¸úÎ¢¿â
- * ÓÃKeil¿ª·¢ÖÕÓÚ¿ÉÒÔ²»¿ªÎ¢¿âÀ²
+ * CCSæ”¯æŒprintf
+ * Keilæ”¯æŒæ ‡å‡†Cåº“è·Ÿå¾®åº“
+ * ç”¨Keilå¼€å‘ç»ˆäºŽå¯ä»¥ä¸å¼€å¾®åº“å•¦
  *
- * Ê¹ÓÃ±ê×¼C¿âÊ±£¬½«ÎÞ·¨Ê¹ÓÃscanf£»
- * Èç¹ûÐèÒªÊ¹ÓÃscanfÊ±£¬ÇëÊ¹ÓÃÎ¢¿â MicroLIB¡£
+ * ä½¿ç”¨æ ‡å‡†Cåº“æ—¶ï¼Œå°†æ— æ³•ä½¿ç”¨scanfï¼›
+ * å¦‚æžœéœ€è¦ä½¿ç”¨scanfæ—¶ï¼Œè¯·ä½¿ç”¨å¾®åº“ MicroLIBã€‚
  * 
  */
 
@@ -23,8 +23,8 @@
 
 int main(void)
 {
-	SysInit();		   //µÚ3½² Ê±ÖÓÅäÖÃ
-	uart_init(115200); //µÚ7½² ´®¿ÚÊµÑé
+	SysInit();		   //ç¬¬3è®² æ—¶é’Ÿé…ç½®
+	uart_init(115200); //ç¬¬7è®² ä¸²å£å®žéªŒ
 	printf("MSP432\r\n");
 	printf("2021/8/24\r\n\r\n");
 
@@ -46,7 +46,7 @@ int main(void)
 
 	while (1)
 	{
-		// Ê¹ÓÃÎ¢¿âÔò¿ÉÖ§³Ö scanf
+		// ä½¿ç”¨å¾®åº“åˆ™å¯æ”¯æŒ scanf
 		// char a[100];
 		// scanf("%s", a);
 		// printf("%s\r\n", a);

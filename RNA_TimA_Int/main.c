@@ -1,9 +1,9 @@
 /****************************************************/
 // MSP432P401R
-// 8-1 ¶¨Ê±Æ÷ÖĞ¶Ï
-// Bilibili£ºm-RNA
+// 8-1 å®šæ—¶å™¨ä¸­æ–­
+// Bilibiliï¼šm-RNA
 // E-mail:m-RNA@qq.com
-// ´´½¨ÈÕÆÚ:2021/9/1
+// åˆ›å»ºæ—¥æœŸ:2021/9/1
 /****************************************************/
 
 #include "sysinit.h"
@@ -12,11 +12,11 @@
 #include "usart.h"
 #include "led.h"
 
-#define CLKDIV 64   //Ê±ÖÓÔ´·ÖÆµ
-#define CCR0 37499  // ±È½ÏÖµ0
+#define CLKDIV 64   //æ—¶é’Ÿæºåˆ†é¢‘
+#define CCR0 37499  // æ¯”è¾ƒå€¼0
 
 /*
- * ¶¨Ê±Æ÷ÖĞ¶ÏÖÜÆÚ£º
+ * å®šæ—¶å™¨ä¸­æ–­å‘¨æœŸï¼š
  *
  * T_timer_a = CLKDIV * (CCR0 + 1) / f_clk 
  *           = 64 * 37500 / 48000000 
@@ -25,11 +25,11 @@
  
 int main(void)
 {
-    SysInit();  			     // µÚ3½² Ê±ÖÓÅäÖÃ
-	LED_Init();					 // µÚ2½² GPIOÊä³ö
-	TimA0_Int_Init(CCR0,CLKDIV); // µÚ8½² TIMAÖĞ¶Ï
+    SysInit();  			     // ç¬¬3è®² æ—¶é’Ÿé…ç½®
+	LED_Init();					 // ç¬¬2è®² GPIOè¾“å‡º
+	TimA0_Int_Init(CCR0,CLKDIV); // ç¬¬8è®² TIMAä¸­æ–­
     
-    MAP_Interrupt_enableMaster(); // ¿ªÆô×ÜÖĞ¶Ï
+    MAP_Interrupt_enableMaster(); // å¼€å¯æ€»ä¸­æ–­
     while (1)
     {
     }

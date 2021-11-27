@@ -1,35 +1,35 @@
 
 /**************************************************************************************/
-/*************                   ÕıµãÔ­×Ó@ALIENTEK                **********************/
-//¼¼ÊõÂÛÌ³:www.openedv.com
-//ĞŞ¸ÄÈÕÆÚ:2012/9/3
-//°æ±¾£ºV1.0
-/* ËµÃ÷ £º
- * Ô´ÂëÎªÕıµãÔ­×Ó@ALIENTEK ±àĞ´
- * ±¾ÈËRNA£¬Ö»ÊÇÒÆÖ²µ½ÁËMSP432Æ½Ì¨
- * ½ö×÷ÎªÑ§Ï°Ê¹ÓÃ
- * ÔÚ´ËÒ²¸ĞĞ»ÕıµãÔ­×Ó
+/*************                   æ­£ç‚¹åŸå­@ALIENTEK                **********************/
+//æŠ€æœ¯è®ºå›:www.openedv.com
+//ä¿®æ”¹æ—¥æœŸ:2012/9/3
+//ç‰ˆæœ¬ï¼šV1.0
+/* è¯´æ˜ ï¼š
+ * æºç ä¸ºæ­£ç‚¹åŸå­@ALIENTEK ç¼–å†™
+ * æœ¬äººRNAï¼Œåªæ˜¯ç§»æ¤åˆ°äº†MSP432å¹³å°
+ * ä»…ä½œä¸ºå­¦ä¹ ä½¿ç”¨
+ * åœ¨æ­¤ä¹Ÿæ„Ÿè°¢æ­£ç‚¹åŸå­
  */
 /**************************************************************************************/
 
 /******************************************************************************
 //MSP432P401R
-//2-2 GPIOÊäÈë °åÔØ°´¼ü
-//Bilibili£ºm-RNA
+//2-2 GPIOè¾“å…¥ æ¿è½½æŒ‰é”®
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/8/12
+//åˆ›å»ºæ—¥æœŸ:2021/8/12
 *******************************************************************************/
 
 #ifndef __KEY_H
 #define __KEY_H
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
-#define KEY1 GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN1) //¶ÁÈ¡°´¼ü1
-#define KEY2 GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN4) //¶ÁÈ¡°´¼ü2
+#define KEY1 GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN1) //è¯»å–æŒ‰é”®1
+#define KEY2 GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN4) //è¯»å–æŒ‰é”®2
 
-#define KEY1_PRES 1 //KEY1°´ÏÂ
-#define KEY2_PRES 2 //KEY2°´ÏÂ
+#define KEY1_PRES 1 //KEY1æŒ‰ä¸‹
+#define KEY2_PRES 2 //KEY2æŒ‰ä¸‹
 
-void KEY_Init(void);       //IO³õÊ¼»¯
-uint8_t KEY_Scan(uint8_t); //°´¼üÉ¨Ãèº¯Êı
+void KEY_Init(void);       //IOåˆå§‹åŒ–
+uint8_t KEY_Scan(uint8_t); //æŒ‰é”®æ‰«æå‡½æ•°
 #endif

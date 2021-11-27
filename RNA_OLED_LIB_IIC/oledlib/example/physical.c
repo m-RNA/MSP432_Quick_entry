@@ -1,8 +1,8 @@
 #include "physical.h"
 
-//重心
-//图形顶点坐标
-//来源：http://blog.sina.com.cn/s/blog_dc7928b50101a9sn.html
+//閲嶅績
+//鍥惧舰椤剁偣鍧愭爣
+//鏉ユ簮锛歨ttp://blog.sina.com.cn/s/blog_dc7928b50101a9sn.html
 //point gravity(point *p, int n)
 //{
 //double area = 0;

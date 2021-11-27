@@ -1,12 +1,12 @@
 #include "oled_config.h"
-/* ÆÁÄ»Çı¶¯ÎÄ¼şÒıÓÃ */
+/* å±å¹•é©±åŠ¨æ–‡ä»¶å¼•ç”¨ */
 #include "oled_driver.h"
 
 extern unsigned char ScreenBuffer[SCREEN_PAGE_NUM][SCREEN_COLUMN];
 extern unsigned char TempBuffer[SCREEN_PAGE_NUM][SCREEN_COLUMN];
 unsigned int OledTimeMs = 0;
 
-//³õÊ¼»¯Í¼ĞÎ¿â£¬Çë½«Ó²¼ş³õÊ¼»¯ĞÅÏ¢·ÅÈë´ËÖĞ
+//åˆå§‹åŒ–å›¾å½¢åº“ï¼Œè¯·å°†ç¡¬ä»¶åˆå§‹åŒ–ä¿¡æ¯æ”¾å…¥æ­¤ä¸­
 void DriverInit(void)
 {
 #if (TRANSFER_METHOD == HW_IIC)
@@ -19,18 +19,18 @@ void DriverInit(void)
 	OLED_Init();
 }
 
-//ÎªÉÏ²ãÌá¹©Ó²¼ş²Ù×÷½Ó¿ÚOLED_FILL
+//ä¸ºä¸Šå±‚æä¾›ç¡¬ä»¶æ“ä½œæ¥å£OLED_FILL
 void UpdateScreenBuffer(void)
 {
 	OLED_FILL(ScreenBuffer[0]);
 }
-//ÎªÉÏ²ãÌá¹©Ó²¼ş²Ù×÷½Ó¿ÚOLED_FILL
+//ä¸ºä¸Šå±‚æä¾›ç¡¬ä»¶æ“ä½œæ¥å£OLED_FILL
 void UpdateTempBuffer(void)
 {
 	OLED_FILL(TempBuffer[0]);
 }
 
-//Çë½«´Ëº¯Êı·ÅÈë1msÖĞ¶ÏÀï£¬ÎªÍ¼ĞÎÌá¹©Ê±»ù
+//è¯·å°†æ­¤å‡½æ•°æ”¾å…¥1msä¸­æ–­é‡Œï¼Œä¸ºå›¾å½¢æä¾›æ—¶åŸº
 void OledTimeMsFunc(void)
 {
 	if (OledTimeMs != 0x00)
@@ -38,13 +38,13 @@ void OledTimeMsFunc(void)
 		OledTimeMs--;
 	}
 }
-////Ğ´ÈëÒ»¸ö×Ö½Ú
+////å†™å…¥ä¸€ä¸ªå­—èŠ‚
 //static void WriteByteBuffer(u8 colnum,u8 row,u8 data)
 //{
 //	Screen_buffer[colnum][row]=data;
 //}
 
-////¶ÁÒ»¸ö×Ö½Ú
+////è¯»ä¸€ä¸ªå­—èŠ‚
 //static unsigned char ReadByteBuffer(unsigned char colnum,unsigned char row)
 //{
 //	return Screen_buffer[colnum][row];

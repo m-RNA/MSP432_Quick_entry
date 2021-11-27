@@ -32,7 +32,7 @@ static unsigned long m_pow(int x,int y)
       return sum;
 }
 
-//´òÓ¡×Ö·û
+//æ‰“å°å­—ç¬¦
 void m_putchar(const char c)
 {
 	unsigned char tmp=GetFontSize();
@@ -59,7 +59,7 @@ void m_putchar(const char c)
         
 }
  
-//´òÓ¡×Ö·û´®
+//æ‰“å°å­—ç¬¦ä¸²
 void m_putstr(const char *str)
 {
       while(*str)
@@ -72,69 +72,69 @@ void m_putstr(const char *str)
 
 int OledPrintf(const char *str,...)
 {
-     va_list ap;              //¶¨ÒåÒ»¸ö¿É±ä ²ÎÊıµÄ£¨×Ö·ûÖ¸Õë£© 
+     va_list ap;              //å®šä¹‰ä¸€ä¸ªå¯å˜ å‚æ•°çš„ï¼ˆå­—ç¬¦æŒ‡é’ˆï¼‰ 
      int val,r_val;
      char count,ch;
      char *s = NULL;
-     int res = 0;             //·µ»ØÖµ
+     int res = 0;             //è¿”å›å€¼
  
-     va_start(ap,str);        //³õÊ¼»¯ap
-     while('\0' != *str)//strÎª×Ö·û´®,ËüµÄ×îºóÒ»¸ö×Ö·û¿Ï¶¨ÊÇ'\0'£¨×Ö·û´®µÄ½áÊø·û£©
+     va_start(ap,str);        //åˆå§‹åŒ–ap
+     while('\0' != *str)//strä¸ºå­—ç¬¦ä¸²,å®ƒçš„æœ€åä¸€ä¸ªå­—ç¬¦è‚¯å®šæ˜¯'\0'ï¼ˆå­—ç¬¦ä¸²çš„ç»“æŸç¬¦ï¼‰
      { 
           switch(*str)
           {
-              case '%':	     //·¢ËÍ²ÎÊı
+              case '%':	     //å‘é€å‚æ•°
               str++;
               switch(*str)
               {
-                   case 'd': //10½øÖÆÊä³ö
+                   case 'd': //10è¿›åˆ¶è¾“å‡º
                         val = va_arg(ap, int); 
  			            r_val = val; 
                         count = 0; 
                         while(r_val)
                         { 
-                             count++;         //ÕûÊıµÄ³¤¶È
+                             count++;         //æ•´æ•°çš„é•¿åº¦
                              r_val /= 10;
                         }
-                        res += count;         //·µ»ØÖµ³¤¶ÈÔö¼Ó? 
+                        res += count;         //è¿”å›å€¼é•¿åº¦å¢åŠ ? 
                         r_val = val; 
                         while(count)
                         { 
                               ch = r_val / m_pow(10,count - 1);
                               r_val %= m_pow(10,count - 1);
-                              m_putchar(ch + '0');     //Êı×Öµ½×Ö·ûµÄ×ª»» 
+                              m_putchar(ch + '0');     //æ•°å­—åˆ°å­—ç¬¦çš„è½¬æ¢ 
                               count--;
                         }
                         break;
-                  case 'x': //16½øÖÆÊä³ö 
+                  case 'x': //16è¿›åˆ¶è¾“å‡º 
                         val = va_arg(ap, int); 
                         r_val = val; 
                         count = 0;
                         while(r_val) 
                         { 
-                             count++;     //ÕûÊıµÄ³¤¶È 
+                             count++;     //æ•´æ•°çš„é•¿åº¦ 
                              r_val /= 16; 
                         } 
-                        res += count;     //·µ»ØÖµ³¤¶ÈÔö¼Ó? 
+                        res += count;     //è¿”å›å€¼é•¿åº¦å¢åŠ ? 
                         r_val = val; 
                         while(count) 
                         { 
                               ch = r_val / m_pow(16, count - 1); 
                               r_val %= m_pow(16, count - 1);
                               if(ch <= 9)
-                                  m_putchar(ch + '0');	//Êı×Öµ½×Ö·ûµÄ×ª»» 
+                                  m_putchar(ch + '0');	//æ•°å­—åˆ°å­—ç¬¦çš„è½¬æ¢ 
                               else 
                                   m_putchar(ch - 10 + 'a'); 
                               count--;
                         }
                  break;
-									case's':         //·¢ËÍ×Ö·û´® 
+									case's':         //å‘é€å­—ç¬¦ä¸² 
                       s = va_arg(ap, char *); 	
-                      m_putstr(s);          //×Ö·û´®,·µ»ØÖµÎª×Ö·ûÖ¸Õë 
-                      res += strlen(s);   //·µ»ØÖµ³¤¶ÈÔö¼Ó ? 
+                      m_putstr(s);          //å­—ç¬¦ä¸²,è¿”å›å€¼ä¸ºå­—ç¬¦æŒ‡é’ˆ 
+                      res += strlen(s);   //è¿”å›å€¼é•¿åº¦å¢åŠ  ? 
                  break;
 									case 'c':
-                      m_putchar( (char)va_arg(ap, int )); //´ó¼Ò²ÂÎªÊ²Ã´²»Ğ´char£¬¶øÒªĞ´int 
+                      m_putchar( (char)va_arg(ap, int )); //å¤§å®¶çŒœä¸ºä»€ä¹ˆä¸å†™charï¼Œè€Œè¦å†™int 
                       res += 1;
                  break;
                 default :;
@@ -148,7 +148,7 @@ int OledPrintf(const char *str,...)
                m_putchar('\r'); 
                res += 1;
                break;
-					default :          //ÏÔÊ¾Ô­À´µÄµÚÒ»¸ö²ÎÊıµÄ×Ö·û´®(²»ÊÇ..ÀïµÄ²ÎÊıo)
+					default :          //æ˜¾ç¤ºåŸæ¥çš„ç¬¬ä¸€ä¸ªå‚æ•°çš„å­—ç¬¦ä¸²(ä¸æ˜¯..é‡Œçš„å‚æ•°o)
                m_putchar(*str);
                res += 1;
           }

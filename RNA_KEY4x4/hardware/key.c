@@ -1,83 +1,83 @@
 #include "key.h"
 /****************************************************/
 //MSP432P401R
-//°åÔØ°´¼üÇı¶¯
-//Bilibili£ºm-RNA
+//æ¿è½½æŒ‰é”®é©±åŠ¨
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/8/11
+//åˆ›å»ºæ—¥æœŸ:2021/8/11
 /****************************************************/
 
-//º¯Êı¹¦ÄÜ£ºÑÓÊ±
+//å‡½æ•°åŠŸèƒ½ï¼šå»¶æ—¶
 void key_delay(uint16_t t);
 
-//°´¼ü³õÊ¼»¯º¯Êı
-//mode:0,²»¿ªÆôÖĞ¶Ï;1,¿ªÆôÖĞ¶Ï
-void KEY_Init(bool mode) //IO³õÊ¼»¯
+//æŒ‰é”®åˆå§‹åŒ–å‡½æ•°
+//mode:0,ä¸å¼€å¯ä¸­æ–­;1,å¼€å¯ä¸­æ–­
+void KEY_Init(bool mode) //IOåˆå§‹åŒ–
 {
     MAP_GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1 + GPIO_PIN4);
 
     if (mode)
     {
         /* Configuring P1.1 P1.4 as an input and enabling interrupts */
-        MAP_GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN1); //ÇåÀíÖĞ¶Ï±êÖ¾
-        MAP_GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN4); //ÇåÀíÖĞ¶Ï±êÖ¾
-        MAP_GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN1);    //Ê¹ÄÜÖĞ¶Ï¶Ë¿Ú
-        MAP_GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN4);    //Ê¹ÄÜÖĞ¶Ï¶Ë¿Ú
-        MAP_Interrupt_enableInterrupt(INT_PORT1);             //¶Ë¿Ú×ÜÊ¹ÄÜ
+        MAP_GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN1); //æ¸…ç†ä¸­æ–­æ ‡å¿—
+        MAP_GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN4); //æ¸…ç†ä¸­æ–­æ ‡å¿—
+        MAP_GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN1);    //ä½¿èƒ½ä¸­æ–­ç«¯å£
+        MAP_GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN4);    //ä½¿èƒ½ä¸­æ–­ç«¯å£
+        MAP_Interrupt_enableInterrupt(INT_PORT1);             //ç«¯å£æ€»ä½¿èƒ½
 
         /* Enabling SRAM Bank Retention */
         MAP_SysCtl_enableSRAMBankRetention(SYSCTL_SRAM_BANK1);
     }
 }
 
-/* GPIO ÖĞ¶Ï */
+/* GPIO ä¸­æ–­ */
 void PORT1_IRQHandler(void)
 {
     uint32_t status;
 
-    status = MAP_GPIO_getEnabledInterruptStatus(GPIO_PORT_P1); //»ñÈ¡ÖĞ¶Ï×´Ì¬
-    MAP_GPIO_clearInterruptFlag(GPIO_PORT_P1, status);         //ÇåÀíÖĞ¶Ï±êÖ¾
-    key_delay(25);                                             //È¥¶¶¶¯
+    status = MAP_GPIO_getEnabledInterruptStatus(GPIO_PORT_P1); //è·å–ä¸­æ–­çŠ¶æ€
+    MAP_GPIO_clearInterruptFlag(GPIO_PORT_P1, status);         //æ¸…ç†ä¸­æ–­æ ‡å¿—
+    key_delay(25);                                             //å»æŠ–åŠ¨
 
-    if (status & GPIO_PIN1) //¶ÔÓ¦P1.1
+    if (status & GPIO_PIN1) //å¯¹åº”P1.1
     {
         if (KEY1 == 0)
         {
-            /*¿ªÊ¼Ìî³äÓÃ»§´úÂë*/
+            /*å¼€å§‹å¡«å……ç”¨æˆ·ä»£ç */
 
             MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P1, GPIO_PIN0);
 
-            /*½áÊøÌî³äÓÃ»§´úÂë*/
+            /*ç»“æŸå¡«å……ç”¨æˆ·ä»£ç */
         }
     }
-    if (status & GPIO_PIN4) //¶ÔÓ¦P1.4
+    if (status & GPIO_PIN4) //å¯¹åº”P1.4
     {
         if (KEY2 == 0)
         {
-            /*¿ªÊ¼Ìî³äÓÃ»§´úÂë*/
+            /*å¼€å§‹å¡«å……ç”¨æˆ·ä»£ç */
 
             MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
 
-            /*½áÊøÌî³äÓÃ»§´úÂë*/
+            /*ç»“æŸå¡«å……ç”¨æˆ·ä»£ç */
         }
     }
 }
 
-//°´¼ü´¦Àíº¯Êı
-//·µ»Ø°´¼üÖµ
-//mode:0,²»Ö§³ÖÁ¬Ğø°´;1,Ö§³ÖÁ¬Ğø°´;
-//0£¬Ã»ÓĞÈÎºÎ°´¼ü°´ÏÂ
-//1£¬KEY0°´ÏÂ
-//2£¬KEY1°´ÏÂ
-//×¢Òâ´Ëº¯ÊıÓĞÏìÓ¦ÓÅÏÈ¼¶,KEY1>KEY2!!
+//æŒ‰é”®å¤„ç†å‡½æ•°
+//è¿”å›æŒ‰é”®å€¼
+//mode:0,ä¸æ”¯æŒè¿ç»­æŒ‰;1,æ”¯æŒè¿ç»­æŒ‰;
+//0ï¼Œæ²¡æœ‰ä»»ä½•æŒ‰é”®æŒ‰ä¸‹
+//1ï¼ŒKEY0æŒ‰ä¸‹
+//2ï¼ŒKEY1æŒ‰ä¸‹
+//æ³¨æ„æ­¤å‡½æ•°æœ‰å“åº”ä¼˜å…ˆçº§,KEY1>KEY2!!
 uint8_t KEY_Scan(bool mode)
 {
-    static bool key_up = true; //°´¼ü°´ËÉ¿ª±êÖ¾
+    static bool key_up = true; //æŒ‰é”®æŒ‰æ¾å¼€æ ‡å¿—
     if (mode)
-        key_up = true; //Ö§³ÖÁ¬°´
+        key_up = true; //æ”¯æŒè¿æŒ‰
     if (key_up && (KEY1 == 0 || KEY2 == 0))
     {
-        key_delay(25); //È¥¶¶¶¯
+        key_delay(25); //å»æŠ–åŠ¨
         key_up = false;
         if (KEY1 == 0)
             return KEY1_PRES;
@@ -86,10 +86,10 @@ uint8_t KEY_Scan(bool mode)
     }
     else if (KEY1 == 1 && KEY2 == 1)
         key_up = true;
-    return 0; // ÎŞ°´¼ü°´ÏÂ
+    return 0; // æ— æŒ‰é”®æŒ‰ä¸‹
 }
 
-//º¯Êı¹¦ÄÜ£ºÑÓÊ±
+//å‡½æ•°åŠŸèƒ½ï¼šå»¶æ—¶
 static void key_delay(uint16_t t)
 {
     volatile uint16_t x;

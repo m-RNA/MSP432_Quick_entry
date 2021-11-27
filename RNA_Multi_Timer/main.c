@@ -1,10 +1,10 @@
 /****************************************************/
 // MSP432P401R
-// 4* Èí¼şÀ©Õ¹¶¨Ê±Æ÷£¨¸úËæ¿ª·¢¸üĞÂ£©
-// ÏîÄ¿µØÖ·£ºhttps://github.com/0x1abin/MultiTimer
-// Bilibili£ºm-RNA
+// 4* è½¯ä»¶æ‰©å±•å®šæ—¶å™¨ï¼ˆè·Ÿéšå¼€å‘æ›´æ–°ï¼‰
+// é¡¹ç›®åœ°å€ï¼šhttps://github.com/0x1abin/MultiTimer
+// Bilibiliï¼šm-RNA
 // E-mail:m-RNA@qq.com
-// ´´½¨ÈÕÆÚ:2021/9/13
+// åˆ›å»ºæ—¥æœŸ:2021/9/13
 /****************************************************/
 
 #include "sysinit.h"
@@ -55,7 +55,7 @@ void delay_ms_Demo_BreathLight_BaseOnMultiTime(void)
         dir = 0;
     else if (temp == 0)
         dir = 1;
-    for (i = 0; i < 14 - temp; ++i) //¼ÓÕâ¸öÑ­»·¿ÉÒÔÈÃºôÎüµÈµÄÏÖÏó¸üÃ÷ÏÔ
+    for (i = 0; i < 14 - temp; ++i) //åŠ è¿™ä¸ªå¾ªç¯å¯ä»¥è®©å‘¼å¸ç­‰çš„ç°è±¡æ›´æ˜æ˜¾
     {
         delay_ms(temp);
         LED_RED_On();
@@ -66,24 +66,24 @@ void delay_ms_Demo_BreathLight_BaseOnMultiTime(void)
 
 int main(void)
 {
-    SysInit();         // µÚ3½² Ê±ÖÓÅäÖÃ
-    uart_init(230400); // µÚ7½² ´®¿ÚÅäÖÃ
-    MultiTimerInit();  // µÚ10½² Èí¼ş¶¨Ê±Æ÷
-    LED_Init();        // µÚ2½² GPIOÊä³ö
+    SysInit();         // ç¬¬3è®² æ—¶é’Ÿé…ç½®
+    uart_init(230400); // ç¬¬7è®² ä¸²å£é…ç½®
+    MultiTimerInit();  // ç¬¬10è®² è½¯ä»¶å®šæ—¶å™¨
+    LED_Init();        // ç¬¬2è®² GPIOè¾“å‡º
 
     printf("Hello,MSP432!\r\n");
 
-    MultiTimerStart(&timer1, 1000, exampleTimer1Callback, "1000ms ONCE timer");                      //µ¥´ÎÖĞ¶Ï
-    MultiTimerStart(&timer2, 5000, exampleTimer2Callback, "5000ms CYCLE timer");                     //Ñ­»·ÖĞ¶Ï
-    MultiTimerStart(&timer3, 3456, exampleTimer3Callback, "3456ms delay start, 4567ms CYCLE timer"); //²»Í¬²½ÖĞ¶Ï
-    MultiTimerStart(&timer4, 0, exampleTimer4Callback, NULL);                                        //Á¢¼´ÖĞ¶Ï
+    MultiTimerStart(&timer1, 1000, exampleTimer1Callback, "1000ms ONCE timer");                      //å•æ¬¡ä¸­æ–­
+    MultiTimerStart(&timer2, 5000, exampleTimer2Callback, "5000ms CYCLE timer");                     //å¾ªç¯ä¸­æ–­
+    MultiTimerStart(&timer3, 3456, exampleTimer3Callback, "3456ms delay start, 4567ms CYCLE timer"); //ä¸åŒæ­¥ä¸­æ–­
+    MultiTimerStart(&timer4, 0, exampleTimer4Callback, NULL);                                        //ç«‹å³ä¸­æ–­
 
-    MAP_Interrupt_enableMaster(); // ¿ªÆô×ÜÖĞ¶Ï
+    MAP_Interrupt_enableMaster(); // å¼€å¯æ€»ä¸­æ–­
     while (1)
     {
         MultiTimerYield();
 
-        /*¿ÉÒÔÏÈ¹Û²ìÃ»ÓĞÕâÌõº¯ÊıÊ±£¬´®¿ÚµÄµÄÊıÖµ£»Ö®ºóÔÚÌí¼ÓÊÔÊÔ*/
+        /*å¯ä»¥å…ˆè§‚å¯Ÿæ²¡æœ‰è¿™æ¡å‡½æ•°æ—¶ï¼Œä¸²å£çš„çš„æ•°å€¼ï¼›ä¹‹ååœ¨æ·»åŠ è¯•è¯•*/
         //delay_ms_Demo_BreathLight_BaseOnMultiTime();
     }
 }

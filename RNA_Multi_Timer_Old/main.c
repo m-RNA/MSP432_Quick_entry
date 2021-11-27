@@ -1,10 +1,10 @@
 /****************************************************/
 // MSP432P401R
-// 9* ¶¨Ê±Æ÷32 Èí¼şÎŞÏŞÀ©Õ¹¶¨Ê±Æ÷£¨master£©
-// ÏîÄ¿µØÖ·£ºhttps://github.com/0x1abin/MultiTimer
-// Bilibili£ºm-RNA
+// 9* å®šæ—¶å™¨32 è½¯ä»¶æ— é™æ‰©å±•å®šæ—¶å™¨ï¼ˆmasterï¼‰
+// é¡¹ç›®åœ°å€ï¼šhttps://github.com/0x1abin/MultiTimer
+// Bilibiliï¼šm-RNA
 // E-mail:m-RNA@qq.com
-// ´´½¨ÈÕÆÚ:2021/9/13
+// åˆ›å»ºæ—¥æœŸ:2021/9/13
 /****************************************************/
 
 #include "sysinit.h"
@@ -14,15 +14,15 @@
 #include "multi_timer.h"
 
 /*
- * ¶¨Ê±Æ÷ÖĞ¶ÏÖÜÆÚ£º
+ * å®šæ—¶å™¨ä¸­æ–­å‘¨æœŸï¼š
  *
  * T_timer_32 = CLKDIV * (ARR + 1) / f_clk
  *            = 1 * 48000 / 48000000
  *            = 1ms = 1000Hz
  */
 
-#define CLKDIV TIMER32_PRESCALER_1 // Ê±ÖÓÔ´·ÖÆµ
-#define ARR 47999                  // ×Ô¶¯ÖØ×°ÔØÖµ
+#define CLKDIV TIMER32_PRESCALER_1 // æ—¶é’Ÿæºåˆ†é¢‘
+#define ARR 47999                  // è‡ªåŠ¨é‡è£…è½½å€¼
 
 struct Timer timer1;
 struct Timer timer2;
@@ -45,21 +45,21 @@ void timer3_callback(void *arg)
 
 int main(void)
 {
-    SysInit();                     // µÚ3½² Ê±ÖÓÅäÖÃ
-    uart_init(115200);             // µÚ7½² ´®¿ÚÅäÖÃ
-    Tim32_1_Int_Init(ARR, CLKDIV); // µÚ9½² TIM32ÖĞ¶Ï
+    SysInit();                     // ç¬¬3è®² æ—¶é’Ÿé…ç½®
+    uart_init(115200);             // ç¬¬7è®² ä¸²å£é…ç½®
+    Tim32_1_Int_Init(ARR, CLKDIV); // ç¬¬9è®² TIM32ä¸­æ–­
 	
     LED_Init();
 
-    timer_init(&timer1, timer1_callback, 50, 50, NULL);     //  50ms Ñ­»·
-    timer_init(&timer2, timer2_callback, 1000, 1000, NULL); //    1s Ñ­»·
-    timer_init(&timer3, timer3_callback, 1234, 0, NULL);    //1.234s Ò»´Î
+    timer_init(&timer1, timer1_callback, 50, 50, NULL);     //  50ms å¾ªç¯
+    timer_init(&timer2, timer2_callback, 1000, 1000, NULL); //    1s å¾ªç¯
+    timer_init(&timer3, timer3_callback, 1234, 0, NULL);    //1.234s ä¸€æ¬¡
 
     timer_start(&timer1);
     timer_start(&timer2);
     timer_start(&timer3);
 
-    MAP_Interrupt_enableMaster(); // ¿ªÆô×ÜÖĞ¶Ï
+    MAP_Interrupt_enableMaster(); // å¼€å¯æ€»ä¸­æ–­
 
     while (1)
     {

@@ -1,10 +1,10 @@
 /****************************************************/
 //MSP432P401R
-//°åÔØ°´¼üÇı¶¯(MultiButton°æ)
-//ÏîÄ¿µØÖ· https://github.com/0x1abin/MultiButton
-//Bilibili£ºm-RNA
+//æ¿è½½æŒ‰é”®é©±åŠ¨(MultiButtonç‰ˆ)
+//é¡¹ç›®åœ°å€ https://github.com/0x1abin/MultiButton
+//Bilibiliï¼šm-RNA
 //E-mail:m-RNA@qq.com
-//´´½¨ÈÕÆÚ:2021/10/29
+//åˆ›å»ºæ—¥æœŸ:2021/10/29
 /****************************************************/
 
 #include "key.h"
@@ -65,7 +65,7 @@ void BTN2_OnBoard_LONG_PRESS_HOLD_Handler(void *btn)
     printf("BTN2_OnBoard_LONG_PRESS_HOLD\r\n");
 }
 
-/************************  °´¼ü³õÊ¼»¯º¯Êı  ***************************/
+/************************  æŒ‰é”®åˆå§‹åŒ–å‡½æ•°  ***************************/
 
 void KEY_Init(void)
 {
