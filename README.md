@@ -18,20 +18,46 @@
 ### 开源
 
  1. 本项目完全免费，不要被骗money💴了呀朋友
-  2. 本代码基于Apache-2.0开源，开源您的代码时，有引用或者修改本代码的地方，请标明作者请出处。尊重作者，尊重开源~  
-  3.  仓库地址  
+  2. 本代码基于Apache-2.0开源，开源您的代码时，有引用或者修改本代码的地方，请标明作者与出处。尊重作者，尊重开源~  
+  3. 仓库地址  
 
-- GitHub链接：https://github.com/m-RNA/MSP432_Quick_entry  
-- Gitee链接：https://gitee.com/chenjjian/MSP432_Quick_entry
+     - GitHub链接：https://github.com/m-RNA/MSP432_Quick_entry  
+
+     - Gitee链接：https://gitee.com/chenjjian/MSP432_Quick_entry
+
 
 ## 视频章节
-### 1 开发环境  
-​        一般电赛人对Keil比较熟，故讲Keil的配置，还补充了VScode与Keil联动。当然也可以直接用CCS，如果会配置的话.  
-安装包在百度网盘[[点击链接]](https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA) 提取码:6666
+### 1 KEIL/CCS
+​        一般电赛人对Keil比较熟，故Keil工程全配置，当然还配置一部分CCS工程。Keil相关和CCS安装包在百度网盘[[点击链接]](https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA) 提取码:6666
 
-- 空工程
-  - [RNA_Empty(traditional)]  传统开发(正点原子风格)
-  - [RNA_Empty(MultiTimer_MultiButton)]  添加软件包(MultiTimer+MultiButton)
+| 历程名称                          | 具体用途                           | 包含CCS工程 | 包含Keil工程 |
+| --------------------------------- | ---------------------------------- | ----------- | ------------ |
+| RNA_LED                           | 跑马灯                             |             | ✔            |
+| RNA_KEY                           | 板载按键                           |             | ✔            |
+| RNA_KEY4x4                        | 矩阵键盘                           |             | ✔            |
+| RNA_KEY(MultiButton_Poll)         | 按键（MultiButton）                | ✔           | ✔            |
+| RNA_KEY(MultiButton_Callback)     | 按键（MultiButton）                | ✔           | ✔            |
+| RNA_CS_LFXT_HFXT                  | 配置外部晶振为48M                  |             | ✔            |
+| RNA_SysTick_delay                 | 滴答计时器延时（移植）             |             | ✔            |
+| RNA_External_Interrupt            | 演示按键外部中断                   |             | ✔            |
+| RNA_Interrupt_Priority            | 中断优先级调度管理                 |             | ✔            |
+| RNA_UART                          | printf("HELLO,WORLD");             | ✔           | ✔            |
+| RNA_UART_Int                      | 串口中断（模块可参考）             |             | ✔            |
+| RNA_TimA_Int                      | 定时器A中断                        | ✔           | ✔            |
+| RNA_TimA_PWM_Servo                | 驱动舵机                           | ✔           | ✔            |
+| RNA_TimA_PWM_Multi_Servo          | 多路PWM输出(舵机)                  | ✔           | ✔            |
+| RNA_TimA_PWM_Square_Wave          | 输出50Hz方波                       | ✔           | ✔            |
+| RNA_TimA_CAP_Key_Press_Time       | 捕获计算脉冲时长（移植）           | ✔           | ✔            |
+| RNA_Tim32_Int                     | 定时器32中断                       |             | ✔            |
+| RNA_Multi_Timer                   | 软件无限扩展定时器(移植)           | ✔           | ✔            |
+| RNA_Multi_Timer_Old               | 原作者2020年介绍版本               |             | ✔            |
+| RNA_OLED_Test_IIC                 | OLED显示测试(IIC)                  | ✔           | ✔            |
+| RNA_OLED_LIB_IIC                  | OLED图像库(IIC)                    | ✔           | ✔            |
+| RNA_ADC_Multi_Channel             | ADC多路采集                        | ✔           | ✔            |
+| RNA_Empty(traditional)            | 传统开发(正点原子风格)             | ⭕           | ✔            |
+| RNA_Empty(MultiTimer_MultiButton) | 添加软件包(MultiTimer+MultiButton) | ⭕           | ✔            |
+
+
 
 ### 2 GPIO
 - 2-1 GPIO输出
@@ -104,3 +130,10 @@
   
 ### ？12 DMA
 大坑
+
+## 致谢名单
+- 感谢B站UP主[“CloudBoyStudio”](https://space.bilibili.com/72364842 )一直无私奉献，耐心细致解答问题。本工程中很多代码，比如ADC的DMA传输配置等，参考了UP主“CloudBoyStudio”在的MSP432学习交流群发出的示例代码，在此深表感谢😆
+- 感谢B站UP主“物联世界”视频教程；
+- 感谢正点原子在Stm32平台的贡献，使得我们方便将代码移植到MSP432平台上来；
+- 感谢B站、开源社区，让我发现了很多有趣且实用的项目，带给我很多欢乐、知识；
+- ......
