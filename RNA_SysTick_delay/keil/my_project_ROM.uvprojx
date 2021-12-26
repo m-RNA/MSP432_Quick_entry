@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>__MSP432P401R__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\hardware;..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02;..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\third_party\CMSIS\Include;..\sys;..\package\MultiTimer</IncludePath>
+              <IncludePath>..\hardware;..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02;..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\third_party\CMSIS\Include;..\sys</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -428,35 +428,20 @@
               <FileType>1</FileType>
               <FilePath>..\sys\usart.c</FilePath>
             </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sys\delay.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>HARDWARE</GroupName>
           <Files>
             <File>
-              <FileName>timA.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\hardware\timA.c</FilePath>
-            </File>
-            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\hardware\led.c</FilePath>
-            </File>
-            <File>
-              <FileName>tim32.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\hardware\tim32.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>PACKAGE</GroupName>
-          <Files>
-            <File>
-              <FileName>MultiTimer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\package\MultiTimer\MultiTimer.c</FilePath>
             </File>
           </Files>
         </Group>
