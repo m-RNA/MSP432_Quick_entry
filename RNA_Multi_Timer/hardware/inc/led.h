@@ -8,6 +8,9 @@
 
 /**************************
   *
+  * V1.2 2021/12/27
+  * 支持位带操作以提高效率
+  * 
   * V1.1 2021/9/13 
   * 添加其他颜色 
   * 并为了支持Multi_timer扩展包
@@ -21,6 +24,12 @@
 #ifndef __LED_H
 #define __LED_H
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
+
+// 位带操作
+#define LED_RED BITBAND_PERI(P1OUT,0)
+#define LED_R BITBAND_PERI(P2OUT,0)
+#define LED_G BITBAND_PERI(P2OUT,1)
+#define LED_B BITBAND_PERI(P2OUT,2)
 
 void LED_Init(void);
 
