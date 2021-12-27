@@ -434,11 +434,6 @@
           <GroupName>HARDWARE</GroupName>
           <Files>
             <File>
-              <FileName>timA.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\hardware\timA.c</FilePath>
-            </File>
-            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\hardware\led.c</FilePath>
