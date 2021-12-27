@@ -48,6 +48,7 @@
 | RNA_TimA_PWM_Multi_Servo          | 多路PWM输出(舵机)                  | ✔           | ✔            |
 | RNA_TimA_PWM_Square_Wave          | 输出50Hz方波                       | ✔           | ✔            |
 | RNA_TimA_CAP_Key_Press_Time       | 捕获计算脉冲时长（移植）           | ✔           | ✔            |
+| RNA_TimA_SPWM_Three               | 输出3路SPWM（未验证）              |             | ✔            |
 | RNA_Tim32_Int                     | 定时器32中断                       |             | ✔            |
 | RNA_Multi_Timer                   | 软件无限扩展定时器(移植)           | ✔           | ✔            |
 | RNA_Multi_Timer_Old               | 原作者2020年介绍版本               |             | ✔            |
@@ -60,14 +61,15 @@
 使用了以下开源工程：
 
 - [[MultiButton]](https://github.com/0x1abin/MultiButton  "@GitHub： MultiButton")
-
 - [[MultiTimer]](https://github.com/0x1abin/MultiTimer  "@GitHub： MultiTimer")
-
 - [[STM32 OLED图形库]](https://github.com/hello-myj/stm32_oled  "@GitHub： STM32 OLED图形库")
+- [[正点原子资料下载中心]](http://www.openedv.com/docs/index.html)
+- ...
 
 ## 致谢名单
 - 感谢B站UP主[“CloudBoyStudio”](https://space.bilibili.com/72364842 )一直无私奉献，耐心细致解答问题。本工程中很多代码，比如ADC的DMA传输配置等，参考了UP主“CloudBoyStudio”在的MSP432学习交流群发出的示例代码，在此深表感谢😆
-- 感谢B站UP主“物联世界”视频教程；
+- 感谢B站UP主“[物联世界](https://space.bilibili.com/434210374/)”MSP432系列视频教程；
+- 感谢B站UP主“[hezhijie157](https://space.bilibili.com/203095676)”Stm32系列视频教程；
 - 感谢正点原子在Stm32平台的贡献，使得我们方便将代码移植到MSP432平台上来；
 - 感谢B站、开源社区，让我发现了很多有趣且实用的项目，带给我很多欢乐、知识；
 - ......
