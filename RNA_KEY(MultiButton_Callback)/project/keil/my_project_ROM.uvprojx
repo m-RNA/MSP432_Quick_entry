@@ -413,6 +413,41 @@
               <FileType>4</FileType>
               <FilePath>..\..\msp432p4xx_lib\CMSIS\DSP_Lib\lib\keil\m4f\arm_cortexM4lf_math.a</FilePath>
             </File>
+            <File>
+              <FileName>adc14.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\ti\devices\msp432p4xx\driverlib\adc14.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\ti\devices\msp432p4xx\driverlib\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\ti\devices\msp432p4xx\driverlib\uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>cs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\ti\devices\msp432p4xx\driverlib\cs.c</FilePath>
+            </File>
+            <File>
+              <FileName>pcm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\ti\devices\msp432p4xx\driverlib\pcm.c</FilePath>
+            </File>
+            <File>
+              <FileName>flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\ti\devices\msp432p4xx\driverlib\flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>fpu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\ti_driverlib\simplelink_msp432p4_sdk_3_40_01_02\ti\devices\msp432p4xx\driverlib\fpu.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
