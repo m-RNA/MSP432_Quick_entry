@@ -1,9 +1,0 @@
-*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'd:\Keil_v5\ARM\ARMCC\Bin'
-Build target 'empty'
-compiling key.c...
-compiling main.c...
-linking...
-Program Size: Code=772 RO-data=432 RW-data=4 ZI-data=612  
-After Build - User command #1: fromelf --bin --output .\Build\empty.bin .\Build\empty.axf
-".\Build\empty.axf" - 0 Error(s), 0 Warning(s).
-Build Time Elapsed:  00:00:01
