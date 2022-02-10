@@ -1,18 +1,22 @@
 # 【电赛救急】MSP432入门速成 Keil/CCS 
 
 ## 简要介绍
-2021/8/27  [@BILIBILI：m-RNA](https://space.bilibili.com/41224928  "@BILIBILI：m-RNA 个人主页")    
-参加电赛分秒必争，光速掌握快速移植代码的能力十分重要，为了让学过stm32的电赛人，快速迁移到MSP432平台，我趁着电赛延期，尝试制作这门速成课[[Bilibili：MSP432入门速成]](https://www.bilibili.com/video/BV1Rb4y1z7KJ "Bilibili: MSP432入门速成")，PPT、脑图和安装包在百度网盘 https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA  提取码:6666。但由于我一人能力有限，难免会有疏漏，还请大家多多指正包涵。E-mail：m-RNA@qq.com 使用了MSP432P401R作为实验板。
+2021/8/27  [@BILIBILI：m-RNA](https://space.bilibili.com/41224928  "@BILIBILI：m-RNA 个人主页")   E-mail：m-RNA@qq.com 
+参加电赛分秒必争，光速掌握快速移植代码的能力十分重要，为了让学过stm32的电赛人，快速迁移到MSP432平台，我趁着电赛延期，尝试制作这门速成课，并且代码风格接近正点原子，但由于我一人能力有限，难免会有疏漏，还请大家多多指正包涵。使用了MSP432P401R作为实验板。
 
-其他想说的：
+**其他想说的：**
 
-1. 本项目完全免费，不要被骗money💴了呀朋友
-2. 本代码基于Apache-2.0开源，开源您的代码时，有引用或者修改本代码的地方，请标明作者与出处。尊重作者，尊重开源~  
-3. 仓库地址  
-
+1. 本项目完全**免费**，不要被骗money💴了呀朋友
+2. 本代码基于Apache-2.0开源，有引用或者修改本代码的地方，**请标明作者与出处**。尊重作者，尊重开源~  
+3. 配套视频  [[Bilibili：MSP432入门速成]](https://www.bilibili.com/video/BV1Rb4y1z7KJ "Bilibili: MSP432入门速成")
+4. 仓库地址  
       - GitHub链接：https://github.com/m-RNA/MSP432_Quick_entry  
+      
+      - Gitee链接：https://gitee.com/chenjjian/MSP432_Quick_entry  
+5. 安装包下载
+      - https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA  
+      - 提取码:6666
 
-      - Gitee链接：https://gitee.com/chenjjian/MSP432_Quick_entry
 
 ## 编译报错
 1. RNA_Emtpy是空工程，此工程完全独立，已将驱动打包至此工程（支持Keil跟CCS平台开发）
@@ -67,9 +71,9 @@
 - ...
 
 ## 致谢名单
-- 感谢B站UP主[“CloudBoyStudio”](https://space.bilibili.com/72364842 )一直无私奉献，耐心细致解答问题。本工程中很多代码，比如ADC的DMA传输配置等，参考了UP主“CloudBoyStudio”在的MSP432学习交流群发出的示例代码，在此深表感谢😆
-- 感谢B站UP主“[物联世界](https://space.bilibili.com/434210374/)”MSP432系列视频教程；
-- 感谢B站UP主“[hezhijie157](https://space.bilibili.com/203095676)”Stm32系列视频教程；
-- 感谢正点原子在Stm32平台的贡献，使得我们方便将代码移植到MSP432平台上来；
+- 感谢B站UP主[“***CloudBoyStudio***”](https://space.bilibili.com/72364842 )一直无私奉献，耐心细致解答问题。本工程中很多代码，比如ADC的DMA传输配置等，参考了UP主“***CloudBoyStudio***”在的MSP432学习交流群发出的示例代码，在此深表感谢😆
+- 感谢B站UP主“[*物联世界* ](https://space.bilibili.com/434210374/)”MSP432系列视频教程；
+- 感谢B站UP主“[*hezhijie157*](https://space.bilibili.com/203095676) ”Stm32系列视频教程；
+- 感谢 *正点原子* 在Stm32平台的贡献，使得我们方便将代码移植到MSP432平台上来；
 - 感谢B站、开源社区，让我发现了很多有趣且实用的项目，带给我很多欢乐、知识；
 - ......
