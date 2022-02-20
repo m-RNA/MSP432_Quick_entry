@@ -14,7 +14,7 @@
       
       - Gitee链接：https://gitee.com/chenjjian/MSP432_Quick_entry  
 5. 安装包下载
-      - https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA  
+      - 百度云：https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA  
       - 提取码:6666
 
 
@@ -71,7 +71,7 @@
 - ...
 
 ## 致谢名单
-- 感谢B站UP主[“***CloudBoyStudio***”](https://space.bilibili.com/72364842 )一直无私奉献，耐心细致解答问题。本工程中很多代码，比如ADC的DMA传输配置等，参考了UP主“***CloudBoyStudio***”在的MSP432学习交流群发出的示例代码，在此深表感谢😆
+- 感谢B站UP主[“***CloudBoyStudio***”](https://space.bilibili.com/72364842 )一直无私奉献，耐心细致解答问题，在此深表感谢😆
 - 感谢B站UP主“[*物联世界* ](https://space.bilibili.com/434210374/)”MSP432系列视频教程；
 - 感谢B站UP主“[*hezhijie157*](https://space.bilibili.com/203095676) ”Stm32系列视频教程；
 - 感谢 *正点原子* 在Stm32平台的贡献，使得我们方便将代码移植到MSP432平台上来；
