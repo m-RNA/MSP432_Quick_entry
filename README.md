@@ -2,6 +2,7 @@
 
 ## 简要介绍
 2021/8/27  [@BILIBILI：m-RNA](https://space.bilibili.com/41224928  "@BILIBILI：m-RNA 个人主页")   E-mail：m-RNA@qq.com 
+
 参加电赛分秒必争，光速掌握快速移植代码的能力十分重要，为了让学过stm32的电赛人，快速迁移到MSP432平台，我趁着电赛延期，尝试制作这门速成课，并且代码风格接近正点原子，但由于我一人能力有限，难免会有疏漏，还请大家多多指正包涵。使用了MSP432P401R作为实验板。
 
 **其他想说的：**
@@ -15,7 +16,7 @@
       - Gitee链接：https://gitee.com/chenjjian/MSP432_Quick_entry  
 5. 安装包下载
       - 百度云：https://pan.baidu.com/s/10Wg93SwzNaGChqZna_vXQA  
-      - 提取码:6666
+      - 提取码：6666
 
 
 ## 编译报错
