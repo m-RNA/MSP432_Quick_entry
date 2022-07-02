@@ -11,7 +11,12 @@
 
 1. 本项目完全**免费**，不要被骗money💴了呀朋友
 2. 本代码基于Apache-2.0开源，有引用或者修改本代码的地方，**请标明作者与出处**。尊重作者，尊重开源~  
-3. 配套视频  [[Bilibili：MSP432入门速成]](https://www.bilibili.com/video/BV1Rb4y1z7KJ "Bilibili: MSP432入门速成")
+3. 配套视频  
+   
+   [[Bilibili：MSP432入门速成]](https://www.bilibili.com/video/BV1Rb4y1z7KJ "Bilibili: MSP432入门速成") 
+   
+     <iframe src="//player.bilibili.com/player.html?aid=632217640&bvid=BV1Rb4y1z7KJ&cid=386039482&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+   
 4. 仓库地址  
       - GitHub链接：https://github.com/m-RNA/MSP432_Quick_entry  
       
