@@ -15,8 +15,6 @@
    
    [[Bilibili：MSP432入门速成]](https://www.bilibili.com/video/BV1Rb4y1z7KJ "Bilibili: MSP432入门速成") 
    
-<iframe src="//player.bilibili.com/player.html?aid=632217640&bvid=BV1Rb4y1z7KJ&cid=386039482&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-   
 4. 仓库地址  
       - GitHub链接：https://github.com/m-RNA/MSP432_Quick_entry  
       
