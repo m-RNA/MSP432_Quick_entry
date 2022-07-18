@@ -53,6 +53,7 @@
 | RNA_Interrupt_Priority            | 中断优先级调度管理                 |             | ✔            |
 | RNA_UART                          | printf("HELLO,WORLD");             | ✔           | ✔            |
 | RNA_UART_Int                      | 串口中断（模块可参考）             |             | ✔            |
+| RNA_Uart_Int_OpenMV_Receive_Data  | 接收OpenMV的数据                   |             | ✔            |
 | RNA_TimA_Int                      | 定时器A中断                        | ✔           | ✔            |
 | RNA_TimA_PWM_Servo                | 驱动舵机                           | ✔           | ✔            |
 | RNA_TimA_PWM_Multi_Servo          | 多路PWM输出(舵机)                  | ✔           | ✔            |
