@@ -41,8 +41,8 @@ void OpenMV_Check_Data_Task(void)
         (OpenMV_Uart_Rx_Buffer[OpenMV_Uart_Rx_Index - 1] != 0x5B))                  // 帧尾
         goto Send_Error;
 
-    // 检查命令数据范围是否合理
-    if ((OpenMV_Uart_Rx_Index - 3) % 2) // 去除帧头帧尾后数据长度
+    // 检查数据长度是否合理
+    if ((OpenMV_Uart_Rx_Index - 3) % 2) // 按需修改 （这里发送端发送N个short 去除帧头帧尾后数据长度 应为2的倍数
         goto Send_Error;
 
     // 命令正确
