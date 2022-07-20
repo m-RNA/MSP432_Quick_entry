@@ -42,14 +42,14 @@ void OpenMV_Check_Data_Task(void)
         goto Send_Error;
 
     // 检查命令数据范围是否合理
-    if ((OpenMV_Uart_Rx_Index - 3) % 2)
+    if ((OpenMV_Uart_Rx_Index - 3) % 2) // 去除帧头帧尾后数据长度
         goto Send_Error;
 
     // 命令正确
-    for (i = 0; i < ((OpenMV_Uart_Rx_Index - 3) >> 1); ++i)
+    for (i = 0; i < ((OpenMV_Uart_Rx_Index - 3) / 2); ++i)
     {
-        OpenMV_Rx_Data[i] = OpenMV_Uart_Rx_Buffer[2 + (i << 1) + 1] << 8; // 高8位
-        OpenMV_Rx_Data[i] |= OpenMV_Uart_Rx_Buffer[2 + (i << 1) + 0];     // 低8位
+        OpenMV_Rx_Data[i] = OpenMV_Uart_Rx_Buffer[2 + (i * 2) + 1] << 8; // 高8位
+        OpenMV_Rx_Data[i] |= OpenMV_Uart_Rx_Buffer[2 + (i * 2) + 0];     // 低8位
     }
     OpenMV_Rx_Data_Analysis_State = 1; // 解析状态置1
 
