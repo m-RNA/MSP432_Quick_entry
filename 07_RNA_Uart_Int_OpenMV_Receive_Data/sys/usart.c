@@ -134,7 +134,7 @@ void uart0_init(uint32_t baudRate)
 }
 
 //串口接收缓存区
-uint8_t UART2_TX_BUF[UART2_SEND_LEN_MAX]; //发送缓冲,最大USART3_MAX_SEND_LEN字节
+uint8_t UART2_TX_BUF[UART2_SEND_LEN_MAX]; //发送缓冲,最大UART2_SEND_LEN_MAX字节
 
 //初始化IO 串口2
 // bound:波特率
